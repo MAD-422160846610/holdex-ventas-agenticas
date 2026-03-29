@@ -1,0 +1,10 @@
+{
+	"nodes":[
+		{"id":"5e0db8342038b654","type":"file","file":"1000 -  EJEMPLOS YOUTUBE OBSIDIAN/CORNELL SISTEMA NOTAS/Mejorar inteligencia - Preguntas clave.md","x":-260,"y":-260,"width":260,"height":420,"color":"3"},
+		{"id":"d1918e108ba1f4b7","type":"file","file":"1000 -  EJEMPLOS YOUTUBE OBSIDIAN/CORNELL SISTEMA NOTAS/Mejorar inteligencia - Area.md","x":20,"y":-260,"width":400,"height":420,"color":"5"},
+		{"id":"1dad49ff7c9d9f02","x":-260,"y":180,"width":680,"height":160,"color":"4","type":"file","file":"1000 -  EJEMPLOS YOUTUBE OBSIDIAN/CORNELL SISTEMA NOTAS/Mejorar inteligencia - Resumen.md"}
+	],
+	"edges":[
+		{"id":"ca78baa2a993267f","fromNode":"d1918e108ba1f4b7","fromSide":"right","toNode":"1dad49ff7c9d9f02","toSide":"right"}
+	]
+}

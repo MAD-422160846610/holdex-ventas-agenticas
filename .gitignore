@@ -1,0 +1,5 @@
+.obsidian/
+.obsidian.backup_*/
+*.tmp
+*.swp
+.DS_Store
