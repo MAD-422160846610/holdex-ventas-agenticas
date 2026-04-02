@@ -6,7 +6,8 @@ status: active
 priority: medium
 ---
 #módulos/módulo-modelos-mentales
-# Efecto Lindy
+
+#Efecto Lindy
 
  > El controvertido autor Nassim Nicholas Taleb ofrece una regla contraintuitiva para responder preguntas como estas: si deseas saber cuánto durará algo no perecedero, es decir, algo que no está sujeto a los límites de una vida natural, entonces la primera pregunta que debes hacerte es cuánto tiempo ha existido. En efecto, según el filósofo, cuanto más viejo es, más probabilidades hay de que dure más tiempo. (Fuente BBC)
 

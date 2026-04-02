@@ -5,7 +5,8 @@ updated: 2021-08-04
 status: active
 priority: medium
 ---
-# El código de la manifestación (Spanish Edition)
+
+#El código de la manifestación (Spanish Edition)
 
 * Author:: Raimon Samso
 * ASIN: B06XPLX3QC

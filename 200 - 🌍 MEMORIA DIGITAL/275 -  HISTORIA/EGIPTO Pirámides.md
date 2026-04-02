@@ -7,7 +7,8 @@ priority: medium
 ---
 Sobre cualquier temática primero arrancamos con una nota básica y vamos añadiendo todas las notas aquí. Luego cuando esta nota se haga grande, ya iremos refactorizando en otras notas.
 
-# Pirámides Proporción áurea
+
+#Pirámides Proporción áurea
 
 La relación de la Gran Pirámide de Giza con la proporción áurea puede explicarse de una manera sencilla. La proporción áurea, a menudo representada por la letra griega "phi" (Φ), es un número especial aproximadamente igual a 1.618. Es conocido por sus propiedades estéticas y se encuentra en muchas formas en la naturaleza y el arte.
 

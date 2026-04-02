@@ -11,9 +11,11 @@ Texto_markdown_+_html: > Lo importante no es lo que sabes, sino lo que haces con
 ---
 
 
-# YOUTUBE - Mi flujo de trabajo
 
-## Tareas 
+#YOUTUBE - Mi flujo de trabajo
+
+
+#Tareas 
  - [x] Preparar canvas esquema flujo trabajo
  - [ ] Preparar guion
  - [ ] Grabación

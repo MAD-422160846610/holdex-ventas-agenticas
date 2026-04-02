@@ -6,14 +6,16 @@ status: active
 priority: medium
 ---
 #módulos/módulo-modelos-mentales
-# Perfeccionismo
+
+#Perfeccionismo
 #libro-diario 
 
 Más que un modelo mental, es un anti modelo mental. 
 
  > Perfeccionismo no es  [[MM Kaizen filosofía|mejora continua]]
 
-## Perfeccionismo como elemento de procrastinación
+
+#Perfeccionismo como elemento de procrastinación
 Una creencia que debemos vigilar para dejar de procrastinar, de perder el tiempo en detalles innecesarios o secundarios para nuestro objetivo.
 
 El **perfeccionismo** consiste en la errónea creencia de que se puede y debemos alcanzar la perfección. 
@@ -24,10 +26,12 @@ Probablemente tiene un componente genético. Los padres que combinan carácter a
 
 Cuando no tengo tiempo para hacer algún proyecto o algo puede deberse a muchas razones. Una de ellas es el perfeccionismo y ocurre cuando buscamos mejoras en las tareas del proyecto que no acabamos de terminar. 
 
-## Perfeccionismo para dañar la autoestima ajena o desgastar su tiempo
+
+#Perfeccionismo para dañar la autoestima ajena o desgastar su tiempo
 Una forma de menospreciar el trabajo ajeno es indicar que no está perfecto, aunque cumpla con su función requerida, para que entre en dudas o lastrar su tiempo.
 
-## Ejemplos
+
+#Ejemplos
 
 PROBLEMA: 
 No puedo empezar el trabajo hasta que no tenga claro todos los pasos para hacerlo desde el principio hasta el final

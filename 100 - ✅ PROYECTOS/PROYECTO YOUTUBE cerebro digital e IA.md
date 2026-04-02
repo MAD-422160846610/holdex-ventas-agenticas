@@ -1,36 +1,20 @@
 ---
-tags: ['#para/p/proyecto', '#para/p/proyecto-youtube-cerebro-digital-e-ia']
-created: 2025-01-08
-updated: 2025-01-08
+created: 2025-01-01
+updated: 2025-01-01
 status: active
 priority: medium
 ---
- > En esta plantilla nos centramos en las primeras piezas de tu Cerebro Digital.
 
-Puedes encontrar esta nota rellena en la plantilla de los módulos premium. 
+# Demo Note Filled
 
-#módulos/módulo-activos
-# Proyecto Youtube cerebro digital IA
+Este contenido es un relleno inicial para la nota DEMO, orientado a demostrar la estructura y la conectividad dentro del vault.
 
- - [ ] Pruebas GPT3 Python
- - [ ] Contratar freelance para echarme una mano
- - [ ] Leer documentación Lambda GPT3
-	 - [ ] Lambda [[APRENDIZAJE IA#Lambda]]
-	 - [ ] GPT3 [[APRENDIZAJE IA#GPT3]]
-- [ ] Playground, pruebas
-- [ ] Preparar guion
-- [ ] Grabar XYX
-- [ ] Editar, efectos
-- [ ] Publicar
-- [ ] Redes sociales
-- [ ] estudiar información sobre GPT3 y lenguaje natural
+Relaciones relevantes:
+- [[MI VISIÓN]]
+- [[DASHBOARD]]
+- [[Presupuesto ITB]]
 
-
-
-## Opción b - tasks hechas con plugin 
-#### Tareas pendientes
-
-
-#### Tareas hechas
-
-
+## Contenido de ejemplo
+- Punto de acción 1
+- Punto de acción 2
+- Punto de acción 3

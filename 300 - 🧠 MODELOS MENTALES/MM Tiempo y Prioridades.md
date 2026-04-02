@@ -10,13 +10,15 @@ priority: medium
 
 tipo-nota:: modelo-mental
 
-# Tiempo y prioridades
+
+#Tiempo y prioridades
 
  > El tiempo no depende de nosotros, no lo podemos controlar. Las tareas en las que consumirlo sí. Las prioridades dependen de nosotros, el tiempo no.
  
 Cuando decimos que no tenemos tiempo cuando lo que estamos diciendo es que tenemos otra prioridad.
 
-## Ejemplos
+
+#Ejemplos
 PROBLEMA:
 No me ha dado tiempo a terminar el programa de software porque estaba revisando los test de prueba
 

@@ -14,5 +14,6 @@ extracto:: Al principio las mejoras pequeñas pueden parecer carentes de sentido
 
 #test/extractos
 
-## Extracto
+
+#Extracto
 Al principio las mejoras pequeñas pueden parecer carentes de sentido porque dan la impresión de desvanecerse bajo el peso del sistema.

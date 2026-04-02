@@ -7,7 +7,8 @@ priority: medium
 ---
 #test/hábito/ejercicio 
 
-# Exercise habit
+
+#Exercise habit
 Think about what you want to achieve from running or jogging. Issues to consider may include:
 
 -   **Getting fit** – if you're a beginner, you should start with brisk walking, progress to jogging and work up to running. This should take a few months.
@@ -16,8 +17,10 @@ Think about what you want to achieve from running or jogging. Issues to consider
 -   **Companionship** – you could run with a friend or join a local running club.
 -   **Competition** – running clubs may offer competitive events. Most clubs have sessions designed for beginners through to advanced runners. You can pit your running skills against others in fun runs or marathons. Many community-based running events cater for people of all ages and abilities. Join a local orienteering club to combine running with the challenge of navigating through various environments.
 
-## Alternativas seguimiento hábitos
-### Enlaces entrantes + Plugin Dataview
+
+#Alternativas seguimiento hábitos
+
+#Enlaces entrantes + Plugin Dataview
 ``` dataview
 list
 from [[DEPORTE]]
@@ -25,7 +28,8 @@ where file.ctime.year = 2021 and file.ctime.month= 3
 ```
 
 
-### Metadatos + Plugin Dataview
+
+#Metadatos + Plugin Dataview
 ``` dataview
 table nutrición, deporte, meditación, consciencia, foco, ayuno16h, vicq
 from #diario 
@@ -35,7 +39,8 @@ sort file.name ascending
 ```
 
 
-### Metadatos + Plugin Tracker
+
+#Metadatos + Plugin Tracker
 
 GRÁFICA LINEAL
 ``` tracker

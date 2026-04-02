@@ -2,7 +2,8 @@
 mindmap-plugin: basic
 ---
 
-# RAIZ
+
+#RAIZ
  - IDEA UNO
  - IDEA DOS
  - IDEA TRES

@@ -12,7 +12,8 @@ posición:: 152
 etiquetas:: [[ESPIRITUALIDAD]]
 #test/extractos 
 
-## Extractos
+
+#Extractos
 
 Incluyo todos los extractos en una sola nota
 

@@ -7,7 +7,8 @@ tags: [excalidraw]
 ==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
 
 
-# Text Elements
+
+#Text Elements
 DESINTOXICACIÓN, ABSTINENCIA ^j7yX1KZ8
 
 LO IMPORTANTE NO ES 
@@ -50,7 +51,8 @@ PRUEBA ^ieNEJod8
 [[Notion hoja mapa mental]] ^AmfiE3yw
 
 
-# Embedded files
+
+#Embedded files
 1653d9ec9bb17fd230e59b238e3c1ca3487a586d: [[Pasted Image 20240416172505_179.jpg]]
 4d7e15f96652d126f5fd9f5a4ce5b46acced7534: [[Pasted Image 20240416180534_760.png]]
 8808d1f8d2feb6f24bcba24b4b49c547fbc0d9a1: [[Pasted Image 20240416180700_799.png]]
@@ -70,7 +72,8 @@ f1c0517972cb37d78478758cea9d80501546a708: [[Pasted Image 20240416182818_112.png]
 89822917b9d6dedad66104b94f1ecfb4d4fe57c1: [[Pasted Image 20240416182949_124.png]]
 
 %%
-# Drawing
+
+#Drawing
 ```json
 {
 	"type": "excalidraw",

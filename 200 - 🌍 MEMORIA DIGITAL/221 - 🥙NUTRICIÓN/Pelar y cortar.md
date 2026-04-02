@@ -7,9 +7,11 @@ priority: medium
 ---
 Técnicas para pelar y cortar de manera eficiente en la cocina, y estas son habilidades fundamentales para cualquier cocinero. Aquí te detallo algunas.
 
-# Técnicas
 
-## Técnicas para Pelar
+#Técnicas
+
+
+#Técnicas para Pelar
 
 1. **Uso del Pelador**:
     
@@ -19,7 +21,8 @@ Técnicas para pelar y cortar de manera eficiente en la cocina, y estas son habi
     
     - Para tomates o duraznos, un método eficiente es el blanqueado. Haz una incisión en forma de 'X' en la base, sumérgelos en agua hirviendo por unos segundos y luego en agua helada. La piel se desprenderá fácilmente.
 
-## Técnicas para Cortar
+
+#Técnicas para Cortar
 
 1. **Corte en Juliana**:
     
@@ -34,7 +37,8 @@ Técnicas para pelar y cortar de manera eficiente en la cocina, y estas son habi
     
     - Para verduras, frutas y tubérculos. Utiliza un cuchillo afilado para obtener rodajas uniformes, ajustando el grosor según sea necesario.
 
-# Consejos Generales
+
+#Consejos Generales
 
 - **Mantén tus Cuchillos Afilados**: Un cuchillo afilado es más seguro y eficiente.
 - **Técnica de Agarre Adecuada**: Utiliza el agarre de 'garra' para sostener el alimento. Esto minimiza el riesgo de cortarte.

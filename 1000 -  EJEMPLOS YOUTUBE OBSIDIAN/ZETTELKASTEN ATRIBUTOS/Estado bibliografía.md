@@ -4,17 +4,20 @@ kanban-plugin: basic
 
 ---
 
-## POR HACER
+
+#POR HACER
 
 - [ ] [[Los 7 hábitos de la gente altamente efectiva]] ![[Los 7 hábitos de la gente altamente efectiva#Imagen]] #gcp/3-aprender/productividad
 
 
-## EN PROGRESO...
+
+#EN PROGRESO...
 
 - [ ] [[El código de la manifestación 1]] ![[El código de la manifestación 1#Imagen]]
 
 
-## FINALIZADAS
+
+#FINALIZADAS
 
 - [ ] [[Hábitos atómicos ejemplo youtube]] ![[Hábitos atómicos ejemplo youtube#Imagen]]
 

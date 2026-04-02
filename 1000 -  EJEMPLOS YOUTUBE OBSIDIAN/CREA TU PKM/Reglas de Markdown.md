@@ -7,15 +7,21 @@ priority: medium
 ---
 #gcp/3-aprender/obsidian 
 
-# Reglas Markdown
+
+#Reglas Markdown
 Es texto plano y la extensión del fichero es .md (ojo no txt)
 
-# Título nivel 1
-## Título nivel 2
-### Título nivel 3
-#### Título nivel 4
 
-## Formateo del texto
+#Título nivel 1
+
+#Título nivel 2
+
+#Título nivel 3
+
+#Título nivel 4
+
+
+#Formateo del texto
 
 **negrita la palabra**
 *cursiva*
@@ -43,7 +49,8 @@ Lo que si está permitido en markdown es el marcado con color del texto.
 El texto puede estar ==resaltado palabra== kpokipòk
 
 
-## Divisores y presentaciones
+
+#Divisores y presentaciones
 Divisores con tres guiones
 
 ---
@@ -61,7 +68,8 @@ otra cosa
 
 ---
 
-## Citas
+
+#Citas
 Símbolo de mayor que y la cita
 > Lo importante no es lo que sabes, sino lo que haces con lo que sabes
 
@@ -70,7 +78,8 @@ Símbolo de mayor que y la cita
  - [x] Checkbox marked
 
 
-## Listas
+
+#Listas
 LISTAS SIN NUMERAR
 Creamos un guion
 - fasdfa
@@ -101,7 +110,8 @@ guion, abrimos corchete, dejamos espacio, cerramos corchete
 
 Ojo, aquí ya podemos ver que la idea es que estos carácteres extra no ensucien la nota, incluse ayuden en la edición a entender mejor el texto. Los propios caracteres con los que enriquecemos tienen todo el sentido en relación al detalle visual que añaden, o sea, no molestan en absoluto al leer en el estado edición.
 
-## Imágenes
+
+#Imágenes
 Si copiais cualquier imagen y la pegáis en obsidian en este caso, ya os adapta el formato markdown para insertar imágenes de forma directa que es éste:
 
 En obsidian no muestra la ruta porque esta imagen al pegarla, la ha incluido dentro de su vault, de su sistema de archivos, de hecho está aquí.
@@ -114,7 +124,8 @@ Pero si la imagen la queremos redimensionar, también podemos hacerlo de una for
 
 ![Engelbart|100](https://history-computer.com/ModernComputer/Basis/images/Engelbart.jpg)
 
-## Bloques código o lo que no quieras que se compile Markdown
+
+#Bloques código o lo que no quieras que se compile Markdown
 Hay que usar la comilla que está  a la derecha de la P en un teclado español y nos permite incluir código de lenguajes de programación.
 
 ```js
@@ -125,31 +136,37 @@ function fancyAlert(arg) {
 }
 ```
 
-## Comentarios para que no compile Markdown
+
+#Comentarios para que no compile Markdown
 %% JKJLJLK **jjjjj**
 Avisar de loooo
 %%
 
-### Carácteres markdown que no quieras compilar
+
+#Carácteres markdown que no quieras compilar
 Añadir \ (barra invertida) delante del carácter:
 \[\[no compila
 \*\*no compila
 
 
-## Tablas
+
+#Tablas
 | Nombre | Valor |
 | ------ | ------ |
 | Docena | 12 |
 | Centena | 100 |
 
-## Enlaces externos 
-### Enlaces externos con Markdown
+
+#Enlaces externos 
+
+#Enlaces externos con Markdown
  - https://obsidian.md/
  - Este es la [Web de obsidian](https://obsidian.md/)
  - Ctrl+K sale el formato para incluir una url 
  - [nombre enlace](https://google.es)
 
-### Enlaces externos formato Obsidian
+
+#Enlaces externos formato Obsidian
 Recurso externo en mi equipo o red local, mediante obsidian, esto no es markdown:
 [Link to note](obsidian://open?path=D:%2Fpath%2Fto%2Fficheroquesea.md)
 
@@ -158,9 +175,11 @@ Recurso externo en mi equipo o red local, mediante obsidian, esto no es markdown
 ` ` Espacios en blanco`%20`
 
 
-## Enlaces entre notas
 
-### Enlaces entre notas con Markdown
+#Enlaces entre notas
+
+
+#Enlaces entre notas con Markdown
 [enlace en línea](http://www.limni.net)
 
 [Kaizen filosofía](Kaizen%20filosofía.md)
@@ -174,7 +193,8 @@ Recurso externo en mi equipo o red local, mediante obsidian, esto no es markdown
 [absolute link](C:/Users/Marcos/Google Drive/FORMACIÓN SYNC/NT34-NOTAS/Idea.md)
 
 
-### Enlaces entre notas con wikilinks
+
+#Enlaces entre notas con wikilinks
 
 [[Kaizen filosofía]]
 

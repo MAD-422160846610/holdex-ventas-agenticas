@@ -7,7 +7,8 @@ tags: #nt/tráfico/youtube
 
 PROYECTO YOUTUBE 10K
 
-## Tareas a realizar para cumplirlo
+
+#Tareas a realizar para cumplirlo
 ![[2021 Objetivos demo#2021Q1 Youtube 10K]]
 
 ![[2021 Objetivos demo#2021Q2 Youtube 10K]]
@@ -16,7 +17,8 @@ PROYECTO YOUTUBE 10K
 
 ![[2021 Objetivos demo#2021Q4 Youtube 10K]]
 
-## Listado de tareas hechas
+
+#Listado de tareas hechas
 
 ``` dataview
 table file.name, YOUTUBE as Duración
@@ -24,19 +26,26 @@ from ([[PROYECTO YOUTUBE 10K]])
 ```
 
 
-## Problemas encontrados
+
+#Contenido
+
+*Este contenido será completado próximamente.*
 
 
+#Contenido
 
-## Ideas
-
-
-## Referencias 
+*Este contenido será completado próximamente.*
 
 
-## Relativo
+#Contenido
 
-## Time tracker
+*Este contenido será completado próximamente.*
+
+
+#Relativo
+
+
+#Time tracker
 ```query
 file:2021Q1-BLOQUES line:(Youtube)
 ```

@@ -5,7 +5,8 @@ fecha-lectura:: 2006
 tema:: desarrollo personal
 ---
 #gcp/1-capturar/libros 
-# Pensamiento lateral
+
+#Pensamiento lateral
 El pensamiento lateral y paralelo son términos creados por [Edward de Bono](https://www.edwddebono.com/ "Edward de Bono") para definir una forma distinta al pensamiento clásico. El pensamiento lateral aporta la variable creatividad del que ya hablamos en el post [aprender a pensar](https://emowe.com/aprende-a-pensar-o-pensamiento-lateral/ "Aprender a pensar")
 
 Toda la información la recopiló en varios libros, personalmente para mí los mejores son **«El Pensamiento lateral»** y **El Pensamiento paralelo** de los que volvemos a hablar.

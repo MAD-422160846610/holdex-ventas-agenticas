@@ -5,7 +5,8 @@ updated: 2023-02-02
 status: active
 priority: medium
 ---
-# Crecimiento bambú
+
+#Crecimiento bambú
 
 La semilla del bambú tarda siete años en germinar pero cuando lo hace en pocos meses alcance los 2-3 metros. 
 

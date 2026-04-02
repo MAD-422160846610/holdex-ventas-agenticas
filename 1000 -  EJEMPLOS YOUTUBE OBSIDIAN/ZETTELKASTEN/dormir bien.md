@@ -14,7 +14,8 @@ modificado desde mi super pc
 
 El deporte es más sencillo entrar en [[ondas alfa]]. asdfjñalsdjfñlkajsdflñkjsdlkñajfas
 
-## Cómo dormir bien 
+
+#Cómo dormir bien 
 Los NIH afirman que los adultos necesitan de 7 a 8 horas de sueño cada noche para estar bien descansados, sin embargo, la mayoría de la gente duerme menos de esa cantidad de horas. A continuación, se presenta lo que recomiendan para tener un buen descanso nocturno.
 
 * Vaya a dormir a la misma hora cada noche, levántese a la misma hora cada mañana.  

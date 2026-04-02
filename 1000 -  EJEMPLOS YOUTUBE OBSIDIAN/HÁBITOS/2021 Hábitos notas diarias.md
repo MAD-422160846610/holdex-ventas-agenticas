@@ -5,8 +5,10 @@ updated: 2022-01-01
 status: active
 priority: medium
 ---
-# Control de hábitos ejemplos
-## Mis hábitos seguimiento antiguo
+
+#Control de hábitos ejemplos
+
+#Mis hábitos seguimiento antiguo
 Elimina la línea del hábito que ya no hagas
  - [ ] [[FOCUS]] #test/hábito/foco 
  - [ ] [[050 - 🪔HÁBITOS - TRACKER/NOTAS SOLO GRABAR VÍDEO/MEDITACIÓN]] #test/hábito/meditación

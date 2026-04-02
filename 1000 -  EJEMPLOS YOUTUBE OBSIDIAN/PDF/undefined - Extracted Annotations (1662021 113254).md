@@ -7,7 +7,8 @@ priority: medium
 ---
 * Mdnotes File Name: [[undefined]]
 
-# Extracted Annotations (16/6/2021 11:32:54)
+
+#Extracted Annotations (16/6/2021 11:32:54)
 
 > "El gran viaje (1763-1766)" ([ :1](zotero://open-pdf/library/items/YR895ZQ9?page=1))
 

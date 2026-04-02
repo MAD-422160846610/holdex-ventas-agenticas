@@ -7,7 +7,8 @@ priority: medium
 ---
 Sobre cualquier temática primero arrancamos con una nota básica y vamos añadiendo todas las notas aquí. Luego cuando esta nota se haga grande, ya iremos refactorizando en otras notas.
 
-# Galaxias con la proporción áurea
+
+#Galaxias con la proporción áurea
 Las galaxias, especialmente las de tipo espiral, la proporción áurea se puede observar en sus patrones espirales. Estas galaxias tienen brazos que se enrollan en forma de espiral y esta estructura a menudo sigue la proporción áurea. Es decir, la manera en que se distribuyen y organizan los brazos de una galaxia espiral puede reflejar esta proporción matemática.
 
 ![[Proporción áurea galaxias.png|600]]

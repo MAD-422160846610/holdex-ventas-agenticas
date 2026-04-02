@@ -11,10 +11,12 @@ Enlace wikilink
 Enlace formato markdown
 [NOTA A](NOTA%20A.md)
 
-## Hola hola
+
+#Hola hola
 
 Esto es una nota
 
-## Blabla
+
+#Blabla
 
 Esto es otra nota

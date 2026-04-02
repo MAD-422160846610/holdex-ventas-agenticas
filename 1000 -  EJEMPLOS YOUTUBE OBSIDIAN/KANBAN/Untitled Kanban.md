@@ -4,15 +4,18 @@ kanban-plugin: basic
 
 ---
 
-## Por hacer
+
+#Contenido
+
+*Este contenido será completado próximamente.*
 
 
+#Contenido
 
-## Haciendo
+*Este contenido será completado próximamente.*
 
 
-
-## Hecho
+#Hecho
 
 - [x] comprar supermercado
 

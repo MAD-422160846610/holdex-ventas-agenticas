@@ -10,9 +10,11 @@ Hecha: true
 
 #recetas
 
-# Receta
 
-## Ingredientes
+#Receta
+
+
+#Ingredientes
 
 - 200 gramos de harina para todo uso
 - 200 gramos de azúcar
@@ -23,7 +25,8 @@ Hecha: true
 - 1 cucharadita de levadura en polvo (polvo de hornear)
 - Una pizca de sal
 
-## Pasos
+
+#Pasos
 
 1. **Preparación**: Precalienta el horno a 180°C (350°F). Engrasa y enharina un molde para bizcocho.
     
@@ -41,5 +44,6 @@ Hecha: true
     
 8. **Enfriar y Servir**: Deja enfriar el bizcocho en el molde durante unos 10 minutos, luego desmóldalo y déjalo enfriar completamente sobre una rejilla. Si lo deseas, puedes espolvorear azúcar glas por encima antes de servir.
 
-## Comentarios personales
+
+#Comentarios personales
 La realicé de postre el [[2024-01-30]] y me quedé corto con la levadura, no me subió el bizcocho hasta el borde de la bandeja se me quedó a mitad, próxima vez doblar cantidad levadura, poner dos cucharaditas.

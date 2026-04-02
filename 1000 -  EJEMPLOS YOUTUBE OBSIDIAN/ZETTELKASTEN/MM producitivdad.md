@@ -5,7 +5,8 @@ updated: 2022-08-07
 status: active
 priority: medium
 ---
-# Productividad
+
+#Productividad
 La productividad incluye todos los ámbitos  de la vida: trabajo (donde únicamente nos enfocamos), familia, deporte, familia, incluso hobbies... 
 
 Saber **gestionar tu tiempo** implica encontrar el equilibro perfecto entre todas las actividades que forman parte de tu día a día, tanto profesionales como personales, dando lo mejor de ti en cada caso y sin tener que renunciar a ninguna de ellas pero siendo consciente del proceso.
@@ -19,7 +20,8 @@ No solo enfocarnos en hacer, sino en mejorar cómo hacemos.
 
 
 
-# Objetivo
+
+#Objetivo
  - Debemos visualizar claramente nuestro objetivo y establecer un plan.
  - Mi identidad fundamental no proviene sólo del trabajo
  - Si me centro en posesiones, poder, reputación, ante alguien con mayor magnitud, me sentiré inferior y a la inversa superior. 

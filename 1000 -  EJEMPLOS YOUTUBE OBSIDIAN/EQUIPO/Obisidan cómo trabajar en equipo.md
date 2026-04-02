@@ -6,13 +6,16 @@ status: active
 priority: medium
 ---
 
-# Cómo trabajar en equipo con el mismo vault y subcarpetas
 
-## Esquema
+#Cómo trabajar en equipo con el mismo vault y subcarpetas
+
+
+#Esquema
 
 ![[esquema trabajar en equipo 1.png]]
 
-## Pasos
+
+#Pasos
 Nosotros usamos Google Drive como servicio en la nube, pero podéis usar cualquier otro que permita replicar el contenido de las carpetas en el ordenador local. Sustituir en los pasos Google Drive por Dropbox o iCloud o el servicio que sea.
 
  1. Instalar Obsidian en el ordenador donde se encuentren los procedimientos y manuales de operación.

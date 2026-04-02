@@ -8,8 +8,10 @@ priority: medium
 
 SECUENCIA LINEAL EN UN ÚNICO FICHERO DE NOTAS LUHMANN 12.12 (VARIAS NOTAS = 1 FICHERO MARKDOWN)
 
-# 12.12 Organización y sistema legal general
-## 12.12
+
+#12.12 Organización y sistema legal general
+
+#12.12
 Diferenciación dentro de la organización:  
 derecho garantizado.
 
@@ -26,8 +28,10 @@ d'une quelquonque colectivité humaine ".
 
 
 
-## 12.12a Posibilidades de trazar fronteras
-### 12.12a
+
+#12.12a Posibilidades de trazar fronteras
+
+#12.12a
 1.) Diferenciación entre valor legal y valor administrativo  
 y, en consecuencia, entre principio legal y principio administrativo
 
@@ -48,7 +52,8 @@ y se forma de acuerdo con el
 estándarde justicia" y "Estándar que promueve el bienestar  
 y fue diseñado de acuerdo con elestándarde conveniencia
 
-### 12.12a1
+
+#12.12a1
 -   Esta distinción se basa en  
     objetivos de valor relacionados con el contenido y no significa la administración por el aspecto puramente organizativo  
     . Como [objeta Bachof](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/bachof_1952_verwaltungsakt "bachof_1952_verwaltungsakt") , no es  
@@ -70,7 +75,8 @@ y fue diseñado de acuerdo con elestándarde conveniencia
     Es por eso que también puede mantener  
     la distinción dentro / fuera de otros completamente diferentes.
     
-#### 12.12a1.1 
+
+#12.12a1.1 
 [1](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_12-12a1_V "ZK_1_NB_12-12a1_V") Distinción similar en los EE. UU., Por ejemplo , [Leiserson,  
 p. 84, nota 74](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/leiserson_1942_regulation "leiserson_1942_regulation") :  
 "Quizás debería hacerse una distinción entre los  
@@ -86,7 +92,8 @@ organismo público, se puede involucrar el debido proceso
 preguntas "(Morgan v EE. UU., 298, EE. UU. 468 (1936) y 304  
 EE. UU. 1 (1938))
 
-### 12.12a2
+
+#12.12a2
 -   os resultados vienen porque no existe un estándar en términos de contenido  
     . Si se abandona la idea de la impermeabilidad de la persona jurídica , que es lo que [busca Bachof en](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/bachof_1952_verwaltungsakt "bachof_1952_verwaltungsakt") particular , los procesos aparentemente puramente internos también pueden tener un efecto externo. Pero cuando lo tienen, no hay criterio para ello. Es precisamente el reconocimiento de la no impermeabilidad lo que hace obvio lo que [Bachof](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/bachof_1952_verwaltungsakt "bachof_1952_verwaltungsakt") pasa [por](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/bachof_1952_verwaltungsakt "bachof_1952_verwaltungsakt") alto.  
       
@@ -101,9 +108,11 @@ EE. UU. 1 (1938))
     
 
 
-## 12.12b Criterios para distinguir organizacional legal y legal general
 
-### 12.12b
+#12.12b Criterios para distinguir organizacional legal y legal general
+
+
+#12.12b
 Es dudoso que se encuentre una fórmula concluyente  
 
 
@@ -122,7 +131,8 @@ Es dudoso que se encuentre una fórmula concluyente
     la obligación jurídica" (cf. [Radbruch, Grundzüge der Rechtssphilosophie,  
     edición antigua, p. 50](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/radbruch_1914_rechtsphilosophie "radbruch_1914_rechtsphilosophie") ). Se aplica la consideración de [R. de](https://niklas-luhmann-archiv.de/bestand/register/personenregister/item/radbruch_gustav "Aún no se ha creado la entrada de registro personal.") que el individuo
     
-### 12.12b1
+
+#12.12b1
 -   sólo en la medida en que tenga derechos subjetivos y  
     pueda cumplir con sus deberes morales . En el derecho de las organizaciones,  
     por otro lado, se da prioridad al deber, porque aquí la limitación de  
@@ -142,7 +152,8 @@ Es dudoso que se encuentre una fórmula concluyente
     y obligaciones que  
     pueden ser teñidos por la propiedad del organizador . Sin embargo, estos derechos y obligaciones pertenecen al[![](https://niklas-luhmann-archiv.de/assets/images/nav_icons/arrow-right-bold-box.svg)](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_12-12b2_V "Continuación del texto de la hoja ZK_1_NB_12-12b2_V")
     
-#### 12.12b1a
+
+#12.12b1a
 [1](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_12-12b1_V "ZK_1_NB_12-12b1_V") Contra la comprensión de actuar en un contexto  
 organizativo (en este caso:  
 gestión empresarial) como ejercicio de derechos  
@@ -151,7 +162,8 @@ también [Follett, Dyn. Adm., P. 149](https://niklas-luhmann-archiv.de/bestand/b
 [2](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_12-12b1_V "ZK_1_NB_12-12b1_V") Sobre el concepto de órgano, en principio, sistemáticamente [83,2c3,7](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_83-2c3-7_V "ZK_1_NB_83-2c3-7_V")  
 o [75](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_75_1_V "ZK_1_NB_75_1_V") .
 
-### 12.12b2
+
+#12.12b2
 -   sistema legal general. El  
     derecho organizativo solo afecta la distribución de competencias.
     
@@ -159,7 +171,8 @@ o [75](https://niklas-luhmann-archiv.de/bestand/zettelkasten/zettel/ZK_1_NB_75_1
     no puede depender de la intención del legislador. Más bien, el  
     significado inmanente de la disposición es decisivo; cf. [Bachof, op](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/bachof_1952_verwaltungsakt "bachof_1952_verwaltungsakt") . [cit., p. 304](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/bachof_1952_verwaltungsakt "bachof_1952_verwaltungsakt")
     
-## 12.12c
+
+#12.12c
 12,12c sobre la naturaleza de la relación entre órganos (Organi -  
 sationsrecht sin carácter jurídico adecuado) ver  
 [. Thoma, Hdb dd con, II, p 610f, n. 13.](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/thoma_1932_rechte "thoma_1932_rights") Literatura  
@@ -167,7 +180,8 @@ sationsrecht sin carácter jurídico adecuado) ver
 1905, pág.194](https://niklas-luhmann-archiv.de/bestand/bibliographie/item/jellinek_1905_rechte "jellinek_1905_rights") .
 
 
-## 12.12d
+
+#12.12d
 Para el juez es todo derecho de organización de derechos,  
 es decir , normalización de la decisión (administrativa) (dictamen)  
 sobre la acción cooperativa (diseño constructivo de una especificación.  

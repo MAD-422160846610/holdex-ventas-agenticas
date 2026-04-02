@@ -6,13 +6,16 @@ status: active
 priority: medium
 ---
 
-# Título1
+
+#Título1
 José Silva realizó distintos estudios sobre las ondas alfa  y como influían en el aprendizaje.nnnn
 
-# Título 2
+
+#Título 2
 fasdfasdfasdfasda
 
-# Título 3
+
+#Título 3
 fadfasdfasda
 XXXXXXX
 

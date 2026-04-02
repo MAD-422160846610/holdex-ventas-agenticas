@@ -5,7 +5,8 @@ updated: 2023-02-02
 status: active
 priority: medium
 ---
-# Viaje Ibiza
+
+#Viaje Ibiza
 
 Me ha gustado mucho el amanecer en Ibiza, un ejemplo:
 

@@ -5,9 +5,11 @@ updated: 2021-08-04
 status: active
 priority: medium
 ---
-# Técnicas de estudio
 
-## Metadata
+#Técnicas de estudio
+
+
+#Metadata
 
 * Item Type: [[Blog post]]
 * Date Added: [[2021-05-16]]
@@ -17,12 +19,14 @@ priority: medium
 ``` #zotero, #literature-notes, #reference ```
 
 
-## Abstract
+
+#Abstract
 
 Conoce nuestros mejores recursos relacionados con técnicas de estudio tanto para niños y adultos, aprende como debes estudiar para mejorar tu productividad.
 
 
-##  Zotero links
+
+# Zotero links
 * [Local library](zotero://select/items/1_Q6H9GZKI)
 * [Cloud library](http://zotero.org/users/7467809/items/Q6H9GZKI)
 

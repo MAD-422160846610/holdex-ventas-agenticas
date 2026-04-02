@@ -13,7 +13,8 @@ En este artículo te daré a conocer las metodologías GTD de David Allen, P.A.R
 
 **¡No te pierdas este post, léelo hasta el final!** Aquí aprenderás como mediante estas tres metodologías puedes organizar tus conocimientos para llevar a cabo más fácilmente cada una de tus ideas, tareas y proyectos.
 
-## Qué es un gestor de conocimiento personal
+
+#Qué es un gestor de conocimiento personal
 
 Es mediante el cual gestionamos nuestra información, desde el momento que la capturamos, hasta que la compartimos.
 
@@ -43,7 +44,8 @@ Procesar y aprender la información.
 
 > Al implementar estos métodos en conjunto, lograremos gestionar la información de forma eficaz y mejorar notablemente nuestra productividad.
 
-## Tres metodologías de productividad
+
+#Tres metodologías de productividad
 
 GTD, P.A.R.A y Zettelkasten son metodologías efectivas para la gestión de información, cada una requiere una organización por jerarquías o redes:
 
@@ -51,7 +53,8 @@ GTD, P.A.R.A y Zettelkasten son metodologías efectivas para la gestión de info
 
 **Organización por redes:** se distribuye la información mediante una red, la cual se conforma por diversos nodos que se enlazan con otros, según distintos criterios.
 
-### Método GTD de David Allen
+
+#Método GTD de David Allen
 
 **GTD** (Getting Things Done) fue creado por [David Allen](https://es.wikipedia.org/wiki/David_Allen), con la finalidad de mejorar la organización, evitar la procrastinación y ser más productivos, se basa en cinco sencillos pasos:
 
@@ -63,13 +66,15 @@ GTD, P.A.R.A y Zettelkasten son metodologías efectivas para la gestión de info
 
 Esta metodología requiere un sistema jerárquico, ya que necesita diversas bandejas, sin embargo, también permite la organización por redes, ya que se puede hacer uso de un nodo como **“Bandeja de entrada”.**
 
-### Método P.A.R.A de Tiago Forte
+
+#Método P.A.R.A de Tiago Forte
 
 **P.A.R.A** fue creado por el experto en productividad [Tiago Forte](https://fortelabs.co/), esta metodología se basa en guardar, distribuir toda la información dentro de cuatro carpetas (Proyectos, Áreas, Recursos y Archivos), esto dependiendo el área o categoría a la que pertenezca cada información.
 
 Este método solo admite organización jerárquica.
 
-### Método Zettelkasten de Niklas Luhmann
+
+#Método Zettelkasten de Niklas Luhmann
 
 [El método Zettelkasten](https://emowe.com/cerebro-digital/como-tomar-notas-apuntes-zettelkasten/) fue dado a conocer por [Niklas Luhmann](https://es.wikipedia.org/wiki/Niklas_Luhmann), se basa en un sistema de notas entrelazadas, esta metodología trabaja con una organización por redes.
 
@@ -77,7 +82,8 @@ Este método solo admite organización jerárquica.
 
 Tipos de organización que admiten las metodologías GTD P.A.R.A y Zettelkasten.
 
-## Herramientas para combinar las metodologías GTD, Zettelkasten y PARA
+
+#Herramientas para combinar las metodologías GTD, Zettelkasten y PARA
 
 Para combinar estas metodologías, es necesario que las herramientas a utilizar, soporten la organización por redes y la organización jerárquica. De las herramientas que hemos visto en este blog (Notion, Obsidian y Roam Research), **solo dos de ellas soportan ambos tipos de organización, estas son: Notion y Obsidian**, ya que Roam solo admite la organización por redes.
 
@@ -87,11 +93,13 @@ Evaluación de herramientas para conocer si soportan las metodologías GTD, P.A.
 
 > Debes tener muy claro los tipos de organizaciones que soporta cada herramienta, de esta forma sabrás cual te va bien para combinar estas tres metodologías. En este post hemos usado Obsidian, pero si prefieres puedes utilizar Notion, RemNote, o cualquier otra herramienta que admita la organización por redes y la organización jerárquica.
 
-## Cómo implementar las metodologías de productividad GTD, PARA y Zettelkasten en Obsidian
+
+#Cómo implementar las metodologías de productividad GTD, PARA y Zettelkasten en Obsidian
 
 A continuación te explico detalladamente como aplicar de forma sencilla, estas tres metodologías con la herramienta Obsidian.
 
-### Implementar metodología GTD
+
+#Implementar metodología GTD
 
 La pieza principal del método de productividad GTD es la **“Bandeja de entrada”**, en esta recopilamos, guardamos, capturamos toda la información que obtenemos, para evitar saturarnos, así como también tareas e ideas.
 
@@ -115,7 +123,8 @@ En “**todo”** guardo todas las tareas que añado desde el móvil:
 
 Archivo «todo» – Metodología de productividad GTD.
 
-#### Sistema GTD desde móvil
+
+#Sistema GTD desde móvil
 
 En mi móvil tengo dos formas de agregar información a la **“Bandeja de entrada”:**
 
@@ -133,7 +142,8 @@ Edición de archivo «todo» desde móvil.
 
 > Podemos sincronizar programas de capturas tanto en la PC como en el móvil, para que a medida que vayamos realizando capturas a las informaciones, estas se añadan en forma de ficheros en la carpeta “**Bandeja de entrada”**.
 
-#### Explicación del método GTD mediante un diagrama de flujo
+
+#Explicación del método GTD mediante un diagrama de flujo
 
 _El flujograma se mostrará por partes._
 
@@ -174,11 +184,13 @@ Que hacer cuando la información no es accionable – Flujograma GTD.
 
 > Al realizar los procedimientos anteriores se estaría implementando el método GTD.
 
-### Implementar metodología P.A.R.A
+
+#Implementar metodología P.A.R.A
 
 **Este método se basa en cuatro carpetas:**
 
-#### Proyectos
+
+#Proyectos
 
 Aquí debes añadir las series de tareas, que cuentan con una fecha de finalización.
 
@@ -192,7 +204,8 @@ _La fecha de finalización de este proyecto es el día que se realiza la marató
 
 Carpeta «Proyectos» – Metodología PARA.
 
-#### Áreas
+
+#Áreas
 
 Se debe guardar información personal o privada de áreas específicas, tareas o actividades que no cuenten con una fecha de finalización.
 
@@ -204,7 +217,8 @@ Se debe guardar información personal o privada de áreas específicas, tareas o
 
 > Para determinar si es un proyecto o un área, debes tener en cuenta si las tareas tienen fecha de finalización o no, si tienen fecha de finalización es un **Proyecto**, si no tienen, es un **Área**.
 
-#### Recursos
+
+#Recursos
 
 Se añade información sobre cualquier tema que nos resulte interesante, artículos de internet, descripción de objetos a comprar, etc. La información que se guarda en esta carpeta no debe ser privada, ya que la misma se debería poder compartir con otras personas.
 
@@ -218,7 +232,8 @@ Carpeta «Recursos» con subcarpeta «Running» – Metodología PARA.
 
 > Existe una diferencia importante en cuanto a **Áreas y Recursos**, en la carpeta **“Áreas” se guarda información privada**, y en la carpeta **“Recursos”** **se almacena información que pueda ser compartida con los demás**, como por ejemplo; publicidad, capturas de artículos de internet, etc.
 
-#### Archivos
+
+#Archivos
 
 Las notas de las carpetas **“Proyectos, Áreas y Recursos”**, las cuales ya no vayamos a utilizar, se deben añadir en esta carpeta, ya que la misma cumple la función de papelera. Una vez hayamos culminado un proyecto, una tarea, o ya no necesitemos algún recurso, estos debemos incorporarlos a la carpeta “**Archivos”**, de esta forma evitamos que al realizar alguna búsqueda aparezca información innecesaria.
 
@@ -228,7 +243,8 @@ Las notas de las carpetas **“Proyectos, Áreas y Recursos”**, las cuales ya 
 
 Carpeta «Archivos» – Metodología PARA.
 
-### Implementar metodología Zettelkasten
+
+#Implementar metodología Zettelkasten
 
 Este método lo podemos implementar de forma sencilla, enlazando notas desde las diversas carpetas **“Proyectos, Áreas y Recursos”**.
 
@@ -240,7 +256,8 @@ En la carpeta Proyectos tenemos uno llamado **Maratón Nueva York**, para ese ma
 > 
 > Cuando tienes una información en la carpeta **“Recursos”** no quiere decir que debes procesarla en el momento, lo puedes hacer más adelante cuando necesites esa información.
 
-## Ejemplo práctico de la integración de las metodologías de productividad GTD, P.A.R.A y Zettelkasten
+
+#Ejemplo práctico de la integración de las metodologías de productividad GTD, P.A.R.A y Zettelkasten
 
 Te mostraré a continuación como procesamos mediante la combinación de estas tres metodologías de productividad, el vídeo “**Cómo combinar GTD** **➕** **ZETTELKASTEN** **➕** **PARA de Tiago Forte”**, que publicamos en nuestro canal de YouTube y que podrás ver aquí un poco más adelante.
 
@@ -272,7 +289,8 @@ En la carpeta **“Áreas”** hay una subcarpeta llamada “**Gestión del cono
 
 Carpeta «Áreas» con subcarpeta «Gestión del conocimiento personal».
 
-### ¿No te ha quedado claro en qué parte se implementó cada metodología?
+
+#¿No te ha quedado claro en qué parte se implementó cada metodología?
 
 -   El método GTD se implementó cada vez que se agregó información a la “**Bandeja de entrada”**, cuando se planteó si era accionable o no y al decidir que se debía hacer con esa información.
 -   Se aplicó el método P.A.R.A al añadir la información a las carpetas **“Recursos”** y **“Proyectos”.**
@@ -286,7 +304,8 @@ Carpeta «Áreas» con subcarpeta «Gestión del conocimiento personal».
 
 **Para ver más en detalle cómo implementar GTD P.A.R.A y Zettelkasten, te invitamos a ver el siguiente vídeo:**
 
-## Vídeo cómo combinar las metodologías de productividad GTD P.A.R.A y Zettelkasten
+
+#Vídeo cómo combinar las metodologías de productividad GTD P.A.R.A y Zettelkasten
 
 <iframe loading="lazy" title="YouTube video player" src="about:blank" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen" data-rocket-lazyload="fitvidscompatible" data-lazy-src="https://www.youtube.com/embed/J5Id9S99ykg?list=PLWUX-KZsnKXRfo53cET5Uk7Z0eU8AKaGq"></iframe>
 

@@ -2,9 +2,11 @@
 mindmap-plugin: basic
 ---
 
-# HERRAMIENTAS
 
-## PLANIFICACION
+#HERRAMIENTAS
+
+
+#PLANIFICACION
 - [[MAPA MENTAL ejemplo 1 raices y ramas]]
 - KANVANFLOW
 - TRELLO
@@ -19,7 +21,8 @@ mindmap-plugin: basic
     - 3. Plugin Review
     - 4. Plugin Slated
 
-## MAPAS METALES
+
+#MAPAS METALES
 - AYOA / IMINDMAP
     - El mejor
     - Creativo
@@ -29,26 +32,31 @@ mindmap-plugin: basic
     - Rápido
     - Poca creatividad
 
-## CREATIVIDAD
+
+#CREATIVIDAD
 - NOTABILITY
 - GOOD NOTES
 
-## MUSICA
+
+#MUSICA
 - BRAIN.FM
 - YOUTUBE.MUSIC
 
-## LECTURA
+
+#LECTURA
 - KINDLE
 - ALDIBLE
 - BLINKIST
 
-## MEMORIZAR
+
+#MEMORIZAR
 - ANKI
 - NOTION+PLUGIN ANKI
 - OBSIDIAN+PLUGIN ANKI
 - REMNOTE
 
-## NOTAS
+
+#NOTAS
 - EVERNOTE
     - Almacenamiento nube
         - aaa

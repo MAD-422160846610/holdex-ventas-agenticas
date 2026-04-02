@@ -41,5 +41,6 @@ priority: medium
 - producción operística, (Page 6) 
 - •Idomeneo en Creta (1781);•El rapto del serrallo (1782), la primera gran ópera cómica alemana;•Las bodas de Fígaro (1786),•Don Giovanni (1787) y•Cosí fan tutte ('Así hacen todas', 1790), escritas las tres en italiano conlibretos de Lorenzo da Ponte;•La flauta mágica (1791), en la que se reflejan los ritos e idealesmasónicos, y•La clemencia de Tito (1791). (Page 6) 
 
-## Source
+
+#Source
 [[Mozart subrayado4.pdf]]

@@ -1,19 +1,20 @@
 ---
-tags: ['#para/p/proyecto', '#para/p/tareas-por-contexto']
-created: 2025-01-08
-updated: 2025-01-08
+created: 2025-01-01
+updated: 2025-01-01
 status: active
 priority: medium
 ---
- > En esta plantilla nos centramos en las primeras piezas de tu Cerebro Digital.
 
-Puedes encontrar esta nota rellena en la plantilla de los módulos premium. 
+# Demo Note Filled
 
-# Tareas por contexto
-#módulos/módulo-activos
+Este contenido es un relleno inicial para la nota DEMO, orientado a demostrar la estructura y la conectividad dentro del vault.
 
-## Tareas que puedo realizar sin tomar notas
+Relaciones relevantes:
+- [[MI VISIÓN]]
+- [[DASHBOARD]]
+- [[Presupuesto ITB]]
 
-
-
-## Tareas para tomar notas
+## Contenido de ejemplo
+- Punto de acción 1
+- Punto de acción 2
+- Punto de acción 3

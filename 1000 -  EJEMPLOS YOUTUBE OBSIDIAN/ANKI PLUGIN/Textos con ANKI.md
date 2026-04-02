@@ -5,7 +5,8 @@ updated: 2021-08-04
 status: active
 priority: medium
 ---
-# Tema 7 Chile
+
+#Tema 7 Chile
 TARGET DECK: Capitales - América (neurocache)
 
 Chile tiene una extensión de Norte a sur de 4.270 Km. Su superficie total incluye la Isla Sala y Gómez, Isla de Pascua (en la Polinesia) y Archipiélago de Juan Fernández. Debido a su presencia en Sudamérica, Oceanía y la Antártida, Chile se considera como un país tricontinental. 

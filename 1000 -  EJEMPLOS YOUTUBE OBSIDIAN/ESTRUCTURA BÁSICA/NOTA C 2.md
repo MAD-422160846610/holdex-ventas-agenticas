@@ -5,7 +5,8 @@ updated: 2024-11-26
 status: active
 priority: medium
 ---
-# Titulo 1
+
+#Titulo 1
 Blablabla
 **negrita**
 *cursiva*
@@ -17,13 +18,15 @@ Blablabla
 Enlace wikilink
 [[NOTA B]]
 
-### Título 3
+
+#Título 3
 dsaffasdfasda
 
 Enlace formato markdown
 [NOTA B](NOTA%20B.md)
 
-## Imágenes
+
+#Imágenes
 Imagen formato wikilink
 ![[_99173194_hi043535317.jpg]]
 

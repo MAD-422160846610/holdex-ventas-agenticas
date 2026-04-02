@@ -5,28 +5,34 @@ updated: 2026-03-28
 status: active
 priority: medium
 ---
-# Vescis.Space
+
+#Vescis.Space
 
 **Estado:** activo  
 **Fecha inicio:** 2026-03-28  
 **Fecha objetivo:** 2026-04-27
 
-## 📝 Descripción
+
+#📝 Descripción
 Área de automatizaciones de la agencia de programación Talgidi Codes, donde Dangelo Arrivillaga trabaja en proyectos de automatización de procesos y herramientas.
 
-## 🎯 Objetivos
+
+#🎯 Objetivos
 1. Desarrollar y mantener herramientas de automatización para mejorar la eficiencia de Talgidi Codes
 2. Crear soluciones que puedan ser reutilizadas en múltiples proyectos de la agencia
 
-## 📌 Decisiones clave
+
+#📌 Decisiones clave
 - **2026-03-28** – Dangelo Arrivillaga trabaja en este proyecto como parte de su rol en Talgidi Codes
 
-## ✅ Próximos pasos
+
+#✅ Próximos pasos
 - [ ] Definir los primeros procesos a automatizar
 - [ ] Seleccionar herramientas y tecnologías de automatización apropiadas
 - [ ] Desarrollar un prototipo inicial de automatización
 
-## 🔗 Relacionado
+
+#🔗 Relacionado
 - [[dangelo-arrivillaga-theeye]]
 - [[carlos-mattey]]
 - [[talgidi-codes]]  # Nota: crear si se necesita como empresa/organización

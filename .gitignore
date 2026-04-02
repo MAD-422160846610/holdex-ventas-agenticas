@@ -1,5 +1,69 @@
+# ============================================
+# .gitignore para Segundo Cerebro Obsidian
+# Optimizado para sync ligero y seguro
+# ============================================
+
+# --- EXCLUIR: Archivos pesados e innecesarios ---
+
+# Entornos Python (pueden ser gigas)
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Configuración de Obsidian (plugins, settings)
+# Se sincroniza aparte o se recrea
 .obsidian/
 .obsidian.backup_*/
-*.tmp
-*.swp
+
+# Scripts descargados de Excalidraw
+Excalidraw/Scripts/Downloaded/
+
+# Archivos de base de datos
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos del sistema operativo
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Logs y auditoría (si son sensibles)
+.agent/audit/
+
+# Variables de entorno (NUNCA subir credenciales)
+.env
+.env.local
+.env.*.local
+
+# Node modules (si algún día usás npm)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*

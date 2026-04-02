@@ -5,7 +5,8 @@ updated: 2022-09-29
 status: active
 priority: medium
 ---
-# Editorial vs Autopublicar
+
+#Editorial vs Autopublicar
 (Nota ejemplo describiendo con mis palabras y lo que yo estoy buscando.. si me interesa más ir con editorial o autopublicar. No es información obtenida de Google).
 
 La información de Google sería ésta:

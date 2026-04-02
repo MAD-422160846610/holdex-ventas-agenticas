@@ -38,10 +38,14 @@ This note showcases a bunch of different markdown formatting.
 You can use \*italics\* or \_italics\_.
 **Bold** or __Bold__
 If you want to strongly emphasise, just **_do_** __*both*__
-# Headers are supported too
-## At
-### Varying
-#### Levels
+
+#Headers are supported too
+
+#At
+
+#Varying
+
+#Levels
 
 1. You can get
 2. Ordered lists
