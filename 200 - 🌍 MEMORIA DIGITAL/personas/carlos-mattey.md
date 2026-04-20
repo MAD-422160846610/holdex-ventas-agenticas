@@ -4,7 +4,9 @@ created: 2026-03-28
 updated: 2026-03-28
 status: active
 priority: medium
+aliases: ['carlos-mattey']
 ---
+
 
 #Carlos Mattey
 
@@ -31,6 +33,6 @@ Encargado de terminar el despliegue y el desarrollo de la maqueta para el proyec
 
 
 #🔗 Relacionado
-- [[glitchcatv3-website-inteligente]]
+- [[glitchcatOS-v3-website-inteligente]]
 
 #persona

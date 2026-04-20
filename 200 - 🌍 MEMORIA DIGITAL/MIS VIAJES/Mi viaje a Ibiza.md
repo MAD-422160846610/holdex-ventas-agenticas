@@ -4,7 +4,9 @@ created: 2023-02-02
 updated: 2023-02-02
 status: active
 priority: medium
+aliases: ['Mi viaje a Ibiza']
 ---
+
 
 #Viaje Ibiza
 

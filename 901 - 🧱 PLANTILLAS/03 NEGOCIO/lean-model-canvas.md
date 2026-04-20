@@ -8,7 +8,7 @@ priority: medium
 
 # Lean Model Canvas
 
-**Proyecto:** [[{{project_name}}]]  
+**Proyecto:**   
 **Fecha:** {{date:YYYY-MM-DD}}  
 **Versión:** 1.0
 
@@ -54,7 +54,7 @@ Breve descripción del modelo de negocio y su propuesta de valor central.
 
 
 #🔗 Relacionado
-- [[{{project_name}}]]
+- 
 
 
 #canvas #leancanvas #{{project_name}}

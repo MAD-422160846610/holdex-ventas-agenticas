@@ -4,7 +4,9 @@ created: 2025-01-08
 updated: 2025-01-08
 status: active
 priority: medium
+aliases: ['Construye tu CEREBRO DIGITAL']
 ---
+
 #módulos/módulo-zettelkasten
 
 

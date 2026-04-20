@@ -49,7 +49,7 @@ priority: medium
 
 
 #Proyecto de Mantenimiento (20% tiempo)
-- **[[Iamazingcontent.Space]]** - Flujo de trabajo estable
+- **[[iamazingcontent.space]]** - Flujo de trabajo estable
   - Bloques fijos: Martes y Jueves 18:00-20:00 (revisión y dirección)
   - Tareas críticas: 
 

@@ -4,7 +4,9 @@ created: 2025-01-08
 updated: 2026-03-29
 status: active
 priority: medium
+aliases: ['Vaults']
 ---
+
 
 
 #🗄️ Vaults en Obsidian

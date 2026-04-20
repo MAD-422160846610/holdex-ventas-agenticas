@@ -4,7 +4,9 @@ created: 2022-09-29
 updated: 2022-09-29
 status: active
 priority: medium
+aliases: ['Publicar editorial o autopublicar']
 ---
+
 
 #Publicar con una editorial o autopublicar
 

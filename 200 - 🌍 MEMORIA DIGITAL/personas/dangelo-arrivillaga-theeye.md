@@ -4,7 +4,9 @@ created: 2026-03-28
 updated: 2026-03-28
 status: active
 priority: medium
+aliases: ['dangelo-arrivillaga-theeye']
 ---
+
 
 #Dangelo Arrivillaga "TheEye"
 
@@ -32,7 +34,7 @@ Encargado del departamento de I+D (Investigación y Desarrollo) en la agencia Ia
 
 #🔗 Relacionado
 - [[iamazingcontent.space]]
-- [[glitchcatv3-website-inteligente]]
+- [[glitchcatOS-v3-website-inteligente]]
 - [[vescis-space]]
 
 #persona

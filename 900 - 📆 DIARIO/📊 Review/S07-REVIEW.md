@@ -87,11 +87,11 @@ sprint_end: 2026-04-08
 - Progreso: 0.0% (0/12 tareas)
 
 
-#[[PROYECTO CD Grabar vídeo Obsidian flujo diario]]
+#[[PROYECTO CD Grabar vídeo Obsidian flujo diario]]
 - Progreso: 0.0% (0/0 tareas)
 
 
-#[[glitchcatv3-website-inteligente]]
+#[[glitchcatOS-v3-website-inteligente]]
 - Progreso: 0.0% (0/2 tareas)
 
 

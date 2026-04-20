@@ -4,7 +4,9 @@ created: 2025-01-08
 updated: 2026-03-29
 status: active
 priority: medium
+aliases: ['Enlaces']
 ---
+
 
 
 #🔗 Sistemas de Enlaces
@@ -16,7 +18,7 @@ priority: medium
 #1. Wikilinks (Obsidian)
 La forma nativa de Obsidian:
 ```markdown
-[[Nombre de Nota]]
+
 [[Nombre de Nota|Texto alternativo]]
 [[Nombre de Nota#Sección]]
 ```

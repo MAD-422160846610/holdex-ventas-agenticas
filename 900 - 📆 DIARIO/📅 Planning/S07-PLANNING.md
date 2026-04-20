@@ -61,13 +61,13 @@ sprint_end: 2026-04-08
 - **Acción:** 
 
 
-#[[PROYECTO CD Grabar vídeo Obsidian flujo diario]]
+#[[PROYECTO CD Grabar vídeo Obsidian flujo diario]]
 - **Estado:** active
 - **Tareas:** 0/0 (0%)
 - **Acción:** 
 
 
-#[[glitchcatv3-website-inteligente]]
+#[[glitchcatOS-v3-website-inteligente]]
 - **Estado:** active
 - **Tareas:** 0/2 (0%)
 - **Acción:** 
@@ -123,8 +123,8 @@ _Inbox vacía_
 
 #🔗 Referencias
 
-- [[DASHBOARD]]
-- [[2026-03-26]] - Inicio del sprint
-- [[2026-04-08]] - Fin del sprint
+- [[DASHBOARD|DASHBOARD]]
+- [[900 - 📆 DIARIO/2026-03-26|2026-03-26]] - Inicio del sprint
+- [[900 - 📆 DIARIO/2026-04-08|2026-04-08]] - Fin del sprint
 
 #sprint #planning

@@ -1,0 +1,20 @@
+# Remotely Save - Archivos a EXCLUIR del sync
+# Estos archivos no necesitan sincronizarse entre dispositivos
+
+# Configuración de Obsidian (se recrea en cada dispositivo)
+.obsidian/
+.obsidian.backup_*/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Scripts y entorno (no necesario en celular)
+scripts/
+.env
+.venv/
+
+# Archivos muy grandes
+*.db
+*.sqlite
+Excalidraw/Scripts/Downloaded/

@@ -8,7 +8,7 @@ priority: medium
 
 # Organigrama Horizontal - Colaborativo
 
-**Proyecto:** [[{{project_name}}]]  
+**Proyecto:**   
 **Fecha:** {{date:YYYY-MM-DD}}  
 **Versión:** 1.0
 
@@ -63,7 +63,7 @@ Definir la estructura colaborativa de equipos de trabajo.
 
 
 #🔗 Relacionado
-- [[{{project_name}}]]
+- 
 
 
 #organigrama #horizontal #colaborativo #equipos #{{project_name}}

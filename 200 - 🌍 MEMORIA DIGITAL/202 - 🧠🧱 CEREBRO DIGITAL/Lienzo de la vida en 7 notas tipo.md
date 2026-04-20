@@ -4,7 +4,9 @@ created: 2025-01-08
 updated: 2026-03-29
 status: active
 priority: medium
+aliases: ['Lienzo de la vida en 7 notas tipo']
 ---
+
 
 
 #🎨 Lienzo de la Vida en 7 Notas Tipo

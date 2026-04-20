@@ -8,7 +8,7 @@ priority: medium
 
 #Sprint {{sprint_number}}: {{sprint_name}}
 
-**Proyecto:** [[{{project_name}}]]  
+**Proyecto:**   
 **Fecha inicio:** {{sprint_start_date}}  
 **Fecha fin:** {{sprint_end_date}}  
 **Duración:** {{sprint_duration}} días  
@@ -92,7 +92,7 @@ priority: medium
 
 
 #🔗 Relacionado
-- [[{{project_name}}]]
+- 
 - [[daily-notes/{{date:YYYY-MM-DD}}]]
 - [[doble corchete]]
 

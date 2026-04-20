@@ -4,7 +4,9 @@ created: 2026-03-28
 updated: 2026-03-28
 status: active
 priority: medium
+aliases: ['architectural-decision-records-adr-mejores-practicas']
 ---
+
 
 #Architectural Decision Records (ADR) - Mejores Prácticas
 
@@ -38,7 +40,7 @@ Los Architectural Decision Records (ADR) son documentos que capturan decisiones 
 
 
 #🔗 Relacionado
-- [[glitchcatv3-website-inteligente]]
+- [[glitchcatOS-v3-website-inteligente]]
 - [[dangelo-arrivillaga-theeye]]
 - [[2026-03-28]]
 

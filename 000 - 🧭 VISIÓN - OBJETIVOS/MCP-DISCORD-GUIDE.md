@@ -74,7 +74,7 @@ Conecta OpenCode directamente con tu bot de Discord.
 
 - [[MCP-OBSIDIAN-GUIDE]] - Guía MCP de Obsidian
 - [[OBSIDIAN-3.1-STATUS]] - Estado del sistema
-- [[glitchcatv3-website-inteligente]] - Proyecto GlitchCat V3
+- [[glitchcatOS-v3-website-inteligente]] - Proyecto GlitchCat V3
 
 ---
 

@@ -8,7 +8,7 @@ priority: medium
 
 # Organigrama Vertical - Jerárquico
 
-**Proyecto:** [[{{project_name}}]]  
+**Proyecto:**   
 **Fecha:** {{date:YYYY-MM-DD}}  
 **Versión:** 1.0
 
@@ -57,7 +57,7 @@ Definir la estructura jerárquica de la organización.
 
 
 #🔗 Relacionado
-- [[{{project_name}}]]
+- 
 
 
 #organigrama #jerarquico #estructura #{{project_name}}

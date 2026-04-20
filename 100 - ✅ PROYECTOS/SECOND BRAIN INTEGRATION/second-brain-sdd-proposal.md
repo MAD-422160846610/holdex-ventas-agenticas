@@ -1,3 +1,7 @@
+---
+aliases: ['second-brain-sdd-proposal']
+---
+
 # 🧠 AI Second Brain Integration - SDD Proposal
 
 **Status:** 📋 Proposal  

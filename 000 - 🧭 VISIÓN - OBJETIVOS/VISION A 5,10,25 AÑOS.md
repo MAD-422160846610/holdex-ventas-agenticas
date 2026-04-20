@@ -1,108 +1,47 @@
 ---
-tags: ['#para/a/vision', '#largo-plazo', '#objetivos']
+tags: ['#nota']
 created: 2025-01-08
-updated: 2026-03-29
+updated: 2025-01-08
 status: active
-priority: high
+priority: medium
 ---
 
 
-#👁️ Mi Visión a 5, 10 y 25 Años
+#Visión 
+Este ejercicio es de los más valiosos y más despreciados.
+
+Las prisas nos hacen subestimar la importancia de tener clara nuestra visión.
+
+Escucha, te leo el pensamiento. Ahora mismo te está dando mucha pereza realizarlo. Te está pidiendo saltártelo y ponerte a crear notas como si no hubiera un mañana.
+
+Por favor, paciencia, es importante realizar este ejercicio. Hasta aquí mi consejo, pero tu decides si completarlo o no.
+
+Recibo críticas por proponer este tipo de ejercicios tanto en esta formación, como en otras que tengo. Y gente que primero me ha criticado, luego me ha dado las gracias. Es importante acotar nuestro foco y entender que igual lo que creemos que queremos, no es lo que realmente queremos.
+
+Como redactar una lista o describir tu visión partiendo de una nota en blanco es complicado, te intento ayudar con preguntas.
+
+Todo este panel de control que estamos creando con la visión, balances, objetivos lo usaremos luego
 
 
-#🎯 Visión a 5 Años (2031)
+
+#Define tu día ideal
+Hace tiempo encontré esta fábula que representa perfectamente la idea de tu día ideal.
 
 
-#Profesional
-- Haber establishido una reputación sólida en tecnología y productividad
-- Tener un sistema de conocimiento personal con +500 notas útiles
-- Generar ingresos adicionales a través de contenido educativo
-- Haber liderado al menos 2 proyectos tecnológicos significativos
+#Contenido
+
+*Este contenido será completado próximamente.*
 
 
-#Personal
-- Tener un equilibrio sólido entre trabajo y vida personal
-- Mantener una salud física y mental óptima
-- Tener relaciones profundas y significativas con familia y amigos
-- Viajar al menos a 3 países nuevos
+#Contenido
+
+*Este contenido será completado próximamente.*
 
 
-#Conocimiento
-- Dominar 2-3 tecnologías emergentes (AI, automatización)
-- Haber leído +100 libros relevantes para mi crecimiento
-- Tener una red de contactos de calidad en mi industria
+#Contenido
 
----
+*Este contenido será completado próximamente.*
 
 
-#🚀 Visión a 10 Años (2036)
+#Cómo te gustaría que te recordasen tus seres queridos al morir
 
-
-#Profesional
-- Ser reconocido como experto en mi campo
-- Tener independencia financiera parcial
-- Haber creado productos/servicios que impacten positivamente a otros
-- Liderar un equipo o comunidad de personas apasionadas
-
-
-#Personal
-- Vivir en un lugar que me inspire
-- Tener la libertad de elegir en qué proyectos trabajar
-- Mantener la curiosidad y el entusiasmo por aprender
-- Tener una familia estable y feliz (si así lo deseo)
-
-
-#Legado
-- Haber ayudado a cientos de personas a construir su segundo cerebro
-- Tener contenido que siga siendo relevante y útil
-- Haber dejado una marca positiva en mi comunidad
-
----
-
-
-#🌟 Visión a 25 Años (2051)
-
-
-#La persona que quiero ser
-- Sabia, tranquila y con perspectiva
-- Siempre curiosa, siempre aprendiendo
-- Generosa con mi tiempo y conocimiento
-- Saludable y activo mentalmente
-
-
-#El impacto que quiero dejar
-- Un cuerpo de trabajo que ayude a futuras generaciones
-- Familia y amigos que se sientan amados y apoyados
-- Una comunidad que valore el conocimiento y la conexión
-- Ejemplos de integridad y propósito
-
-
-#El mundo que quiero habitar
-- Un mundo más consciente y conectado
-- Donde la tecnología sirve a las personas, no al revés
-- Donde el conocimiento sea accesible para todos
-- Con más compasión y menos conflicto
-
----
-
-
-#🔄 Revisión anual
-
-Esta es una visión viva. La reviso cada año en **enero** para:
-1. Evaluar el progreso hacia cada hito
-2. Ajustar según las circunstancias y prioridades cambiantes
-3. Renovar el compromiso con mis metas
-
-**Próxima revisión:** Enero 2027
-
----
-
-
-#🔗 Relacionado
-
-- [[MI VISIÓN]]
-- [[YYYY OBJETIVOS]]
-- [[YYYY+3 OBJETIVOS A 3 AÑOS]]
-- [[202502 RUEDA VIDA]]
-
-#vision #largo-plazo #objetivos #planificacion

@@ -4,7 +4,9 @@ created: 2026-03-28
 updated: 2026-03-28
 status: active
 priority: medium
+aliases: ['zettelkasten-en-obsidian-implementacion-practica']
 ---
+
 
 #Zettelkasten en Obsidian: Implementación Práctica para tu Segundo Cerebro
 

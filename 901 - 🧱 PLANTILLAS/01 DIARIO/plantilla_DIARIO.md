@@ -12,7 +12,7 @@ Este contenido es un relleno inicial para la nota DEMO, orientado a demostrar la
 Relaciones relevantes:
 - [[MI VISIÓN]]
 - [[DASHBOARD]]
-- [[Presupuesto ITB]]
+- [[presupuesto-oficina-itb]]
 
 ## Contenido de ejemplo
 - Punto de acción 1

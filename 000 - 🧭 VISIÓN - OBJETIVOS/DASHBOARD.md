@@ -1,5 +1,6 @@
 ---
 tags: ['#para/a/vision', '#dashboard', '#obsidian-3.1']
+aliases: ['000 - 🧭 VISIÓN - OBJETIVOS']
 created: 2026-03-29
 updated: 2026-03-29
 status: active
@@ -79,10 +80,10 @@ FROM "2026-03-29"
 
 
 #🔗 Enlaces Rápidos
-- [[presupuesto-oficina-itb]] - Presupuesto ITB (prueba)
-- [[itb-inspecciones-tecnicas-de-buques]] - Proyecto ITB
-- [[doble corchete]] - Convenciones del sistema
-- [[2026-03-29]] - Nota diaria de hoy
+- [[presupuesto-oficina-itb|Presupuesto ITB (prueba)]]
+- [[itb-inspecciones-tecnicas-de-buques|Proyecto ITB]]
+- [[doble corchete|Convenciones del sistema]]
+- [[900 - 📆 DIARIO/2026-03-29|Nota diaria de hoy]]
 
 
 #⚡ Comandos Rápidos (Plantillas Templater)

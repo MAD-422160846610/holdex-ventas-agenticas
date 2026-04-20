@@ -1,8 +1,8 @@
 ---
-
 kanban-plugin: board
-
+aliases: ['tablero-proyectos']
 ---
+
 
 
 #Contenido

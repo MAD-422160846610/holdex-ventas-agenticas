@@ -257,9 +257,9 @@ priority: medium
 - [[daily-notes/{{date:YYYY-MM-DD}}]] - Nota diaria de hoy para registro en tiempo real (USARLA CADA DÍA)
 - [[sprints/{{sprint_name}}]]  # Si existe sprint activo en algún proyecto
 - [[itb-inspecciones-tecnicas-de-buques]] - TU OBJETIVO #1 ESTA SEMANA (ENFÓCATE AQUÍ - APROVECHA PRESENCIALIDAD CON DR. BEDA)
-- [[proyectos/glitchcatv3-website-inteligente]]
-- [[proyectos/iamazingcontent.space]]
-- [[proyectos/vescis-space]]
+- [[glitchcatOS-v3-website-inteligente]]
+- [[iamazingcontent.space]]
+- [[vescis-space]]
 - [[personas/carlos-mattey]]
 - [[personas/dangelo-arrivillaga-theeye]]
 - [[personas/jorge-bobby]]

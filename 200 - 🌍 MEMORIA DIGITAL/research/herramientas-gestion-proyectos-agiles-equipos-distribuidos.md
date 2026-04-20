@@ -4,7 +4,9 @@ created: 2026-03-28
 updated: 2026-03-28
 status: active
 priority: medium
+aliases: ['herramientas-gestion-proyectos-agiles-equipos-distribuidos']
 ---
+
 
 #Herramientas de gestión de proyectos ágiles para equipos distribuidos
 
@@ -33,7 +35,7 @@ Investigación de herramientas y metodologías ágiles (Scrum, Kanban) específi
 
 
 #🔗 Relacionado
-- [[glitchcatv3-website-inteligente]]
+- [[glitchcatOS-v3-website-inteligente]]
 - [[itb-inspecciones-tecnicas-de-buques]]
 - [[iamazingcontent.space]]
 - [[dangelo-arrivillaga-theeye]]

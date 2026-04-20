@@ -4,7 +4,9 @@ created: 2022-02-04
 updated: 2022-02-04
 status: active
 priority: medium
+aliases: ['Markdown']
 ---
+
 
 
 #Markdown

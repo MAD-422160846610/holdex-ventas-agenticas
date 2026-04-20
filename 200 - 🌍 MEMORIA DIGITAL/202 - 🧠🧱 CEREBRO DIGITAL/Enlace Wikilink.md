@@ -4,7 +4,9 @@ created: 2025-01-08
 updated: 2026-03-29
 status: active
 priority: medium
+aliases: ['Enlace Wikilink']
 ---
+
 
 
 #🔗 Enlaces Wikilink en Obsidian
@@ -20,7 +22,7 @@ Los Wikilinks son la forma nativa de conectar notas en Obsidian. Se crean usando
 
 #1. Enlace simple
 ```markdown
-[[Nombre de la Nota]]
+
 ```
 Crea un enlace directo a la nota especificada.
 

@@ -4,7 +4,9 @@ created: 2026-03-29
 updated: 2026-03-29
 status: active
 priority: medium
+aliases: ['gestion-de-tiempo-y-agenda-en-obsidian-metodologias-y-herramientas']
 ---
+
 
 #Gestión de Tiempo y Agenda en Obsidian: Metodologías y Herramientas
 
