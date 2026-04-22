@@ -18,23 +18,23 @@ The benefit of the approach in this implementation of custom pens is that it wil
 */
 let elements = ea.getViewSelectedElements().filter((el)=>["freedraw","line","arrow"].includes(el.type));
 if(elements.length === 0) {
-  elements = ea.getViewSelectedElements();
-  const len = elements.length;
-  if(len === 0 || ["freedraw","line","arrow"].includes(elements[len].type)) {
-    return;
-  }
-  elements = [elements[len]];
+ elements = ea.getViewSelectedElements();
+ const len = elements.length;
+ if(len === 0 || ["freedraw","line","arrow"].includes(elements[len].type)) {
+ return;
+ }
+ elements = [elements[len]];
 } 
 
 ea.copyViewElementsToEAforEditing(elements);
 
 ea.getElements().forEach((el)=>{
-  el.simulatePressure = false;
-  el.type = "freedraw";
-  el.pressures = [];
-  const len = el.points.length;
-  for(i=0;i<len;i++)
-    el.pressures.push((len-i)/len);
+ el.simulatePressure = false;
+ el.type = "freedraw";
+ el.pressures = [];
+ const len = el.points.length;
+ for(i=0;i<len;i++)
+ el.pressures.push((len-i)/len);
 });
 
 await ea.addElementsToView(false,true);

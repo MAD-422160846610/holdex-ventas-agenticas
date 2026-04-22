@@ -1,7 +1,0 @@
-- [x] Crear nota diaria 2026-04-15
-- [x] Recuente de proyectos y estado pre-vacacional
-- [x] Buscar proyecto TV PRO en el file system y GitHub
-- [x] Crear Sprint Planning W16
-- [ ] Confirmar despliegue de TV PRO en GitHub Pages
-- [ ] Reparar los 20 enlaces rotos detectados en el último control de ITB
-- [ ] Actualizar embeddings del RAG

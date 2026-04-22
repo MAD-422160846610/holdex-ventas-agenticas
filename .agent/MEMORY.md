@@ -5,7 +5,7 @@ updated: 2026-04-02
 version: 1.0
 ---
 
-# 🧠 MEMORY.md - Memoria Activa
+# MEMORY.md - Memoria Activa
 
 ## Decisiones Arquitectónicas
 
@@ -21,7 +21,7 @@ version: 1.0
 
 | Fecha | Lección | Contexto |
 |-------|---------|----------|
-| 2026-04-02 | Carpetas duplicadas por emojis diferentes | `📅` vs `📆` causó confusión, consolidado |
+| 2026-04-02 | Carpetas duplicadas por emojis diferentes | `` vs `` causó confusión, consolidado |
 | 2026-04-02 | Plantillas dispersas en raíz | Reorganizadas en 6 categorías por propósito |
 | 2026-04-02 | `venv/` y `.obsidian/` no deben sincronizarse | Archivos pesados, causan conflictos |
 

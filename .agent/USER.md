@@ -5,7 +5,7 @@ updated: 2026-04-02
 version: 1.0
 ---
 
-# 👤 USER.md - Perfil de Arrigo Baggio
+# USER.md - Perfil de Arrigo Baggio
 
 ## Información Básica
 
@@ -19,10 +19,10 @@ version: 1.0
 
 | Proyecto | Estado | Prioridad | Deadline |
 |----------|--------|-----------|----------|
-| [[ITB Inspecciones Técnicas de Buques]] | 🟡 En progreso | 🔴 Alta | 30 días |
-| [[GLitchCatV3 - Website Inteligente]] | 🟡 En progreso | 🔴 Alta | 15 días |
-| [[Vescis.Space]] | 🟢 Activo | 🟡 Media | Continuo |
-| [[Iamazingcontent.Space]] | 🟢 Activo | 🟡 Media | Continuo |
+| [[ITB Inspecciones Técnicas de Buques]] | En progreso | Alta | 30 días |
+| [[GLitchCatV3 - Website Inteligente]] | En progreso | Alta | 15 días |
+| [[Vescis.Space]] | 🟢 Activo | Media | Continuo |
+| [[Iamazingcontent.Space]] | 🟢 Activo | Media | Continuo |
 | [[PROYECTO YOUTUBE cerebro digital e IA]] | 🟢 Activo | 🟢 Baja | Continuo |
 
 ## Contactos Clave
@@ -58,28 +58,28 @@ version: 1.0
 
 | Plataforma | Uso | Integración |
 |------------|-----|-------------|
-| GitHub | Código, vault sync | ✅ Configurado |
-| Discord | Comunicación, bot | ✅ Configurado |
-| Obsidian | Segundo cerebro | ✅ Principal |
-| Gmail | Email | 🔒 Pendiente |
-| Google Calendar | Agenda | 🔒 Pendiente |
+| GitHub | Código, vault sync | Configurado |
+| Discord | Comunicación, bot | Configurado |
+| Obsidian | Segundo cerebro | Principal |
+| Gmail | Email | Pendiente |
+| Google Calendar | Agenda | Pendiente |
 
 ## Objetivos Actuales
 
 1. **Corto plazo (1-2 semanas):**
-   - Finalizar presupuesto ITB
-   - Cargar documentación ITB en vault
-   - Configurar sync móvil
+ - Finalizar presupuesto ITB
+ - Cargar documentación ITB en vault
+ - Configurar sync móvil
 
 2. **Mediano plazo (1-2 meses):**
-   - Lanzar GLitchCatV3
-   - Establecer flujo de trabajo con Dangelo
-   - Automatizar procesos en Vescis.Space
+ - Lanzar GLitchCatV3
+ - Establecer flujo de trabajo con Dangelo
+ - Automatizar procesos en Vescis.Space
 
 3. **Largo plazo (3-6 meses):**
-   - Escalar Iamazingcontent.Space
-   - Canal de YouTube activo
-   - Sistema proactivo funcionando 24/7
+ - Escalar Iamazingcontent.Space
+ - Canal de YouTube activo
+ - Sistema proactivo funcionando 24/7
 
 ## Referencias
 
