@@ -68,8 +68,12 @@ app.post('/api/webhook/leads', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-    console.log(`[PAPERCLIP GATEWAY] Servidor corriendo en http://localhost:${PORT}`);
-    console.log(`[PAPERCLIP GATEWAY] Escuchando leads para inyectar en Paperclip...`);
-});
+// Solo para desarrollo local
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 4000;
+    app.listen(PORT, () => {
+        console.log(`[PAPERCLIP GATEWAY] Servidor corriendo en http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
