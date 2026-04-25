@@ -1,71 +1,75 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
-const db = require('./database');
-const { triggerScoutAgent } = require('./agent');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // ----------------------------------------------------
-// 1. WEBHOOK: Recibe leads desde la Landing Page
+// PAPERCLIP GATEWAY
+// Este servicio actúa como puente entre la Landing Page y Paperclip.
 // ----------------------------------------------------
-app.post('/api/webhook/leads', (req, res) => {
+
+const PAPERCLIP_API_URL = process.env.PAPERCLIP_API_URL || "https://api.paperclip.run/v1/issues";
+const PAPERCLIP_BOARD_ID = process.env.PAPERCLIP_BOARD_ID;
+const PAPERCLIP_API_KEY = process.env.PAPERCLIP_API_KEY;
+
+app.post('/api/webhook/leads', async (req, res) => {
     const { email } = req.body;
     
     if (!email) {
         return res.status(400).json({ error: 'Email requerido' });
     }
 
+    console.log(`[GATEWAY] Recibido lead de la Landing: ${email}`);
+
     try {
-        const stmt = db.prepare('INSERT INTO leads (email) VALUES (?)');
-        const info = stmt.run(email);
+        // Enviar a Paperclip para crear el Issue
+        // Esto despierta automáticamente al agente Scout dentro del Board de Ventas
         
-        console.log(`[SYS] Nuevo lead ingresado: ${email}`);
-        
-        // Disparar la IA del SCOUT de forma asíncrona
-        triggerScoutAgent(info.lastInsertRowid, email);
-        
-        res.json({ success: true, id: info.lastInsertRowid });
-    } catch (err) {
-        if (err.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-            return res.status(400).json({ error: 'El email ya está registrado' });
+        if (!PAPERCLIP_API_KEY) {
+            console.log(`[GATEWAY] MODO PRUEBA: Simulando envío a Paperclip Board para ${email}`);
+            // Mock delay
+            await new Promise(r => setTimeout(r, 1000));
+            return res.json({ 
+                success: true, 
+                message: "Lead aceptado en modo prueba (Sin API Key de Paperclip)",
+                lead: email 
+            });
         }
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
-});
 
-// ----------------------------------------------------
-// 2. SCAN DASHBOARD: API para que Josué vea los leads
-// ----------------------------------------------------
-app.get('/api/scan/leads', (req, res) => {
-    try {
-        const leads = db.prepare('SELECT * FROM leads ORDER BY created_at DESC').all();
-        res.json(leads);
-    } catch (err) {
-        res.status(500).json({ error: 'Error al obtener leads' });
-    }
-});
+        const response = await fetch(PAPERCLIP_API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${PAPERCLIP_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                boardId: PAPERCLIP_BOARD_ID,
+                title: `Nuevo Lead: ${email}`,
+                description: `Lead capturado desde la Landing Page de Holdex Ventas.\n\n**Email**: ${email}\n**Origen**: Formulario CTA\n\nPor favor, iniciar protocolo Scout.`,
+                tags: ["inbound", "landing-ventas"],
+                assignee: "Lead-Scout" // Esto le avisa al agente en Paperclip
+            })
+        });
 
-// Aprobar o rechazar un lead manualmente
-app.post('/api/scan/leads/:id/status', (req, res) => {
-    const { id } = req.params;
-    const { status } = req.body; // ej: 'APPROVED', 'REJECTED'
-    
-    try {
-        const stmt = db.prepare('UPDATE leads SET status = ? WHERE id = ?');
-        stmt.run(status, id);
-        res.json({ success: true });
+        if (!response.ok) {
+            throw new Error(`Error de Paperclip: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log(`[GATEWAY] Issue creado en Paperclip exitosamente. ID: ${data.id}`);
+
+        res.json({ success: true, paperclipIssueId: data.id });
     } catch (err) {
-        res.status(500).json({ error: 'Error al actualizar' });
+        console.error("[GATEWAY] Error al enviar a Paperclip:", err.message);
+        res.status(500).json({ error: 'Error al procesar el lead en el orquestador.' });
     }
 });
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-    console.log(`[AGENT_ENGINE] Servidor orquestador corriendo en http://localhost:${PORT}`);
-    console.log(`[AGENT_ENGINE] Esperando comandos...`);
+    console.log(`[PAPERCLIP GATEWAY] Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`[PAPERCLIP GATEWAY] Escuchando leads para inyectar en Paperclip...`);
 });
