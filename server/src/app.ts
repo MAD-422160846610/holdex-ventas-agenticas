@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { Router, type Request as ExpressRequest } from "express";
 import path from "node:path";
 import fs from "node:fs";
@@ -136,6 +137,22 @@ export async function createApp(
   },
 ) {
   const app = express();
+
+  // CORS — opt-in via PAPERCLIP_CORS_ORIGINS (comma-separated list of allowed origins).
+  // Required when the UI is hosted on a different domain (e.g. Vercel).
+  const corsOriginsEnv = process.env.PAPERCLIP_CORS_ORIGINS?.trim();
+  if (corsOriginsEnv) {
+    const allowedOrigins = corsOriginsEnv.split(",").map((o) => o.trim()).filter(Boolean);
+    app.use(
+      cors({
+        origin: allowedOrigins,
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      }),
+    );
+    logger.info({ allowedOrigins }, "CORS enabled for configured origins");
+  }
 
   app.use(express.json({
     // Company import/export payloads can inline full portable packages.
