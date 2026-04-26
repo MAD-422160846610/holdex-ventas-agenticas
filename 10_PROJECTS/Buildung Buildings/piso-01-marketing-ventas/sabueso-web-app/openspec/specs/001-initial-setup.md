@@ -22,6 +22,18 @@
 - MUST implement glassmorphic effects (backdrop-filter, subtle borders).
 - MUST use modern typography (Inter/Outfit).
 
+### 4. User Profiles (RBAC Database Layer)
+- MUST persist user profiles in a `user_profiles` table: `id` (PK, Stack Auth user ID), `role` (enum: vendedor, cliente, admin), `full_name`, `company`, `phone`, `created_at`.
+- Role assignment from the frontend MUST only allow `vendedor` or `cliente`.
+- Promoting a user to `admin` MUST be done exclusively via DB admin operations.
+
+### 5. Onboarding Interceptor
+- MUST check if a newly authenticated user has a corresponding `user_profiles` row.
+- If no profile exists, MUST redirect to `/onboarding` before granting access to any protected route.
+- The onboarding page MUST capture: Full Name (required), Company (optional), Phone (optional).
+- On form submit, the profile MUST be created via a Server Action and the user redirected to `/dashboard`.
+- An existing-profile user accessing `/onboarding` MUST be redirected to `/dashboard`.
+
 ## Scenarios
 
 ### Scenario: Unauthenticated Access
@@ -34,3 +46,15 @@
 **When** they sign in via Stack Auth
 **Then** they SHOULD be redirected to the Lead Dashboard
 **And** they MUST only see active leads for processing.
+
+### Scenario: First Time Login (Onboarding)
+**Given** a user has just signed up via Stack Auth
+**When** they try to access `/dashboard`
+**Then** the system intercepts and redirects to `/onboarding`
+**When** the user submits the onboarding form
+**Then** their profile is created and they are redirected to `/dashboard`.
+
+### Scenario: Returning User with Profile
+**Given** a user with an existing profile logs in
+**When** they try to access `/dashboard`
+**Then** the system allows the request without interruption.
