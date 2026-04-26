@@ -24,3 +24,14 @@ export const activities = pgTable('activities', {
   description: text('description').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const userRoleEnum = pgEnum('user_role', ['vendedor', 'cliente', 'admin']);
+
+export const userProfiles = pgTable('user_profiles', {
+  id: text('id').primaryKey(),
+  role: userRoleEnum('role').default('vendedor').notNull(),
+  fullName: text('full_name').notNull(),
+  company: text('company'),
+  phone: text('phone'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
