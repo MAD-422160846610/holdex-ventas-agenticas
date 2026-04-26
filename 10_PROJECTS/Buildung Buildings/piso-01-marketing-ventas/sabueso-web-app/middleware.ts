@@ -3,15 +3,12 @@ import { stackServerApp } from "./stack/server";
 
 export async function middleware(request: NextRequest) {
   const user = await stackServerApp.getUser();
-  const testSession = request.cookies.get("test-session");
   const isDashboardPage = request.nextUrl.pathname.startsWith("/dashboard");
-  const isBypassRoute = request.nextUrl.pathname.startsWith("/api/test/auth-bypass");
-
-  // Allow bypass route
-  if (isBypassRoute) return NextResponse.next();
 
   // CYBERSECURITY LAYER 1: AUTHENTICATION
-  if (isDashboardPage && !user && !testSession) {
+  // Only authenticated users can access the dashboard.
+  // The onboarding check (profile existence) is handled in app/dashboard/layout.tsx
+  if (isDashboardPage && !user) {
     return NextResponse.redirect(new URL("/handler/sign-in", request.url));
   }
 
@@ -19,5 +16,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/api/:path*"],
+  matcher: ["/dashboard/:path*"],
 };

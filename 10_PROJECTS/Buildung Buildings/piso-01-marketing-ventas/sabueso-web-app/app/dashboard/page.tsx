@@ -5,16 +5,17 @@ import { stackServerApp } from '@/stack/server';
 import { db } from '@/lib/db';
 import { leads, activities, userProfiles } from '@/lib/db/schema';
 import { desc, eq } from 'drizzle-orm';
-import { Activity, TrendingUp, Users, Zap, ArrowRight, Shield, Briefcase } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { Activity, TrendingUp, Users, Zap, Shield, Briefcase } from 'lucide-react';
 
 export default async function Dashboard() {
   const user = await stackServerApp.getUser();
-  if (!user) return null;
+  if (!user) redirect('/handler/sign-in');
 
   const profile = await db.query.userProfiles.findFirst({
     where: eq(userProfiles.id, user.id)
   });
-  if (!profile) return null;
+  if (!profile) redirect('/onboarding');
 
   const allLeads = await db.query.leads.findMany({
     orderBy: [desc(leads.createdAt)],
