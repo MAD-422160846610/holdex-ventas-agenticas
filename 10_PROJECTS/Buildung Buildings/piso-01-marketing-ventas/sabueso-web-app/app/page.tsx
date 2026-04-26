@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { Terminal, Search, Zap, Send, Shield, Activity, ArrowRight, User, Cpu, Network, Globe, Boxes } from 'lucide-react';
+import AsciiBg from '@/components/AsciiBg';
 
 export default function Home() {
   return (
     <main className="min-h-screen relative flex flex-col selection:bg-accent-green selection:text-black font-sans">
       {/* Infrastructure Layers */}
+      <AsciiBg file="/ascii/cinema1.json" opacity={0.06} />
       <div className="cyber-bg" />
       <div className="grid-bg" />
       <div className="grid-bg-dots" />
