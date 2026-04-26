@@ -1,0 +1,18 @@
+[
+  {
+    "projectId": "cd221fa7-9020-4c4b-b48a-e2ea534a84ee",
+    "testId": "882227c4-7e53-4e4d-9bdd-5420759ee4e5",
+    "userId": "145824c8-30a1-7037-54be-a97d89e46bbe",
+    "title": "TC009-Fix validation errors and successfully send outreach from the same draft",
+    "description": "Verifies that after validation errors for empty subject/body, the user can correct the fields and then successfully send the outreach email.",
+    "code": "import asyncio\nfrom playwright import async_api\nfrom playwright.async_api import expect\n\nasync def run_test():\n    pw = None\n    browser = None\n    context = None\n\n    try:\n        # Start a Playwright session in asynchronous mode\n        pw = await async_api.async_playwright().start()\n\n        # Launch a Chromium browser in headless mode with custom arguments\n        browser = await pw.chromium.launch(\n            headless=True,\n            args=[\n                \"--window-size=1280,720\",         # Set the browser window size\n                \"--disable-dev-shm-usage\",        # Avoid using /dev/shm which can cause issues in containers\n                \"--ipc=host\",                     # Use host-level IPC for better stability\n                \"--single-process\"                # Run the browser in a single process mode\n            ],\n        )\n\n        # Create a new browser context (like an incognito window)\n        context = await browser.new_context()\n        context.set_default_timeout(5000)\n\n        # Open a new page in the browser context\n        page = await context.new_page()\n\n        # Interact with the page elements to simulate user flow\n        # -> Navigate to http://localhost:3001/\n        await page.goto(\"http://localhost:3001/\")\n        \n        # -> Initialize the test session by calling the test auth bypass endpoint /api/test/auth-bypass so the test can proceed as TC009 requires.\n        await page.goto(\"http://localhost:3001/api/test/auth-bypass\")\n        \n        # --> Assertions to verify final state\n        frame = context.pages[-1]\n        assert await frame.locator(\"xpath=//*[contains(., 'Email sent successfully')]\").nth(0).is_visible(), \"The send confirmation should be visible after successfully sending the outreach email.\"\n        await asyncio.sleep(5)\n\n    finally:\n        if context:\n            await context.close()\n        if browser:\n            await browser.close()\n        if pw:\n            await pw.stop()\n\nasyncio.run(run_test())\n    ",
+    "testStatus": "BLOCKED",
+    "testError": "TEST BLOCKED\n\nThe test could not be reached — the auth-bypass endpoint required to initialize the test session returned an error, so TC009 cannot be executed.\n\nObservations:\n- Calling /api/test/auth-bypass returned {\"error\":\"Missing token\"}.\n- The response page showed no interactive elements to continue the workflow.\n",
+    "testType": "FRONTEND",
+    "createFrom": "mcp",
+    "priority": "High",
+    "testVisualization": "https://testsprite-videos.s3.us-east-1.amazonaws.com/145824c8-30a1-7037-54be-a97d89e46bbe/1777230034664479//tmp/test_task/result.webm",
+    "created": "2026-04-26T18:59:46.744Z",
+    "modified": "2026-04-26T19:00:34.781Z"
+  }
+]

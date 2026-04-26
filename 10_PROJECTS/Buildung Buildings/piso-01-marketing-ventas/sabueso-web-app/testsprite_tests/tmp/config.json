@@ -1,0 +1,20 @@
+{
+  "status": "init",
+  "scope": "codebase",
+  "type": "frontend",
+  "localEndpoint": "http://localhost:3001/",
+  "serverPort": 34885,
+  "executionArgs": {
+    "projectName": "sabueso-web-app",
+    "projectPath": "/home/arrigobaggio/Obsidian/GlitchBrain/10_PROJECTS/Buildung Buildings/piso-01-marketing-ventas/sabueso-web-app",
+    "testIds": [
+      "TC009"
+    ],
+    "additionalInstruction": "Run ONLY TC009. MANDATORY INITIAL STEP: Navigate to http://localhost:3001/api/test/auth-bypass?token=sabueso_test_2026. This will set the session cookie and redirect you to the dashboard. THEN proceed with the test steps. The success marker is 'MAIL_SENT_SUCCESSFULLY'.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-mDecmKafNyj55Cw27IUb6EGFe1NLw9mfWWpX2kR8fPopdD0pT6Hrs2crDVcki9Ll5wmHwViKSvc5bET3md7n1Z0B0zGbltUMz6tLWcuRIszuwvnMObM-IJ77ffsfpBlUSGg"
+    }
+  },
+  "proxy": "http://e2c0f4b2-f19e-4999-b6c0-b802a981460e:r3ta4D5t9CqD9XBkAPf1S0srd5ga33ut@tun.testsprite.com:8080"
+}

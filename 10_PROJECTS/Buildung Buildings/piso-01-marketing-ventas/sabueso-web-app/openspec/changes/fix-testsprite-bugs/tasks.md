@@ -1,0 +1,3 @@
+- [ ] Update `components/OutreachAction.tsx` to add empty message validation.
+- [ ] Update `components/OutreachAction.tsx` success message text.
+- [ ] Update `components/DashboardClient.tsx` button text from "SUBIR" to "IMPORTAR".

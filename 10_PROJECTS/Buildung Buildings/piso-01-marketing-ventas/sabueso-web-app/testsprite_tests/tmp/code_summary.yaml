@@ -1,0 +1,55 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js (App Router)
+  - React
+  - Tailwind CSS
+  - Drizzle ORM
+  - Stack Auth
+  - Resend
+routes:
+  - path: /
+    file: app/page.tsx
+    auth_required: false
+    description: Landing page
+  - path: /dashboard
+    file: app/dashboard/page.tsx
+    auth_required: true
+    description: Main dashboard for managing leads
+  - path: /dashboard/lead/[id]
+    file: app/dashboard/lead/[id]/page.tsx
+    auth_required: true
+    description: Detailed view for a specific lead and outreach actions
+  - path: /handler/sign-in
+    file: app/handler/[...stack]/page.tsx
+    auth_required: false
+    description: Stack Auth Sign-in page
+features:
+  - name: Lead Dashboard
+    description: View and manage all marketing leads in a dashboard
+    files:
+      - app/dashboard/page.tsx
+      - components/DashboardClient.tsx
+    entry_route: /dashboard
+    user_interactions:
+      - View list of leads
+      - Click on a lead to view details
+    auth_required: true
+  - name: Lead Outreach Action
+    description: Send emails or perform outreach actions for a specific lead
+    files:
+      - app/dashboard/lead/[id]/page.tsx
+      - components/OutreachAction.tsx
+      - components/emails/OutreachEmail.tsx
+      - lib/actions/emails.ts
+      - lib/resend.ts
+    entry_route: /dashboard/lead/[id]
+    user_interactions:
+      - Click the email button to send outreach
+      - See success/error notification
+    api_calls:
+      - method: POST
+        endpoint: (Server Action) sendOutreachEmail
+    auth_required: true
+known_limitations: []

@@ -1,0 +1,42 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Next.js 15 (Turbopack), TypeScript, React 19, Drizzle ORM, Stack Auth.
+  Architecture: App Router (Hybrid), Server Actions, Neon/Postgres.
+  Testing: TestSprite (Frontend E2E), Resend (Emails).
+  Style: Cyber-Brutalist Premium / Elite Terminal.
+
+strict_tdd: false
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected modules/packages
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing code patterns and conventions
+    - Load relevant coding skills for the project stack
+    - Use unique IDs for all interactable elements to facilitate automated testing.
+  verify:
+    - Run tests if test infrastructure exists
+    - Compare implementation against every spec scenario
+    - Verify visual alignment with Cyber-Brutalist theme.
+  archive:
+    - Warn before merging destructive deltas (large removals)
+
+testing:
+  runner: TestSprite
+  capabilities:
+    - E2E (Frontend)
+    - Security (Middleware)
+    - Data Persistence (Neon Sync)

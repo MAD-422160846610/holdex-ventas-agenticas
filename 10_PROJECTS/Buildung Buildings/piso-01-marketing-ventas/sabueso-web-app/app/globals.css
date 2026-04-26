@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800;900&display=swap');
+
+:root {
+  /* Color Tokens - Deep Space Cyber Palette */
+  --bg-black: #05070a;
+  --bg-card: rgba(13, 17, 23, 0.7);
+  --accent-green: #00ff8c;
+  --accent-green-glow: rgba(0, 255, 140, 0.3);
+  --accent-blue: #00d1ff;
+  --accent-blue-glow: rgba(0, 209, 255, 0.2);
+  --text-main: #f0f6fc;
+  --text-dim: #8b949e;
+  --border-dim: rgba(48, 54, 61, 0.5);
+  --border-bright: rgba(0, 255, 140, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  background: var(--bg-black);
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sophisticated Background Layers */
+.cyber-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(0, 255, 140, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(0, 209, 255, 0.05) 0%, transparent 50%);
+  z-index: -1;
+}
+
+.grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 140, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 140, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
+  z-index: -1;
+}
+
+.grid-bg-dots {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(0, 255, 140, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: -1;
+}
+
+/* Refined Scanlines */
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.15) 50%
+  );
+  background-size: 100% 2px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-dim);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.glass-panel-accent {
+  border: 1px solid var(--border-bright);
+  background: linear-gradient(135deg, rgba(0, 255, 140, 0.08), rgba(0, 0, 0, 0.2));
+  box-shadow: 0 0 20px rgba(0, 255, 140, 0.05);
+}
+
+.glow-text-green {
+  text-shadow: 0 0 10px rgba(0, 255, 140, 0.5);
+}
+
+.glow-text-blue {
+  text-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
+}
+
+/* Animations */
+@keyframes pulse-border {
+  0%, 100% { border-color: var(--border-dim); }
+  50% { border-color: var(--accent-green); }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 3s infinite ease-in-out;
+}
+
+/* Cyber Components */
+.cyber-card {
+  @apply glass-panel;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-card:hover {
+  border-color: var(--accent-green);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 140, 0.1);
+}
+
+.cyber-button {
+  @apply font-mono;
+  background: var(--accent-green);
+  color: #05070a;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.75rem 2rem;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cyber-button:hover {
+  background: #00e07a;
+  transform: translateY(-1px);
+  box-shadow: 0 0 15px var(--accent-green-glow);
+}
+
+.cyber-button-outline {
+  @apply font-mono;
+  background: transparent;
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 30%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cyber-button-outline:hover {
+  background: rgba(0, 255, 140, 0.1);
+  box-shadow: inset 0 0 10px rgba(0, 255, 140, 0.1);
+}
+
+/* Typography Helpers */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(to bottom, #fff, #888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-label {
+  @apply font-mono;
+  font-size: 0.75rem;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-label::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: var(--accent-green);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-black);
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1c1b;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green);
+}
+
+/* Brutalist Tokens */
+.brutalist-card {
+  background: #0d1117;
+  border: 2px solid #30363d;
+  padding: 1.5rem;
+  box-shadow: 8px 8px 0px #000;
+  transition: all 0.2s;
+}
+
+.brutalist-card:hover {
+  border-color: var(--accent-green);
+  box-shadow: 8px 8px 0px var(--accent-green);
+}
+
+.brutalist-border {
+  border: 2px solid #30363d;
+  transition: all 0.2s;
+}
+
+.brutalist-border:hover {
+  border-color: var(--accent-green);
+}
+
+.hover-invert:hover {
+  background: white !important;
+  color: black !important;
+  box-shadow: 4px 4px 0px var(--accent-green);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #333;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.8; }
+  10% { opacity: 0.9; }
+  20% { opacity: 0.8; }
+  30% { opacity: 1; }
+  40% { opacity: 0.8; }
+  50% { opacity: 0.9; }
+  60% { opacity: 0.8; }
+  70% { opacity: 1; }
+  80% { opacity: 0.8; }
+  90% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
+.flicker {
+  animation: flicker 4s infinite step-end;
+}
+
+/* Tailwind Utilities Integration */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
