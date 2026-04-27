@@ -35,11 +35,11 @@ export default function AsciiBg({ file, opacity = 0.4 }: AsciiBgProps) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 flex items-center justify-center mix-blend-screen">
       <pre
-        className="text-[#00ff00] font-mono whitespace-pre drop-shadow-[0_0_10px_rgba(0,255,0,0.8)]"
+        className="text-[#00ff00] font-mono whitespace-pre drop-shadow-[0_0_15px_rgba(0,255,0,1)]"
         style={{
-          fontSize: "1.5vw",
+          fontSize: "2vw",
           lineHeight: 0.75,
-          transform: "scale(1.5)",
+          transform: "scale(1.8)",
           opacity: opacity,
         }}
       >
