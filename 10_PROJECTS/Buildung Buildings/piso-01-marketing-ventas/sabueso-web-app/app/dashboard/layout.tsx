@@ -4,6 +4,8 @@ import { userProfiles } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 
+import { Sidebar } from '@/components/Sidebar';
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -23,5 +25,12 @@ export default async function DashboardLayout({
     redirect('/onboarding');
   }
 
-  return <>{children}</>;
+  return (
+    <div className="flex min-h-screen bg-black">
+      <Sidebar role={profile.role} />
+      <div className="flex-1 relative overflow-auto">
+        {children}
+      </div>
+    </div>
+  );
 }

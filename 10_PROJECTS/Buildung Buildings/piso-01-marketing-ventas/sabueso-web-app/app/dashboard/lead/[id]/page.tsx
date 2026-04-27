@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { OutreachAction } from '@/components/OutreachAction';
 import { db } from '@/lib/db';
-import { leads } from '@/lib/db/schema';
+import { people } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 
@@ -11,14 +11,23 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
   const resolvedParams = await params;
   const id = resolvedParams.id;
   
-  // Fetch real lead from Neon
-  const lead = await db.query.leads.findFirst({
-    where: eq(leads.id, id)
+  // Fetch real person from Neon with company relation
+  const person = await db.query.people.findFirst({
+    where: eq(people.id, id),
+    with: {
+      company: true
+    }
   });
 
-  if (!lead) {
+  if (!person) {
     notFound();
   }
+
+  // Extract AI insights from metadata
+  const metadata = (person.metadata as any) || {};
+  const qualificationReason = metadata.qualificationReason;
+  const personalTouch = metadata.personalTouch;
+  const draftEmail = metadata.suggestedEmail;
 
   return (
     <main className="scanlines flicker" style={{ minHeight: '100vh', padding: '2rem', position: 'relative' }}>
@@ -31,11 +40,11 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
             {"< VOLVER_AL_PIPELINE"}
           </Link>
           <div className="tag" style={{ background: 'var(--accent-green)', color: 'black', border: 'none' }}>
-            ID_{lead.id.slice(0, 4)}
+            ID_{person.id.slice(0, 4)}
           </div>
         </div>
         <div className="tag glow-text-green" style={{ borderColor: 'var(--accent-green)', color: 'var(--accent-green)' }}>
-          [ OPERADOR_ACTIVO: JOSUE_V1 ]
+          [ OPERADOR_ACTIVO: SABUESO_MASTER_V2 ]
         </div>
       </header>
 
@@ -44,21 +53,21 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div className="brutalist-card">
             <h3 className="section-label" style={{ marginBottom: '1rem' }}>INFO_PROSPECTO_</h3>
-            <p style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem', color: 'white' }}>{lead.name}</p>
-            <p style={{ color: 'var(--accent-green)', fontSize: '0.9rem', marginBottom: '1rem', fontWeight: 'bold' }}>{lead.company}</p>
+            <p style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem', color: 'white' }}>{person.fullName}</p>
+            <p style={{ color: 'var(--accent-green)', fontSize: '0.9rem', marginBottom: '1rem', fontWeight: 'bold' }}>{person.company?.name || 'N/A'}</p>
             <div style={{ fontSize: '0.8rem', color: '#888', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <p>Email: <span style={{ color: '#ccc' }}>{lead.email || 'NO_DISPONIBLE_'}</span></p>
-              <p>Web: <a href={lead.website || '#'} style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}>{lead.website || 'N/A'}</a></p>
+              <p>Email: <span style={{ color: '#ccc' }}>{person.email || 'NO_DISPONIBLE_'}</span></p>
+              <p>LinkedIn: <a href={person.linkedinUrl || '#'} style={{ color: 'var(--accent-blue)', textDecoration: 'underline' }}>{person.linkedinUrl ? 'VER_PERFIL' : 'N/A'}</a></p>
             </div>
           </div>
 
           <div className="brutalist-card" style={{ borderColor: 'var(--accent-green)', boxShadow: '8px 8px 0px var(--accent-green)' }}>
             <h3 className="section-label" style={{ marginBottom: '1rem', color: 'var(--accent-green)' }}>AI_SCORE_</h3>
             <div style={{ fontSize: '4rem', fontWeight: '900', color: 'var(--accent-green)', textAlign: 'center' }}>
-              {lead.score}<span style={{ fontSize: '1.5rem' }}>%</span>
+              {person.score}<span style={{ fontSize: '1.5rem' }}>%</span>
             </div>
             <div style={{ width: '100%', height: '4px', background: '#222', marginTop: '1rem' }}>
-              <div style={{ width: `${lead.score}%`, height: '100%', background: 'var(--accent-green)', boxShadow: '0 0 10px var(--accent-green)' }}></div>
+              <div style={{ width: `${person.score}%`, height: '100%', background: 'var(--accent-green)', boxShadow: '0 0 10px var(--accent-green)' }}></div>
             </div>
           </div>
         </aside>
@@ -68,14 +77,14 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
           <div className="brutalist-card" style={{ flexGrow: 1, borderLeft: '4px solid var(--accent-green)' }}>
             <div className="tag" style={{ marginBottom: '1.5rem', background: '#111' }}>EVALUACION_SABUESO_AI</div>
             <h2 style={{ fontSize: '2.2rem', fontWeight: '900', marginBottom: '1.5rem', letterSpacing: '-1px', color: 'white' }}>ANALISIS_ESTRATEGICO_</h2>
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#aaa', fontStyle: lead.qualificationReason ? 'normal' : 'italic' }}>
-              {lead.qualificationReason || "Análisis pendiente. El Sabueso AI está procesando la información de este prospecto..."}
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#aaa', fontStyle: qualificationReason ? 'normal' : 'italic' }}>
+              {qualificationReason || "Análisis pendiente. El Sabueso AI está procesando la información de este prospecto..."}
             </p>
             
-            {lead.personalTouch && (
+            {personalTouch && (
               <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(0, 255, 140, 0.05)', border: '1px dashed var(--accent-green)' }}>
                 <h4 style={{ color: 'var(--accent-green)', marginBottom: '0.5rem', fontSize: '0.8rem', fontWeight: '900' }}>GANCHO_PERSONALIZADO:</h4>
-                <p style={{ fontStyle: 'italic', color: '#eee', lineHeight: '1.6' }}>"{lead.personalTouch}"</p>
+                <p style={{ fontStyle: 'italic', color: '#eee', lineHeight: '1.6' }}>"{personalTouch}"</p>
               </div>
             )}
           </div>
@@ -84,10 +93,10 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
         {/* Right Column: Actions */}
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <OutreachAction 
-            leadId={lead.id}
-            leadEmail={lead.email || ''}
-            leadName={lead.name}
-            defaultDraft={lead.draftEmail || `Hola ${lead.name}, estuve analizando a ${lead.company} y...`}
+            leadId={person.id}
+            leadEmail={person.email || ''}
+            leadName={person.fullName}
+            defaultDraft={draftEmail || `Hola ${person.fullName}, estuve analizando a ${person.company?.name || 'tu empresa'} y...`}
           />
 
           <div className="brutalist-card" style={{ background: '#0a0a0a', borderStyle: 'dashed' }}>
@@ -100,7 +109,7 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
               borderColor: 'var(--accent-green)',
               padding: '0.5rem'
             }}>
-              {lead.status}
+              {person.status}
             </div>
           </div>
         </aside>

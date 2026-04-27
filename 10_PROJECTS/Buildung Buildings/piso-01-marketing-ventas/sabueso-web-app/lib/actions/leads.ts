@@ -1,11 +1,10 @@
 "use server";
 
-import { stackServerApp } from "@/stack/server";
 import { getAuthenticatedUser } from "@/lib/auth-utils";
 import { db } from "@/lib/db";
-import { leads, activities } from "@/lib/db/schema";
+import { people, activities, companies } from "@/lib/db/schema";
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export async function uploadLeadsAction(formData: FormData) {
   const user = await getAuthenticatedUser();
@@ -21,8 +20,7 @@ export async function uploadLeadsAction(formData: FormData) {
   }
 
   const mapping = mappingStr ? JSON.parse(mappingStr) : { name: "nombre", company: "empresa", email: "email", website: "web" };
-
-  // Validación básica de seguridad
+  
   if (!file.name.endsWith(".csv")) {
     return { success: false, error: "Formato no permitido. Solo CSV." };
   }
@@ -37,79 +35,91 @@ export async function uploadLeadsAction(formData: FormData) {
 
     const headers = rows[0].split(",").map(h => h.trim().replace(/"/g, ''));
     const dataRows = rows.slice(1);
-    
     const getIndex = (field: string) => headers.indexOf(mapping[field]);
 
-    const leadsToInsert = dataRows.map(row => {
+    const leadsData = dataRows.map(row => {
       const columns = row.split(",").map(s => s.trim().replace(/"/g, ''));
-      
       const nameIdx = getIndex('name');
       const companyIdx = getIndex('company');
       const emailIdx = getIndex('email');
       const websiteIdx = getIndex('website');
 
       return {
-        name: (nameIdx >= 0 && columns[nameIdx]) ? columns[nameIdx] : "Desconocido",
-        company: (companyIdx >= 0 && columns[companyIdx]) ? columns[companyIdx] : "N/A",
+        fullName: (nameIdx >= 0 && columns[nameIdx]) ? columns[nameIdx] : "Desconocido",
+        companyName: (companyIdx >= 0 && columns[companyIdx]) ? columns[companyIdx] : "N/A",
         email: (emailIdx >= 0 && columns[emailIdx]) ? columns[emailIdx] : null,
         website: (websiteIdx >= 0 && columns[websiteIdx]) ? columns[websiteIdx] : null,
-        status: "new" as const,
       };
     });
 
-    if (leadsToInsert.length === 0) {
-      return { success: false, error: "No se extrajeron leads válidos del archivo." };
+    // 1. Deduplicate and Insert Companies
+    const uniqueCompanyNames = Array.from(new Set(leadsData.map(l => l.companyName)));
+    
+    // Process companies in bulk (simplified for now)
+    for (const cName of uniqueCompanyNames) {
+      await db.insert(companies).values({ name: cName })
+        .onConflictDoUpdate({ target: companies.name, set: { updatedAt: new Date() } });
     }
 
-    // Inserción masiva en Neon
-    const insertedLeads = await db.insert(leads).values(leadsToInsert).returning();
+    // Fetch all companies to map IDs
+    const allCos = await db.query.companies.findMany();
+    const companyMap = new Map(allCos.map(c => [c.name, c.id]));
 
-    if (insertedLeads.length > 0) {
-      // Registrar actividad de subida
+    // 2. Insert People linked to Companies
+    const peopleToInsert = leadsData.map(l => ({
+      fullName: l.fullName,
+      email: l.email,
+      companyId: companyMap.get(l.companyName),
+      status: "new" as const,
+    }));
+
+    const insertedPeople = await db.insert(people).values(peopleToInsert).returning();
+
+    if (insertedPeople.length > 0) {
       await db.insert(activities).values({
-        leadId: insertedLeads[0].id,
+        personId: insertedPeople[0].id,
         type: "UPLOAD",
-        description: `Se cargaron ${insertedLeads.length} leads nuevos con mapeo personalizado.`,
+        description: `Se cargaron ${insertedPeople.length} leads nuevos (V2 Relacional).`,
       });
     }
 
     revalidatePath("/dashboard");
-    return { success: true, count: insertedLeads.length };
+    return { success: true, count: insertedPeople.length };
   } catch (err: any) {
     console.error("DATABASE_ERROR_", err);
     return { success: false, error: "Error al procesar la base de datos o el mapeo." };
   }
 }
 
-export async function processLeadWithAIAction(leadId: string) {
+export async function processLeadWithAIAction(personId: string) {
   const user = await getAuthenticatedUser();
   if (!user) throw new Error("UNAUTHORIZED_ACCESS_");
 
   try {
-    // MOCK AI PROCESSING
-    const score = Math.floor(Math.random() * 40) + 60; // 60-100
-    const qualificationReason = "Este prospecto muestra un alto encaje con Buildung Buildings debido a su presencia activa en el sector y su infraestructura tecnológica actual. Se recomienda un enfoque directo resaltando nuestra capacidad de escala.";
-    const personalTouch = "Noté que están expandiendo su equipo técnico, lo cual es el momento perfecto para implementar nuestras soluciones de automatización.";
-    const draftEmail = `Hola, vi que están creciendo en el área técnica y me encantaría charlar sobre cómo Buildung Buildings puede potenciar ese crecimiento.`;
+    // MOCK AI PROCESSING (V2 with Metadata)
+    const score = Math.floor(Math.random() * 40) + 60;
+    const aiInsight = {
+      qualificationReason: "Análisis de Master Suite completado.",
+      personalTouch: "Este lead tiene alto potencial en su industria.",
+      suggestedEmail: "Hola, vi lo que están haciendo y me interesa..."
+    };
 
-    await db.update(leads)
+    await db.update(people)
       .set({
         score,
-        qualificationReason,
-        personalTouch,
-        draftEmail,
+        metadata: aiInsight,
         updatedAt: new Date(),
       })
-      .where(eq(leads.id, leadId));
+      .where(eq(people.id, personId));
 
     await db.insert(activities).values({
-      leadId,
+      personId,
       type: "AI_PROCESSING",
-      description: "Sabueso AI procesó el lead y generó una propuesta personalizada.",
+      description: "Sabueso AI procesó el contacto y actualizó la metadata estratégica.",
     });
 
     revalidatePath("/dashboard");
-    revalidatePath(`/dashboard/lead/${leadId}`, "page");
+    revalidatePath(`/dashboard/lead/${personId}`, "page");
     return { success: true };
   } catch (err: any) {
     console.error("AI_PROCESSING_ERROR_", err);
@@ -122,44 +132,23 @@ export async function processAllLeadsAction() {
   if (!user) throw new Error("UNAUTHORIZED_ACCESS_");
 
   try {
-    const leadsToProcess = await db.query.leads.findMany();
+    const peopleToProcess = await db.query.people.findMany();
     
-    if (leadsToProcess.length === 0) {
-      return { success: true, count: 0 };
-    }
-    
-    for (const lead of leadsToProcess) {
-      // Reuse logic from processLeadWithAIAction for each lead
+    for (const person of peopleToProcess) {
       const score = Math.floor(Math.random() * 40) + 60;
-      const qualificationReason = "Procesamiento masivo completado. El lead muestra potencial estándar.";
-      const personalTouch = "Personalización generada automáticamente durante el lote masivo.";
-      const draftEmail = `Hola ${lead.name}, te contacto de parte de Buildung Buildings para conversar sobre oportunidades.`;
-
-      await db.update(leads)
+      await db.update(people)
         .set({
           score,
-          qualificationReason,
-          personalTouch,
-          draftEmail,
+          status: 'qualified',
           updatedAt: new Date(),
-          status: 'qualified' // Mark as qualified for visibility
         })
-        .where(eq(leads.id, lead.id));
-    }
-
-    if (leadsToProcess.length > 0) {
-      await db.insert(activities).values({
-        leadId: leadsToProcess[0].id,
-        type: "AI_PROCESSING",
-        description: `Se procesaron ${leadsToProcess.length} leads en lote masivo.`,
-      });
+        .where(eq(people.id, person.id));
     }
 
     revalidatePath("/dashboard");
-    revalidatePath("/dashboard/lead/[id]", "page");
-    return { success: true, count: leadsToProcess.length };
+    return { success: true, count: peopleToProcess.length };
   } catch (err: any) {
     console.error("BATCH_AI_PROCESSING_ERROR_", err);
-    return { success: false, error: "Error al procesar lote de leads." };
+    return { success: false, error: "Error al procesar lote masivo." };
   }
 }
