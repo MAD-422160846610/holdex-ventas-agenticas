@@ -189,11 +189,29 @@ export default async function Dashboard() {
                       {allLeads.filter(l => l.status === 'handover').length} DISPONIBLES
                     </div>
                   </div>
-                  <DashboardClient initialLeads={allLeads.filter(l => l.status === 'handover')} />
+                  <DashboardClient initialLeads={allLeads.filter(l => l.status === 'handover')} role={profile.role} />
                 </div>
               </div>
             ) : (
-              <DashboardClient initialLeads={allLeads} />
+              <div className="flex flex-col gap-6">
+                {isAdmin && (
+                  <div className="glass-panel p-6 border-[#00d1ff]/20 bg-[#00d1ff]/5 mb-2">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <Shield className="text-[#00d1ff]" size={18} />
+                        <div>
+                          <h3 className="text-sm font-bold uppercase tracking-widest text-[#00d1ff]">Panel de Administración</h3>
+                          <p className="text-[9px] font-mono text-[#8b949e] uppercase">Gestión de sistema y usuarios activos</p>
+                        </div>
+                      </div>
+                      <button className="px-3 py-1.5 font-mono text-[9px] bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all uppercase tracking-widest">
+                        Configurar Sistema
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <DashboardClient initialLeads={allLeads} role={profile.role} />
+              </div>
             )}
           </section>
 

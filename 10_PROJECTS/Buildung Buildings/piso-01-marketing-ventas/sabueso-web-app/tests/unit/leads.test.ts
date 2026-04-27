@@ -9,6 +9,9 @@ vi.mock('@/lib/db', () => ({
   db: {
     insert: vi.fn(() => ({
       values: vi.fn(() => ({
+        onConflictDoUpdate: vi.fn(() => ({
+          returning: vi.fn(() => Promise.resolve([{ id: 'lead-uuid-1' }])),
+        })),
         returning: vi.fn(() => Promise.resolve([{ id: 'lead-uuid-1' }])),
       })),
     })),
@@ -18,7 +21,10 @@ vi.mock('@/lib/db', () => ({
       })),
     })),
     query: {
-      leads: {
+      people: {
+        findMany: vi.fn(() => Promise.resolve([])),
+      },
+      companies: {
         findMany: vi.fn(() => Promise.resolve([])),
       },
     },
@@ -133,7 +139,7 @@ describe('Server Action: processAllLeadsAction', () => {
   it('[TC015] retorna success con count 0 si no hay leads para procesar', async () => {
     mockAuthUser();
     const { db } = await import('@/lib/db');
-    vi.mocked(db.query.leads.findMany).mockResolvedValueOnce([]);
+    vi.mocked(db.query.people.findMany).mockResolvedValueOnce([]);
     const result = await processAllLeadsAction();
     expect(result).toEqual({ success: true, count: 0 });
   });

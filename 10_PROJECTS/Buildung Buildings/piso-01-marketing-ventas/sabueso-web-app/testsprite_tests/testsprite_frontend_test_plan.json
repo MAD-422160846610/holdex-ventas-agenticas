@@ -1,9 +1,9 @@
 [
   {
     "id": "TC001",
-    "title": "Sign in and reach the dashboard lead list",
-    "description": "Verifies a team member can sign in and reach the dashboard where a lead list is displayed.",
-    "category": "Authentication / Sign-in",
+    "title": "Complete onboarding and reach dashboard as a new user",
+    "description": "Verifies a signed-in new user can complete required onboarding fields and land on the dashboard with access to the app.",
+    "category": "Lead Management",
     "steps": [
       {
         "type": "action",
@@ -11,15 +11,80 @@
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+        "description": "Wait for the app to finish navigation after sign-in"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid full name into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Select a role in the role selector"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the onboarding form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the dashboard"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Complete onboarding and access role-based dashboard",
+    "description": "Verifies a signed-in new user can complete onboarding with name, role, and company and then reach the dashboard showing the correct role-based view and permitted actions.",
+    "category": "User Profiles & RBAC",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /handler/sign-in"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
       },
       {
         "type": "action",
         "description": "Submit the sign-in form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /onboarding"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid full name into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Select a role"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "action",
+        "description": "Click to go to the dashboard"
       },
       {
         "type": "assertion",
@@ -27,86 +92,49 @@
       },
       {
         "type": "assertion",
-        "description": "Verify a list of leads is displayed"
-      }
-    ],
-    "priority": "High"
-  },
-  {
-    "id": "TC002",
-    "title": "Send outreach email from lead detail after reviewing or editing the draft",
-    "description": "Verifies an authenticated user can open a lead detail, compose or edit the outreach draft, send the email, and see a success confirmation.",
-    "category": "Lead Outreach Action (Send Email)",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /handler/sign-in"
-      },
-      {
-        "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
-      },
-      {
-        "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
-      },
-      {
-        "type": "action",
-        "description": "Submit the sign-in form"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /dashboard"
-      },
-      {
-        "type": "action",
-        "description": "Select a lead from the lead list"
-      },
-      {
-        "type": "action",
-        "description": "Open the lead details view"
-      },
-      {
-        "type": "action",
-        "description": "Initiate email outreach for the lead"
-      },
-      {
-        "type": "action",
-        "description": "Edit the email body with a unique phrase: Edited draft {{UNIQUE_TOKEN}}"
-      },
-      {
-        "type": "action",
-        "description": "Send the outreach email"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify a send success confirmation is visible"
+        "description": "Verify role-specific actions and sections are visible for the selected role"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC003",
-    "title": "Dashboard access requires authentication",
-    "description": "Verifies an unauthenticated user attempting to access the dashboard is redirected to sign-in.",
-    "category": "Authentication / Sign-in",
+    "title": "View leads on dashboard and filter by status",
+    "description": "Verifies the dashboard lead list loads and filtering by status updates the visible lead results without crashing.",
+    "category": "Lead Management",
     "steps": [
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Navigate to /handler/sign-in"
+      },
+      {
+        "type": "action",
+        "description": "Click the sign-in continuation control to proceed into the app"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the app to finish navigation after sign-in"
+      },
+      {
+        "type": "action",
+        "description": "Click the dashboard navigation entry"
+      },
+      {
+        "type": "action",
+        "description": "Select a lead status filter value"
       },
       {
         "type": "assertion",
-        "description": "Verify the user is redirected to the sign-in page"
+        "description": "Verify the lead list is displayed"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC004",
-    "title": "Open lead detail from dashboard after sign-in",
-    "description": "Verifies a signed-in user can open a lead detail page from the dashboard lead list.",
-    "category": "Authentication / Sign-in",
+    "title": "Open a lead and review qualification and enrichment details",
+    "description": "Verifies a user can open a lead from the dashboard and see lead context including qualification and enrichment information.",
+    "category": "Lead Management",
     "steps": [
       {
         "type": "action",
@@ -114,15 +142,15 @@
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
@@ -130,20 +158,16 @@
       },
       {
         "type": "assertion",
-        "description": "Verify the lead detail view is displayed"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify outreach actions are available on the lead detail view"
+        "description": "Verify lead qualification and enrichment data are displayed"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC005",
-    "title": "Open lead detail and confirm outreach actions are available",
-    "description": "Verifies a user can navigate from the dashboard to a lead detail page and see outreach actions ready to use.",
-    "category": "Lead Dashboard (View & Manage Leads)",
+    "title": "Onboarding persists and does not reappear after completion",
+    "description": "Verifies that after completing onboarding, revisiting the app does not require re-entering profile details and the user can access the dashboard.",
+    "category": "User Profiles & RBAC",
     "steps": [
       {
         "type": "action",
@@ -151,11 +175,11 @@
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
+        "description": "Fill in the email field with {{LOGIN_USER}}"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
       },
       {
         "type": "action",
@@ -163,24 +187,48 @@
       },
       {
         "type": "action",
-        "description": "Click a lead from the lead list to open its details"
+        "description": "Navigate to /onboarding"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid full name into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Select a role"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "action",
+        "description": "Click to go to the dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /onboarding"
       },
       {
         "type": "assertion",
-        "description": "Verify the lead detail view is displayed"
+        "description": "Verify the user is not prompted to complete onboarding again"
       },
       {
         "type": "assertion",
-        "description": "Verify outreach actions are available on the lead detail view"
+        "description": "Verify the user can access the dashboard view appropriate to their role"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC006",
-    "title": "CSV import adds new leads to the dashboard list",
-    "description": "Verifies a user can import leads via CSV and newly imported leads appear in the dashboard list.",
-    "category": "Lead Import",
+    "title": "Import leads from CSV and see them in the dashboard list",
+    "description": "Verifies a user can upload a CSV, map columns, submit the import, and then see imported leads appear in the lead list.",
+    "category": "CSV Lead Import",
     "steps": [
       {
         "type": "action",
@@ -188,40 +236,44 @@
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
-        "description": "Start a CSV import from the dashboard"
+        "description": "Click the CSV import entry point"
       },
       {
         "type": "action",
-        "description": "Complete the required column mapping or confirmation"
+        "description": "Select a valid CSV file in the file picker"
       },
       {
         "type": "action",
-        "description": "Confirm the import"
+        "description": "Map CSV columns to the required lead fields"
+      },
+      {
+        "type": "action",
+        "description": "Submit the import"
       },
       {
         "type": "assertion",
-        "description": "Verify the dashboard lead list includes newly imported leads"
+        "description": "Verify imported leads are displayed in the lead list"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC007",
-    "title": "Trigger AI processing for selected leads and view classification and suggestion",
-    "description": "Verifies a user can select leads, run AI processing, and then see each processed lead’s Qualified/Discarded classification and a suggested outreach message.",
-    "category": "AI Processing & Outreach Suggestions",
+    "title": "Review AI draft, edit, and send outreach successfully",
+    "description": "Verifies a user can review an AI-generated draft, edit it, send the email, and see a success confirmation.",
+    "category": "AI Outreach",
     "steps": [
       {
         "type": "action",
@@ -229,40 +281,44 @@
       },
       {
         "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Click a lead from the lead list to open its details"
       },
       {
         "type": "action",
-        "description": "Select multiple leads from the lead list"
+        "description": "Scroll to the AI outreach draft section"
       },
       {
         "type": "action",
-        "description": "Trigger AI processing for the selected leads"
+        "description": "Fill updated content into the outreach message editor"
+      },
+      {
+        "type": "action",
+        "description": "Send the outreach email"
       },
       {
         "type": "assertion",
-        "description": "Verify the selected leads display an AI classification and a suggested outreach message"
+        "description": "Verify a send-success confirmation is visible"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC008",
-    "title": "Update lead status from the dashboard list",
-    "description": "Verifies a user can change a lead’s qualification or status from the dashboard and the list reflects the update.",
-    "category": "Lead Dashboard (View & Manage Leads)",
+    "title": "Onboarding required fields validation and recovery",
+    "description": "Verifies onboarding prevents submission when required fields are missing and allows completion after providing the missing information.",
+    "category": "User Profiles & RBAC",
     "steps": [
       {
         "type": "action",
@@ -270,11 +326,11 @@
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
+        "description": "Fill in the email field with {{LOGIN_USER}}"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
       },
       {
         "type": "action",
@@ -282,24 +338,44 @@
       },
       {
         "type": "action",
-        "description": "Select a lead in the list"
+        "description": "Navigate to /onboarding"
       },
       {
         "type": "action",
-        "description": "Update the lead qualification or status from the list controls"
+        "description": "Select a role"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
       },
       {
         "type": "assertion",
-        "description": "Verify the lead’s updated status is reflected in the dashboard list"
+        "description": "Verify required-field validation errors are visible"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid full name into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user can access the dashboard after successful onboarding"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC009",
-    "title": "Fix validation errors and successfully send outreach from the same draft",
-    "description": "Verifies that after validation errors for empty subject/body, the user can correct the fields and then successfully send the outreach email.",
-    "category": "Lead Outreach Action (Send Email)",
+    "title": "Open an imported lead to confirm details display after import",
+    "description": "Verifies that after a CSV import, an imported lead can be opened and its detail fields and enrichment context are visible.",
+    "category": "CSV Lead Import",
     "steps": [
       {
         "type": "action",
@@ -307,68 +383,48 @@
       },
       {
         "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Click the CSV import entry point"
       },
       {
         "type": "action",
-        "description": "Select a lead from the lead list"
+        "description": "Select a valid CSV file in the file picker"
       },
       {
         "type": "action",
-        "description": "Open the lead details view"
+        "description": "Map CSV columns to the required lead fields"
       },
       {
         "type": "action",
-        "description": "Initiate email outreach for the lead"
+        "description": "Submit the import"
       },
       {
         "type": "action",
-        "description": "Clear the email subject field"
-      },
-      {
-        "type": "action",
-        "description": "Clear the email body field"
-      },
-      {
-        "type": "action",
-        "description": "Send the outreach email"
-      },
-      {
-        "type": "action",
-        "description": "Fill Valid outreach subject {{UNIQUE_TOKEN}} into the email subject field"
-      },
-      {
-        "type": "action",
-        "description": "Fill Valid outreach body {{UNIQUE_TOKEN}} into the email body field"
-      },
-      {
-        "type": "action",
-        "description": "Send the outreach email"
+        "description": "Click an imported lead from the refreshed lead list"
       },
       {
         "type": "assertion",
-        "description": "Verify a send success confirmation is visible"
+        "description": "Verify the lead detail view displays lead context fields"
       }
     ],
     "priority": "High"
   },
   {
     "id": "TC010",
-    "title": "Send outreach email uses the edited draft content",
-    "description": "Verifies that when the user edits the outreach draft and sends it, the sent confirmation view reflects that the edited content was used.",
-    "category": "Lead Outreach Action (Send Email)",
+    "title": "Lead list and detail view render a lead phone value without breaking",
+    "description": "Verifies phone data can be displayed on the dashboard and lead detail view without UI crashes or missing content.",
+    "category": "Lead Management",
     "steps": [
       {
         "type": "action",
@@ -376,89 +432,32 @@
       },
       {
         "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
-      },
-      {
-        "type": "action",
-        "description": "Select a lead from the lead list"
-      },
-      {
-        "type": "action",
-        "description": "Open the lead details view"
-      },
-      {
-        "type": "action",
-        "description": "Initiate email outreach for the lead"
-      },
-      {
-        "type": "action",
-        "description": "Edit the email body with a unique phrase: Final message {{UNIQUE_TOKEN}}"
-      },
-      {
-        "type": "action",
-        "description": "Send the outreach email"
+        "description": "Click a lead that shows a phone field in the list"
       },
       {
         "type": "assertion",
-        "description": "Verify the post-send confirmation displays the unique phrase Final message {{UNIQUE_TOKEN}}"
+        "description": "Verify the lead detail view shows contact fields including phone when available"
       }
     ],
-    "priority": "Medium"
+    "priority": "High"
   },
   {
     "id": "TC011",
-    "title": "Import requires required column mapping/confirmation before proceeding",
-    "description": "Verifies the import flow blocks confirmation until required columns are mapped or confirmed.",
-    "category": "Lead Import",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /handler/sign-in"
-      },
-      {
-        "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Submit the sign-in form"
-      },
-      {
-        "type": "action",
-        "description": "Start a CSV import from the dashboard"
-      },
-      {
-        "type": "action",
-        "description": "Attempt to proceed without completing required column mapping or confirmation"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify a validation error is visible indicating required mapping or confirmation is needed"
-      }
-    ],
-    "priority": "Medium"
-  },
-  {
-    "id": "TC012",
-    "title": "Edit AI-suggested outreach message and keep edits after saving",
-    "description": "Verifies a user can edit the AI-generated suggested message for a lead and the edited version remains visible after saving/closing the editor.",
-    "category": "AI Processing & Outreach Suggestions",
+    "title": "Cliente can open a lead and consume context without prohibited controls",
+    "description": "Verifies a Cliente can open a lead from the dashboard and view lead context while restricted controls are not available.",
+    "category": "User Profiles & RBAC",
     "steps": [
       {
         "type": "action",
@@ -478,36 +477,105 @@
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Navigate to /onboarding"
       },
       {
         "type": "action",
-        "description": "Select a lead from the lead list"
+        "description": "Fill a valid full name into the name field"
       },
       {
         "type": "action",
-        "description": "Open the lead details view"
+        "description": "Select the Cliente role"
       },
       {
         "type": "action",
-        "description": "Trigger AI processing for this lead if no AI suggestion is present"
+        "description": "Fill a valid company name into the company field"
       },
       {
         "type": "action",
-        "description": "Edit the suggested outreach message content"
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "action",
+        "description": "Click to go to the dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click a lead in the lead list to open its details"
       },
       {
         "type": "assertion",
-        "description": "Verify the edited outreach message content is displayed as the current suggestion"
+        "description": "Verify lead context and qualification/enrichment information is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify prohibited controls are not available on the lead detail view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Cliente role restricts actions on dashboard",
+    "description": "Verifies a Cliente sees a limited dashboard view with prohibited actions not available after completing onboarding as Cliente.",
+    "category": "User Profiles & RBAC",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /handler/sign-in"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /onboarding"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid full name into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Select the Cliente role"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "action",
+        "description": "Click to go to the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify administrative and outreach actions are not available for the restricted role"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard still allows viewing lead information"
       }
     ],
     "priority": "Medium"
   },
   {
     "id": "TC013",
-    "title": "Open processed lead detail and review AI classification and suggestion in detail view",
-    "description": "Verifies that after AI processing, opening a lead detail page shows the AI classification and suggested message for that lead.",
-    "category": "AI Processing & Outreach Suggestions",
+    "title": "Triage by opening multiple leads from a filtered subset",
+    "description": "Verifies a user can filter to a subset of leads and open multiple lead detail views sequentially without losing access to triage.",
+    "category": "Lead Management",
     "steps": [
       {
         "type": "action",
@@ -515,44 +583,44 @@
       },
       {
         "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Select a lead status filter value"
       },
       {
         "type": "action",
-        "description": "Select a lead from the lead list"
+        "description": "Click a lead from the filtered lead list to open its details"
       },
       {
         "type": "action",
-        "description": "Trigger AI processing for the selected lead"
+        "description": "Click the control to return to the lead list"
       },
       {
         "type": "action",
-        "description": "Open the lead details view"
+        "description": "Click a different lead from the filtered lead list to open its details"
       },
       {
         "type": "assertion",
-        "description": "Verify the lead detail view displays an AI classification and a suggested outreach message"
+        "description": "Verify the second lead detail view is displayed"
       }
     ],
     "priority": "Medium"
   },
   {
     "id": "TC014",
-    "title": "Sort or filter the dashboard lead list",
-    "description": "Verifies a user can apply sorting or filtering to narrow the dashboard lead list.",
-    "category": "Lead Dashboard (View & Manage Leads)",
+    "title": "Admin role shows administrative permissions on dashboard",
+    "description": "Verifies an Admin sees admin-only controls and sections on the dashboard after completing onboarding as Admin.",
+    "category": "User Profiles & RBAC",
     "steps": [
       {
         "type": "action",
@@ -560,11 +628,11 @@
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
+        "description": "Fill in the email field with {{LOGIN_USER}}"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
       },
       {
         "type": "action",
@@ -572,20 +640,44 @@
       },
       {
         "type": "action",
-        "description": "Apply a filter or sort option on the lead list"
+        "description": "Navigate to /onboarding"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid full name into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Select the Admin role"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "action",
+        "description": "Click to go to the dashboard"
       },
       {
         "type": "assertion",
-        "description": "Verify the lead list updates to reflect the applied filter or sort"
+        "description": "Verify admin-only controls are available on the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard lead list area is visible"
       }
     ],
     "priority": "Medium"
   },
   {
     "id": "TC015",
-    "title": "Process only a chosen subset of leads without updating unselected leads",
-    "description": "Verifies AI processing applies only to the user-selected subset of leads and leaves unselected leads unchanged.",
-    "category": "AI Processing & Outreach Suggestions",
+    "title": "Vendedor/SDR role shows seller workflow permissions on dashboard",
+    "description": "Verifies a Vendedor/SDR sees seller workflow controls on the dashboard after completing onboarding as Vendedor/SDR.",
+    "category": "User Profiles & RBAC",
     "steps": [
       {
         "type": "action",
@@ -605,28 +697,44 @@
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Navigate to /onboarding"
       },
       {
         "type": "action",
-        "description": "Select a single lead from the lead list"
+        "description": "Fill a valid full name into the name field"
       },
       {
         "type": "action",
-        "description": "Trigger AI processing for the selected lead"
+        "description": "Select the Vendedor/SDR role"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid company name into the company field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile setup form"
+      },
+      {
+        "type": "action",
+        "description": "Click to go to the dashboard"
       },
       {
         "type": "assertion",
-        "description": "Verify only the selected lead shows newly displayed AI classification and suggested message"
+        "description": "Verify seller workflow actions are available on the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard provides access to open a lead from the list"
       }
     ],
     "priority": "Medium"
   },
   {
     "id": "TC016",
-    "title": "Invalid credentials are rejected",
-    "description": "Verifies entering invalid credentials does not sign the user in and shows an error state.",
-    "category": "Authentication / Sign-in",
+    "title": "Fix CSV mapping when required columns are missing and successfully import",
+    "description": "Verifies the import mapping step shows validation when required fields are unmapped and allows correcting the mapping to complete import.",
+    "category": "CSV Lead Import",
     "steps": [
       {
         "type": "action",
@@ -634,32 +742,48 @@
       },
       {
         "type": "action",
-        "description": "Fill invalid@example.com into the email field"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill wrong-password into the password field"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
+      },
+      {
+        "type": "action",
+        "description": "Click the CSV import entry point"
+      },
+      {
+        "type": "action",
+        "description": "Select a CSV file that lacks one or more required columns"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the import with required fields unmapped"
+      },
+      {
+        "type": "action",
+        "description": "Adjust the mapping to satisfy required lead fields"
+      },
+      {
+        "type": "action",
+        "description": "Resubmit the import"
       },
       {
         "type": "assertion",
-        "description": "Verify the user remains on the sign-in flow"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify an authentication error is visible"
+        "description": "Verify imported leads are displayed in the lead list"
       }
     ],
     "priority": "Medium"
   },
   {
     "id": "TC017",
-    "title": "Prevent repeated AI processing while processing is in progress",
-    "description": "Verifies the UI prevents duplicate AI processing submissions by disabling processing controls or showing a loading state while processing runs.",
-    "category": "AI Processing & Outreach Suggestions",
+    "title": "Reject inaccurate AI draft, correct it, and send outreach",
+    "description": "Verifies a user can mark an AI draft as inaccurate, edit the content, send the email, and see confirmation that outreach was sent.",
+    "category": "AI Outreach",
     "steps": [
       {
         "type": "action",
@@ -667,117 +791,31 @@
       },
       {
         "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
+        "description": "Click the sign-in continuation control to proceed into the app"
       },
       {
         "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+        "description": "Wait for the app to finish navigation after sign-in"
       },
       {
         "type": "action",
-        "description": "Submit the sign-in form"
+        "description": "Click the dashboard navigation entry"
       },
       {
         "type": "action",
-        "description": "Navigate to /dashboard"
+        "description": "Click a lead from the lead list to open its details"
       },
       {
         "type": "action",
-        "description": "Select multiple leads from the lead list"
+        "description": "Scroll to the AI outreach draft section"
       },
       {
         "type": "action",
-        "description": "Trigger AI processing for the selected leads"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify the AI processing control becomes disabled or a processing state is shown while processing is in progress"
-      }
-    ],
-    "priority": "Medium"
-  },
-  {
-    "id": "TC018",
-    "title": "Canceling the import returns to the dashboard without adding leads",
-    "description": "Verifies a user can exit the CSV import flow and no new leads are added to the list.",
-    "category": "Lead Import",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /handler/sign-in"
+        "description": "Mark the draft as inaccurate using the provided control"
       },
       {
         "type": "action",
-        "description": "Fill {{LOGIN_USER}} into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Submit the sign-in form"
-      },
-      {
-        "type": "action",
-        "description": "Start a CSV import from the dashboard"
-      },
-      {
-        "type": "action",
-        "description": "Cancel or close the import flow"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify the user is back on the dashboard"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify no newly imported leads appear in the lead list"
-      }
-    ],
-    "priority": "Medium"
-  },
-  {
-    "id": "TC019",
-    "title": "Block sending outreach email when body is empty",
-    "description": "Verifies that attempting to send an outreach email with an empty body shows a validation error and keeps the user on the draft.",
-    "category": "Lead Outreach Action (Send Email)",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /handler/sign-in"
-      },
-      {
-        "type": "action",
-        "description": "Fill in the email field with {{LOGIN_USER}}"
-      },
-      {
-        "type": "action",
-        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
-      },
-      {
-        "type": "action",
-        "description": "Submit the sign-in form"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /dashboard"
-      },
-      {
-        "type": "action",
-        "description": "Select a lead from the lead list"
-      },
-      {
-        "type": "action",
-        "description": "Open the lead details view"
-      },
-      {
-        "type": "action",
-        "description": "Initiate email outreach for the lead"
-      },
-      {
-        "type": "action",
-        "description": "Clear the email body field"
+        "description": "Fill corrected content into the outreach message editor"
       },
       {
         "type": "action",
@@ -785,9 +823,9 @@
       },
       {
         "type": "assertion",
-        "description": "Verify a body validation error is visible and the draft remains open"
+        "description": "Verify a send-success confirmation is visible"
       }
     ],
-    "priority": "Low"
+    "priority": "Medium"
   }
 ]

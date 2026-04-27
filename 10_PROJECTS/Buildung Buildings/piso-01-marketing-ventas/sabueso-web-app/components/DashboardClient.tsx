@@ -31,7 +31,9 @@ const statusConfig: Record<string, { label: string; color: string; bg: string }>
   rejected:  { label: 'REJECTED',  color: 'rgba(255, 80, 80, 0.8)',   bg: 'rgba(255, 80, 80, 0.06)'   },
 };
 
-export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
+export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], role: string }) {
+  const isCliente = role === 'cliente';
+  const isAdmin = role === 'admin';
   const router = useRouter();
   const [showUpload, setShowUpload] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -95,38 +97,40 @@ export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
           </span>
         </div>
         
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowUpload(!showUpload)}
-            className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
-            style={
-              showUpload
-                ? { background: 'transparent', color: '#f0f6fc', border: '1px solid rgba(48,54,61,0.5)' }
-                : { background: 'rgba(0,255,140,0.1)', color: '#00ff8c', border: '1px solid rgba(0,255,140,0.25)' }
-            }
-          >
-            {showUpload
-              ? <><X size={11} /> CERRAR</>
-              : <><Upload size={11} /> IMPORTAR LEADS CSV</>
-            }
-          </button>
-          
-          <button
-            id="process-all-ai-btn"
-            onClick={handleProcessAll}
-            disabled={isProcessing}
-            className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
-            style={{ 
-              background: 'rgba(0,209,255,0.1)', 
-              color: '#00d1ff', 
-              border: '1px solid rgba(0,209,255,0.25)',
-              opacity: isProcessing ? 0.5 : 1,
-              cursor: isProcessing ? 'wait' : 'pointer'
-            }}
-          >
-            <Zap size={11} /> {isProcessing ? 'PROCESANDO...' : 'PROCESAR_TODOS_AI'}
-          </button>
-        </div>
+        {!isCliente && (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowUpload(!showUpload)}
+              className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
+              style={
+                showUpload
+                  ? { background: 'transparent', color: '#f0f6fc', border: '1px solid rgba(48,54,61,0.5)' }
+                  : { background: 'rgba(0,255,140,0.1)', color: '#00ff8c', border: '1px solid rgba(0,255,140,0.25)' }
+              }
+            >
+              {showUpload
+                ? <><X size={11} /> CERRAR</>
+                : <><Upload size={11} /> IMPORTAR LEADS CSV</>
+              }
+            </button>
+            
+            <button
+              id="process-all-ai-btn"
+              onClick={handleProcessAll}
+              disabled={isProcessing}
+              className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
+              style={{ 
+                background: 'rgba(0,209,255,0.1)', 
+                color: '#00d1ff', 
+                border: '1px solid rgba(0,209,255,0.25)',
+                opacity: isProcessing ? 0.5 : 1,
+                cursor: isProcessing ? 'wait' : 'pointer'
+              }}
+            >
+              <Zap size={11} /> {isProcessing ? 'PROCESANDO...' : 'PROCESAR_TODOS_AI'}
+            </button>
+          </div>
+        )}
       </div>
 
       {showUpload && (
