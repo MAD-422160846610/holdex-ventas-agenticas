@@ -3,7 +3,8 @@ import { db } from "@/lib/db";
 import { userProfiles, activities } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { Zap, Shield, Cpu, Network, Globe, MessageSquare } from "lucide-react";
+import { Zap, Shield, Cpu, Network, Globe, MessageSquare, Database } from "lucide-react";
+import BatchEmbedButton from "@/components/BatchEmbedButton";
 
 export default async function IntelligencePage() {
   const user = await stackServerApp.getUser();
@@ -83,6 +84,11 @@ export default async function IntelligencePage() {
               <Network size={24} className="text-[var(--accent-yellow)]" style={{ margin: '0 auto 10px' }} />
               <p style={{ fontSize: '0.6rem', fontWeight: '900' }}>DATA_ENRICH</p>
             </div>
+            <div className="brutalist-card" style={{ padding: '1rem', textAlign: 'center', background: '#050505', gridColumn: 'span 2' }}>
+              <Database size={24} className="text-[var(--accent-green)]" style={{ margin: '0 auto 10px' }} />
+              <p style={{ fontSize: '0.6rem', fontWeight: '900' }}>VECTOR_SEARCH</p>
+              <p style={{ fontSize: '0.5rem', color: '#555', marginTop: '4px' }}>pgvector · 1536 dims</p>
+            </div>
           </div>
         </div>
 
@@ -108,6 +114,15 @@ export default async function IntelligencePage() {
               ))
             )}
           </div>
+        </div>
+
+        {/* Vector Embed Control */}
+        <div className="brutalist-card" style={{ gridColumn: '1 / -1', borderLeft: '4px solid var(--accent-purple)' }}>
+          <h3 className="section-label" style={{ color: 'var(--accent-purple)' }}>MOTOR_VECTORIAL_</h3>
+          <p className="font-mono" style={{ fontSize: '0.65rem', color: '#8b949e', marginTop: '0.5rem', marginBottom: '1.5rem' }}>
+            Genera embeddings para todos los prospectos sin vector. Necesario para activar BUSQUEDA_SEMANTICA_.
+          </p>
+          <BatchEmbedButton />
         </div>
       </div>
     </main>

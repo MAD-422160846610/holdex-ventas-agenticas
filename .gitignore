@@ -67,3 +67,5 @@ yarn-error.log*
 .idea/
 .vscode/
 *.sublime-*
+.vercel
+.env*.local

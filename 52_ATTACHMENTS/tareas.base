@@ -1,0 +1,136 @@
+version: "1"
+schema:
+  properties:
+    nombre:
+      type: string
+      name: Nombre de la tarea
+    proyecto:
+      type: relation
+      name: Proyecto
+      options:
+        database: proyectos
+    estado:
+      type: select
+      name: Estado
+      options:
+        - value: por hacer
+          label: Por hacer
+          color: gray
+        - value: en progreso
+          label: En progreso
+          color: blue
+        - value: revisión
+          label: En revisión
+          color: yellow
+        - value: hecho
+          label: Hecho
+          color: green
+        - value: bloqueado
+          label: Bloqueado
+          color: red
+    prioridad:
+      type: select
+      name: Prioridad
+      options:
+        - value: baja
+          label: Baja
+          color: gray
+        - value: media
+          label: Media
+          color: yellow
+        - value: alta
+          label: Alta
+          color: orange
+        - value: urgente
+          label: Urgente
+          color: red
+    estimacion:
+      type: number
+      name: Estimación (h)
+      options:
+        min: 0.25
+        max: 24
+        step: 0.25
+    fecha_inicio:
+      type: date
+      name: Fecha de inicio
+    fecha_vencimiento:
+      type: date
+      name: Fecha de vencimiento
+    etiquetas:
+      type: tags
+      name: Etiquetas
+    descripcion:
+      type: text
+      name: Descripción
+      options:
+        format: markdown
+entries:
+  - nombre: Definir arquitectura inicial del website GLitchCatV3
+    proyecto:
+      - GLitchCatV3 - Website Inteligente
+    estado: por hacer
+    prioridad: alta
+    estimacion: 4
+    fecha_vencimiento: 2026-03-30
+    etiquetas:
+      - desarrollo
+      - frontend
+    descripcion: Crear el diagrama de componentes y definir las tecnologías a usar
+  - nombre: Reunión de kickoff con el equipo de ITB
+    proyecto:
+      - ITB Inspecciones Técnicas de Buques
+    estado: por hacer
+    prioridad: alta
+    estimacion: 2
+    fecha_vencimiento: 2026-03-29
+    etiquetas:
+      - reunion
+      - coordinacion
+    descripcion: Alinear expectativas y definir roles y responsabilidades
+  - nombre: Revisar flujo de trabajo de ventas en Iamazingcontent.Space
+    proyecto:
+      - Iamazingcontent.Space
+    estado: por hacer
+    prioridad: media
+    estimacion: 3
+    fecha_vencimiento: 2026-04-01
+    etiquetas:
+      - procesos
+      - ventas
+    descripcion: Mapear el proceso actual y identificar cuellos de botella
+  - nombre: Prototipo de herramienta de automatización para reportes semanales
+    proyecto:
+      - Vescis.Space
+    estado: por hacer
+    prioridad: media
+    estimacion: 8
+    fecha_vencimiento: 2026-04-05
+    etiquetas:
+      - automatizacion
+      - herramienta
+    descripcion: Crear un script que genere reportes semanales de ventas desde el CRM
+views:
+  - type: table
+    name: Lista de tareas
+    options:
+      sort:
+        - field: prioridad
+          direction: desc
+        - field: fecha_vencimiento
+          direction: asc
+  - type: kanban
+    name: Tablero Kanban
+    options:
+      groupBy: estado
+      sortWithinGroups:
+        - field: prioridad
+          direction: desc
+  - type: calendar
+    name: Calendario
+    options:
+      dateField: fecha_vencimiento
+      display:
+        - nombre
+        - proyecto
+        - prioridad

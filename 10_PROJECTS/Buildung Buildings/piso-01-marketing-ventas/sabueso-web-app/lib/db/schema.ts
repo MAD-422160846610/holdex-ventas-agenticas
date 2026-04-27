@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp, integer, pgEnum, jsonb } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, integer, pgEnum, jsonb, vector } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // --- ENUMS ---
@@ -36,6 +36,7 @@ export const people = pgTable('people', {
   status: leadStatusEnum('status').default('new').notNull(),
   score: integer('score').default(0),
   metadata: jsonb('metadata').default({}), // Personal details, hobbies, etc.
+  embedding: vector('embedding', { dimensions: 1536 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -65,6 +66,7 @@ export const activities = pgTable('activities', {
   transcription: text('transcription'), // For Gong-style analysis
   sentimentScore: integer('sentiment_score'), // -100 to 100
   metadata: jsonb('metadata').default({}),
+  embedding: vector('embedding', { dimensions: 1536 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

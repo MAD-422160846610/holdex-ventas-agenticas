@@ -6,6 +6,7 @@ import { people, activities, companies } from "@/lib/db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, sql, inArray } from "drizzle-orm";
 import { generateLeadInsights } from "@/lib/ai";
+import { generateEmbedding, buildPersonEmbedText, buildActivityEmbedText } from "@/lib/embeddings";
 
 export async function uploadLeadsAction(formData: FormData) {
   const user = await getAuthenticatedUser();
@@ -132,6 +133,25 @@ export async function processLeadWithAIAction(personId: string) {
       type: "AI_PROCESSING",
       description: `Sabueso AI calificó a ${person.fullName} con ${aiInsight.score} pts.`,
     });
+
+    // Auto-generate embedding so this person is immediately searchable
+    try {
+      const embedText = buildPersonEmbedText({
+        fullName: person.fullName,
+        jobTitle: person.jobTitle,
+        email: person.email,
+        companyName: person.company?.name,
+        industry: person.company?.industry,
+        metadata: {
+          qualificationReason: aiInsight.qualificationReason,
+          personalTouch: aiInsight.personalTouch,
+        },
+      });
+      const embedding = await generateEmbedding(embedText);
+      await db.update(people).set({ embedding: embedding as any }).where(eq(people.id, personId));
+    } catch {
+      // Non-blocking: embedding failure doesn't fail the main action
+    }
 
     revalidatePath("/dashboard");
     revalidatePath(`/dashboard/lead/${personId}`, "page");

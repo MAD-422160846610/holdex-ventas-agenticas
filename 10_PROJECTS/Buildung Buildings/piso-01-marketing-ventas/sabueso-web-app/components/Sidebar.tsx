@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Users, Building2, Briefcase, Zap, Settings, Shield } from "lucide-react";
+import { Users, Building2, Briefcase, Zap, Settings, Shield, Search } from "lucide-react";
 
 export function Sidebar({ role }: { role: string }) {
   const pathname = usePathname();
@@ -11,6 +11,7 @@ export function Sidebar({ role }: { role: string }) {
     { name: "PROSPECTOS_", icon: Users, href: "/dashboard", roles: ['admin', 'vendedor', 'cliente'] },
     { name: "CUENTAS_", icon: Building2, href: "/dashboard/companies", roles: ['admin', 'vendedor'] },
     { name: "OPORTUNIDADES_", icon: Briefcase, href: "/dashboard/opportunities", roles: ['admin', 'vendedor'] },
+    { name: "BUSQUEDA_", icon: Search, href: "/dashboard/search", roles: ['admin', 'vendedor'] },
     { name: "INTELIGENCIA_", icon: Zap, href: "/dashboard/intelligence", roles: ['admin'] },
   ];
 
