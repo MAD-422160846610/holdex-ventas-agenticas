@@ -9,7 +9,7 @@ import {
   ChevronDown, CheckCircle2, Trash2, ArrowRight,
   Users
 } from "lucide-react";
-import { processAllLeadsAction } from "@/lib/actions/leads";
+import { processAllLeadsAction, deleteLeadsAction } from "@/lib/actions/leads";
 
 interface Lead {
   id: string;
@@ -82,6 +82,21 @@ export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], 
       router.refresh();
     } else {
       alert("Error al procesar leads");
+    }
+  }
+
+  async function handleDeleteSelected() {
+    if (!confirm(`¿Estás seguro de que querés eliminar ${selectedIds.size} leads? Esta acción es irreversible.`)) return;
+    
+    setIsProcessing(true);
+    const result = await deleteLeadsAction(Array.from(selectedIds));
+    setIsProcessing(false);
+    
+    if (result.success) {
+      setSelectedIds(new Set());
+      router.refresh();
+    } else {
+      alert("Error al eliminar leads");
     }
   }
 
@@ -173,7 +188,7 @@ export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], 
             <span className="font-mono text-[9px] text-[#ff5050] uppercase tracking-wider">{selectedIds.size} SELECCIONADOS</span>
             <button 
               id="bulk-delete-btn"
-              onClick={() => alert(`Eliminar ${selectedIds.size} leads?`)}
+              onClick={handleDeleteSelected}
               className="p-1 hover:bg-[#ff5050]/20 rounded text-[#ff5050] transition-colors"
             >
               <Trash2 size={12} />

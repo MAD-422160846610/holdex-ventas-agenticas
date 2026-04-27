@@ -26,9 +26,12 @@ test('[TC003] La landing page es accesible sin autenticación', async ({ page })
  */
 test('[TC016] La página de sign-in renderiza el formulario de autenticación', async ({ page }) => {
   await page.goto('/handler/sign-in');
-  // Stack Auth renderiza sus propios campos
-  await expect(page.locator('input[type="email"], input[name="email"]').first()).toBeVisible();
-  await expect(page.locator('input[type="password"], input[name="password"]').first()).toBeVisible();
+  // Stack Auth renderiza sus propios campos. El de email suele ser visible por defecto.
+  await expect(page.locator('#email')).toBeVisible();
+  
+  // Para ver el password, hay que cambiar a la pestaña correspondiente
+  await page.getByRole('tab', { name: /password/i }).click();
+  await expect(page.locator('#password')).toBeVisible();
 });
 
 /**
@@ -39,9 +42,13 @@ test('[TC016] La página de sign-in renderiza el formulario de autenticación', 
 test('[TC016] Credenciales inválidas son rechazadas y no redirigen al dashboard', async ({ page }) => {
   await page.goto('/handler/sign-in');
 
-  await page.locator('input[type="email"], input[name="email"]').first().fill('invalido@ejemplo.com');
-  await page.locator('input[type="password"], input[name="password"]').first().fill('contraseña_incorrecta');
-  await page.locator('button[type="submit"]').first().click();
+  await page.locator('#email').fill('invalido@ejemplo.com');
+  
+  // Cambiar a pestaña password
+  await page.getByRole('tab', { name: /password/i }).click();
+  await page.locator('#password').fill('contraseña_incorrecta');
+  
+  await page.getByRole('button', { name: /sign in/i }).click();
 
   // No debería redirigir al dashboard
   await page.waitForTimeout(2000);

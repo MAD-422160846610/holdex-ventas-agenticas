@@ -1,7 +1,7 @@
 import { stackServerApp } from "@/stack/server";
 import { db } from "@/lib/db";
-import { userProfiles } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { userProfiles, activities } from "@/lib/db/schema";
+import { eq, desc } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { Zap, Shield, Cpu, Network, Globe, MessageSquare } from "lucide-react";
 
@@ -16,6 +16,11 @@ export default async function IntelligencePage() {
   if (!profile || profile.role !== 'admin') {
     redirect('/dashboard');
   }
+
+  const recentLogs = await db.query.activities.findMany({
+    orderBy: [desc(activities.createdAt)],
+    limit: 15,
+  });
 
   const nodes = [
     { name: "SABUESO_NODE_01", status: "ACTIVO", load: "12%", type: "SCRAPER" },
@@ -84,13 +89,24 @@ export default async function IntelligencePage() {
         {/* Integration Logs */}
         <div className="brutalist-card" style={{ gridColumn: '1 / -1' }}>
           <h3 className="section-label">LOGS_DE_INTEGRACION_</h3>
-          <div className="font-mono" style={{ fontSize: '0.7rem', color: '#666', background: 'black', padding: '1.5rem', marginTop: '1rem', overflowY: 'auto', maxHeight: '200px' }}>
-            <p className="flicker">[OK] RESEND_API: CONECTADO (Key: sabueso)</p>
-            <p>[OK] NEON_DB: OPERACIONAL</p>
-            <p>[INFO] SABUESO_PROSPECTOR: Escaneando leads.csv...</p>
-            <p className="text-[var(--accent-blue)]">[ENRICH] Enriqueciendo datos de 'Abogados Madrid' via Apollo Mock...</p>
-            <p className="text-[var(--accent-green)]">[SUCCESS] 42 leads calificados y listos para Outreach.</p>
-            <p>[INFO] Sistema en espera de nueva carga masiva.</p>
+          <div className="font-mono" style={{ fontSize: '0.7rem', color: '#8b949e', background: 'black', padding: '1.5rem', marginTop: '1rem', overflowY: 'auto', maxHeight: '300px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            {recentLogs.length === 0 ? (
+              <p className="flicker">[WAIT] ESPERANDO_EVENTOS_...</p>
+            ) : (
+              recentLogs.map((log, i) => (
+                <p key={log.id} style={{ marginBottom: '0.2rem' }}>
+                  <span style={{ color: i === 0 ? 'var(--accent-green)' : '#555' }}>
+                    [{new Date(log.createdAt).toLocaleTimeString()}]
+                  </span>
+                  {' '}
+                  <span style={{ color: log.type === 'AI_PROCESSING' ? 'var(--accent-purple)' : '#8b949e' }}>
+                    {log.type}:
+                  </span>
+                  {' '}
+                  {log.description}
+                </p>
+              ))
+            )}
           </div>
         </div>
       </div>

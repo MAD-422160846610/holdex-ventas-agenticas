@@ -204,9 +204,9 @@ export default async function Dashboard() {
                           <p className="text-[9px] font-mono text-[#8b949e] uppercase">Gestión de sistema y usuarios activos</p>
                         </div>
                       </div>
-                      <button className="px-3 py-1.5 font-mono text-[9px] bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all uppercase tracking-widest">
+                      <Link href="/dashboard/settings" className="px-3 py-1.5 font-mono text-[9px] bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all uppercase tracking-widest text-center">
                         Configurar Sistema
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}

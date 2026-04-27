@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { OutreachAction } from '@/components/OutreachAction';
 import { db } from '@/lib/db';
-import { people } from '@/lib/db/schema';
+import { people, userProfiles } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
+import { stackServerApp } from '@/stack/server';
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,15 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
     notFound();
   }
 
+  const user = await stackServerApp.getUser();
+  const profile = user ? await db.query.userProfiles.findFirst({ where: eq(userProfiles.id, user.id) }) : null;
+  const isCliente = profile?.role === 'cliente';
+
+  // SECURITY: Un cliente solo puede ver leads en estado 'handover'
+  if (isCliente && person.status !== 'handover') {
+    notFound();
+  }
+
   // Extract AI insights from metadata
   const metadata = (person.metadata as any) || {};
   const qualificationReason = metadata.qualificationReason;
@@ -30,7 +40,7 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
   const draftEmail = metadata.suggestedEmail;
 
   return (
-    <main className="scanlines flicker" style={{ minHeight: '100vh', padding: '2rem', position: 'relative' }}>
+    <main className="scanlines flicker" style={{ minHeight: '100vh', padding: '2rem', position: 'relative', backgroundColor: '#05070a' }}>
       <div className="cyber-bg" />
       <div className="grid-bg-dots" />
       
@@ -44,7 +54,7 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
           </div>
         </div>
         <div className="tag glow-text-green" style={{ borderColor: 'var(--accent-green)', color: 'var(--accent-green)' }}>
-          [ OPERADOR_ACTIVO: SABUESO_MASTER_V2 ]
+          [ OPERADOR_ACTIVO: {profile?.role?.toUpperCase() || 'SABUESO_MASTER_V2'} ]
         </div>
       </header>
 
@@ -92,12 +102,14 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
 
         {/* Right Column: Actions */}
         <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <OutreachAction 
-            leadId={person.id}
-            leadEmail={person.email || ''}
-            leadName={person.fullName}
-            defaultDraft={draftEmail || `Hola ${person.fullName}, estuve analizando a ${person.company?.name || 'tu empresa'} y...`}
-          />
+          {!isCliente && (
+            <OutreachAction 
+              leadId={person.id}
+              leadEmail={person.email || ''}
+              leadName={person.fullName}
+              defaultDraft={draftEmail || `Hola ${person.fullName}, estuve analizando a ${person.company?.name || 'tu empresa'} y...`}
+            />
+          )}
 
           <div className="brutalist-card" style={{ background: '#0a0a0a', borderStyle: 'dashed' }}>
             <h3 className="section-label" style={{ marginBottom: '1rem' }}>ESTADO_SISTEMA_</h3>
@@ -109,8 +121,15 @@ export default async function LeadProfile({ params }: { params: Promise<{ id: st
               borderColor: 'var(--accent-green)',
               padding: '0.5rem'
             }}>
-              {person.status}
+              {person.status.toUpperCase()}
             </div>
+            {isCliente && (
+              <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(255, 200, 0, 0.05)', border: '1px solid rgba(255, 200, 0, 0.2)' }}>
+                <p style={{ fontSize: '0.7rem', color: '#ffc800', textAlign: 'center', fontWeight: 'bold' }}>
+                  MODO_LECTURA_CLIENTE: Las acciones de outreach están bloqueadas para este rol.
+                </p>
+              </div>
+            )}
           </div>
         </aside>
       </div>
