@@ -21,6 +21,50 @@
   --text-dim: #8b949e;
   --border-dim: rgba(48, 54, 61, 0.5);
   --border-bright: rgba(0, 255, 140, 0.2);
+
+  /* Stack Auth & Shadcn variables */
+  --background: 220 33% 3%;     /* #05070a */
+  --foreground: 210 40% 96%;    /* #f0f6fc */
+  --card: 216 28% 7%;           /* #0d1117 */
+  --card-foreground: 210 40% 96%;
+  --popover: 220 33% 3%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 153 100% 50%;      /* #00ff8c */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 215 28% 12%;
+  --secondary-foreground: 210 40% 96%;
+  --muted: 215 28% 12%;
+  --muted-foreground: 212 11% 58%; /* #8b949e */
+  --accent: 153 100% 50%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 215 12% 21%;
+  --input: 215 12% 21%;
+  --ring: 153 100% 50%;
+  --radius: 0rem;
+}
+
+.dark {
+  --background: 220 33% 3%;
+  --foreground: 210 40% 96%;
+  --card: 216 28% 7%;
+  --card-foreground: 210 40% 96%;
+  --popover: 220 33% 3%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 153 100% 50%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 215 28% 12%;
+  --secondary-foreground: 210 40% 96%;
+  --muted: 215 28% 12%;
+  --muted-foreground: 212 11% 58%;
+  --accent: 153 100% 50%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 215 12% 21%;
+  --input: 215 12% 21%;
+  --ring: 153 100% 50%;
 }
 
 @layer base {

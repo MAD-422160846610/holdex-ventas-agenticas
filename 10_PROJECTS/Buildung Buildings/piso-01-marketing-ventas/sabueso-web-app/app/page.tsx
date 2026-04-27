@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="min-h-screen relative flex flex-col selection:bg-accent-green selection:text-black font-sans">
       {/* Infrastructure Layers */}
-      <AsciiBg file="/ascii/cinema1.json" opacity={0.15} />
+      <AsciiBg file="/ascii/cinema1.json" opacity={0.5} />
       <div className="cyber-bg" />
       <div className="grid-bg" />
       <div className="grid-bg-dots" />

@@ -43,24 +43,35 @@ export async function uploadLeadsAction(formData: FormData) {
     const leadsToInsert = dataRows.map(row => {
       const columns = row.split(",").map(s => s.trim().replace(/"/g, ''));
       
+      const nameIdx = getIndex('name');
+      const companyIdx = getIndex('company');
+      const emailIdx = getIndex('email');
+      const websiteIdx = getIndex('website');
+
       return {
-        name: columns[getIndex('name')] || "Desconocido",
-        company: columns[getIndex('company')] || "N/A",
-        email: columns[getIndex('email')] || null,
-        website: columns[getIndex('website')] || null,
+        name: (nameIdx >= 0 && columns[nameIdx]) ? columns[nameIdx] : "Desconocido",
+        company: (companyIdx >= 0 && columns[companyIdx]) ? columns[companyIdx] : "N/A",
+        email: (emailIdx >= 0 && columns[emailIdx]) ? columns[emailIdx] : null,
+        website: (websiteIdx >= 0 && columns[websiteIdx]) ? columns[websiteIdx] : null,
         status: "new" as const,
       };
     });
 
+    if (leadsToInsert.length === 0) {
+      return { success: false, error: "No se extrajeron leads válidos del archivo." };
+    }
+
     // Inserción masiva en Neon
     const insertedLeads = await db.insert(leads).values(leadsToInsert).returning();
 
-    // Registrar actividad de subida
-    await db.insert(activities).values({
-      leadId: insertedLeads[0].id,
-      type: "UPLOAD",
-      description: `Se cargaron ${insertedLeads.length} leads nuevos con mapeo personalizado.`,
-    });
+    if (insertedLeads.length > 0) {
+      // Registrar actividad de subida
+      await db.insert(activities).values({
+        leadId: insertedLeads[0].id,
+        type: "UPLOAD",
+        description: `Se cargaron ${insertedLeads.length} leads nuevos con mapeo personalizado.`,
+      });
+    }
 
     revalidatePath("/dashboard");
     return { success: true, count: insertedLeads.length };
@@ -113,6 +124,10 @@ export async function processAllLeadsAction() {
   try {
     const leadsToProcess = await db.query.leads.findMany();
     
+    if (leadsToProcess.length === 0) {
+      return { success: true, count: 0 };
+    }
+    
     for (const lead of leadsToProcess) {
       // Reuse logic from processLeadWithAIAction for each lead
       const score = Math.floor(Math.random() * 40) + 60;
@@ -132,11 +147,13 @@ export async function processAllLeadsAction() {
         .where(eq(leads.id, lead.id));
     }
 
-    await db.insert(activities).values({
-      leadId: leadsToProcess[0]?.id || "system",
-      type: "AI_PROCESSING",
-      description: `Se procesaron ${leadsToProcess.length} leads en lote masivo.`,
-    });
+    if (leadsToProcess.length > 0) {
+      await db.insert(activities).values({
+        leadId: leadsToProcess[0].id,
+        type: "AI_PROCESSING",
+        description: `Se procesaron ${leadsToProcess.length} leads en lote masivo.`,
+      });
+    }
 
     revalidatePath("/dashboard");
     revalidatePath("/dashboard/lead/[id]", "page");
