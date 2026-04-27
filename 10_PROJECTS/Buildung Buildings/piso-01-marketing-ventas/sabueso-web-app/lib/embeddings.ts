@@ -1,9 +1,10 @@
 /**
  * Embedding generation via OpenRouter → OpenAI text-embedding-3-small
  * Produces 1536-dimensional vectors for semantic similarity search.
+ * All requests are proxied through Helicone for cost/usage observability.
  */
 
-const OPENROUTER_EMBED_URL = 'https://openrouter.ai/api/v1/embeddings';
+const HELICONE_OPENROUTER_URL = 'https://openrouter.helicone.ai/api/v1/embeddings';
 const EMBED_MODEL = 'text-embedding-3-small';
 
 export async function generateEmbedding(text: string): Promise<number[]> {
@@ -12,13 +13,19 @@ export async function generateEmbedding(text: string): Promise<number[]> {
     throw new Error('OPENROUTER_API_KEY not configured');
   }
 
-  const response = await fetch(OPENROUTER_EMBED_URL, {
+  const response = await fetch(HELICONE_OPENROUTER_URL, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://sabueso.vercel.app',
       'X-Title': 'Sabueso V2',
+      // Helicone observability headers
+      'Helicone-Auth': `Bearer ${process.env.HELICONE_API_KEY || ''}`,
+      'Helicone-Property-App': 'sabueso-v2',
+      'Helicone-Property-Feature': 'vector-search',
+      'Helicone-Prompt-Id': 'sabueso-embedding',
+      'Helicone-Property-Environment': process.env.VERCEL_ENV || 'development',
     },
     body: JSON.stringify({
       model: EMBED_MODEL,

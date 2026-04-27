@@ -4,10 +4,14 @@ import { z } from 'zod';
 
 const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY || '',
-  baseURL: 'https://openrouter.ai/api/v1',
+  // Route through Helicone for observability, cost tracking, and audit logs
+  baseURL: 'https://openrouter.helicone.ai/api/v1',
   headers: {
     'HTTP-Referer': 'https://sabueso.vercel.app',
     'X-Title': 'Sabueso V2',
+    'Helicone-Auth': `Bearer ${process.env.HELICONE_API_KEY || ''}`,
+    'Helicone-Property-App': 'sabueso-v2',
+    'Helicone-Property-Environment': process.env.VERCEL_ENV || 'development',
   }
 });
 
@@ -44,6 +48,10 @@ export async function generateLeadInsights(leadData: {
       Industria: ${leadData.industry}
       
       Devuelve un score de 0 a 100, una razón de calificación, un toque personal para el outreach y un email sugerido corto y directo.`,
+      headers: {
+        'Helicone-Prompt-Id': 'sabueso-lead-qualification',
+        'Helicone-User-Id': leadData.fullName,
+      } as Record<string, string>,
     });
 
     return object;
