@@ -1,10 +1,12 @@
 /**
  * Embedding generation via OpenRouter → OpenAI text-embedding-3-small
  * Produces 1536-dimensional vectors for semantic similarity search.
- * All requests are proxied through Helicone for cost/usage observability.
+ * Traced via Langfuse SDK (no proxy — zero added latency).
  */
 
-const HELICONE_OPENROUTER_URL = 'https://openrouter.helicone.ai/api/v1/embeddings';
+import { langfuse, flushLangfuse } from './langfuse';
+
+const OPENROUTER_EMBED_URL = 'https://openrouter.ai/api/v1/embeddings';
 const EMBED_MODEL = 'text-embedding-3-small';
 
 export async function generateEmbedding(text: string): Promise<number[]> {
@@ -13,33 +15,45 @@ export async function generateEmbedding(text: string): Promise<number[]> {
     throw new Error('OPENROUTER_API_KEY not configured');
   }
 
-  const response = await fetch(HELICONE_OPENROUTER_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://sabueso.vercel.app',
-      'X-Title': 'Sabueso V2',
-      // Helicone observability headers
-      'Helicone-Auth': `Bearer ${process.env.HELICONE_API_KEY || ''}`,
-      'Helicone-Property-App': 'sabueso-v2',
-      'Helicone-Property-Feature': 'vector-search',
-      'Helicone-Prompt-Id': 'sabueso-embedding',
-      'Helicone-Property-Environment': process.env.VERCEL_ENV || 'development',
-    },
-    body: JSON.stringify({
-      model: EMBED_MODEL,
-      input: text.slice(0, 8191), // max tokens safety
-    }),
+  // Langfuse span — tracks model, input size, latency for vector search costs
+  const span = langfuse.span({
+    name: 'embedding-generation',
+    input: { model: EMBED_MODEL, inputLength: text.length },
+    metadata: { feature: 'vector-search' },
   });
 
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Embedding API error: ${err}`);
-  }
+  try {
+    const startTime = Date.now();
+    const response = await fetch(OPENROUTER_EMBED_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://sabueso.vercel.app',
+        'X-Title': 'Sabueso V2',
+      },
+      body: JSON.stringify({
+        model: EMBED_MODEL,
+        input: text.slice(0, 8191), // max tokens safety
+      }),
+    });
 
-  const data = await response.json();
-  return data.data[0].embedding as number[];
+    if (!response.ok) {
+      const err = await response.text();
+      span.end({ output: { error: err }, level: 'ERROR' });
+      await flushLangfuse();
+      throw new Error(`Embedding API error: ${err}`);
+    }
+
+    const data = await response.json();
+    span.end({ output: { dimensions: data.data[0].embedding.length, latencyMs: Date.now() - startTime } });
+    await flushLangfuse();
+    return data.data[0].embedding as number[];
+  } catch (error) {
+    span.end({ output: { error: String(error) }, level: 'ERROR' });
+    await flushLangfuse();
+    throw error;
+  }
 }
 
 /**

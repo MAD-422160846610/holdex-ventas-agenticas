@@ -1,19 +1,25 @@
 import { createOpenAI } from '@ai-sdk/openai';
 import { generateObject } from 'ai';
 import { z } from 'zod';
+import { langfuse, flushLangfuse } from './langfuse';
 
+// Direct OpenRouter — no proxy overhead. Langfuse traces via SDK after each call.
 const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY || '',
-  // Route through Helicone for observability, cost tracking, and audit logs
-  baseURL: 'https://openrouter.helicone.ai/api/v1',
+  baseURL: 'https://openrouter.ai/api/v1',
   headers: {
     'HTTP-Referer': 'https://sabueso.vercel.app',
     'X-Title': 'Sabueso V2',
-    'Helicone-Auth': `Bearer ${process.env.HELICONE_API_KEY || ''}`,
-    'Helicone-Property-App': 'sabueso-v2',
-    'Helicone-Property-Environment': process.env.VERCEL_ENV || 'development',
   }
 });
+
+const QUALIFICATION_PROMPT = `Analiza este lead para una plataforma de automatización de ventas (Sabueso):
+Nombre: {{fullName}}
+Cargo: {{jobTitle}}
+Empresa: {{companyName}}
+Industria: {{industry}}
+
+Devuelve un score de 0 a 100, una razón de calificación, un toque personal para el outreach y un email sugerido corto y directo.`;
 
 export async function generateLeadInsights(leadData: { 
   fullName: string, 
@@ -22,8 +28,7 @@ export async function generateLeadInsights(leadData: {
   industry?: string | null 
 }) {
   if (!process.env.OPENROUTER_API_KEY) {
-    // Advanced Mock Logic when no API Key is present
-    const mockScore = Math.floor(Math.random() * 30) + 70; // 70-100
+    const mockScore = Math.floor(Math.random() * 30) + 70;
     return {
       score: mockScore,
       qualificationReason: `Análisis heurístico: ${leadData.fullName} en ${leadData.companyName} (${leadData.jobTitle || 'N/A'}) muestra patrones de compatibilidad alta con Sabueso V2.`,
@@ -32,7 +37,33 @@ export async function generateLeadInsights(leadData: {
     };
   }
 
+  const prompt = QUALIFICATION_PROMPT
+    .replace('{{fullName}}', leadData.fullName)
+    .replace('{{jobTitle}}', leadData.jobTitle ?? 'N/A')
+    .replace('{{companyName}}', leadData.companyName)
+    .replace('{{industry}}', leadData.industry ?? 'N/A');
+
+  // Langfuse trace — captures model, prompt, output, latency, and cost
+  const trace = langfuse.trace({
+    name: 'lead-qualification',
+    userId: leadData.fullName,
+    metadata: {
+      company: leadData.companyName,
+      industry: leadData.industry,
+      jobTitle: leadData.jobTitle,
+    },
+    tags: ['sabueso-v2', 'lead-qualification'],
+  });
+
+  const generation = trace.generation({
+    name: 'gemini-lead-analysis',
+    model: 'google/gemini-2.0-flash-exp:free',
+    input: prompt,
+    metadata: { promptId: 'sabueso-lead-qualification' },
+  });
+
   try {
+    const startTime = Date.now();
     const { object } = await generateObject({
       model: openrouter('google/gemini-2.0-flash-exp:free'),
       schema: z.object({
@@ -41,21 +72,19 @@ export async function generateLeadInsights(leadData: {
         personalTouch: z.string(),
         suggestedEmail: z.string(),
       }),
-      prompt: `Analiza este lead para una plataforma de automatización de ventas (Sabueso):
-      Nombre: ${leadData.fullName}
-      Cargo: ${leadData.jobTitle}
-      Empresa: ${leadData.companyName}
-      Industria: ${leadData.industry}
-      
-      Devuelve un score de 0 a 100, una razón de calificación, un toque personal para el outreach y un email sugerido corto y directo.`,
-      headers: {
-        'Helicone-Prompt-Id': 'sabueso-lead-qualification',
-        'Helicone-User-Id': leadData.fullName,
-      } as Record<string, string>,
+      prompt,
     });
 
+    generation.end({
+      output: object,
+      metadata: { latencyMs: Date.now() - startTime },
+    });
+
+    await flushLangfuse();
     return object;
   } catch (error) {
+    generation.end({ output: { error: String(error) }, level: 'ERROR' });
+    await flushLangfuse();
     console.error("AI_GENERATION_ERROR_", error);
     throw error;
   }
