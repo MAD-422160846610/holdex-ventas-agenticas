@@ -23,6 +23,7 @@ vi.mock('@/lib/db', () => ({
     query: {
       people: {
         findMany: vi.fn(() => Promise.resolve([])),
+        findFirst: vi.fn(() => Promise.resolve({ id: 'lead-uuid-123', email: 'test@example.com', fullName: 'John Doe', company: { name: 'Acme Corp' } })),
       },
       companies: {
         findMany: vi.fn(() => Promise.resolve([])),

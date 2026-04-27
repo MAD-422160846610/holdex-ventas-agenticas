@@ -48,7 +48,7 @@ test('[TC016] Credenciales inválidas son rechazadas y no redirigen al dashboard
   await page.getByRole('tab', { name: /password/i }).click();
   await page.locator('#password').fill('contraseña_incorrecta');
   
-  await page.getByRole('button', { name: /sign in/i }).click();
+  await page.getByRole('button', { name: 'Sign In', exact: true }).click();
 
   // No debería redirigir al dashboard
   await page.waitForTimeout(2000);
