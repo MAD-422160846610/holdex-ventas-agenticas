@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
 import { SUPPORTED_ACTORS, type ApifyActorConfig } from '@/lib/apify-actors-config';
 import { searchLeadsWithApify, importApifyResults } from '@/lib/actions/leads';
 import { Loader2 } from 'lucide-react';
@@ -20,7 +19,6 @@ export function SearchLeadsModal({ isOpen, onClose }: SearchLeadsModalProps) {
   const [selectedLeads, setSelectedLeads] = useState<Set<number>>(new Set());
   const [isImporting, setIsImporting] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const { pending } = useFormStatus();
 
   // Acceder directo al Record (no .find())
   const currentActor = SUPPORTED_ACTORS[selectedActor];
@@ -140,10 +138,10 @@ export function SearchLeadsModal({ isOpen, onClose }: SearchLeadsModalProps) {
           {/* Botón de búsqueda */}
           <button
             type="submit"
-            disabled={pending || isSearching}
+            disabled={isSearching}
             className="w-full bg-[#00ff8c]/10 border border-[#00ff8c]/30 text-[#00ff8c] hover:bg-[#00ff8c]/20 font-mono text-sm uppercase tracking-widest transition-all duration-300 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {(pending || isSearching) ? (
+            {isSearching ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin inline" />
                 Buscando...

@@ -21,7 +21,7 @@ export async function runApifyActor(
 ): Promise<string> {
   const apiKey = process.env.APIFY_API_KEY;
   if (!apiKey) {
-    throw new Error('APIFY_API_KEY not configured');
+    throw new Error('APIFY_API_KEY not configured. Please add it to your environment variables.');
   }
 
   const response = await fetch(`${APIFY_BASE_URL}/actor-tasks/${actorId}/runs`, {
@@ -49,13 +49,18 @@ export async function pollApifyResults(
   runId: string,
   timeoutMs: number = 5 * 60 * 1000
 ): Promise<any[]> {
+  const apiKey = process.env.APIFY_API_KEY;
+  if (!apiKey) {
+    throw new Error('APIFY_API_KEY not configured. Please add it to your environment variables.');
+  }
+
   const startTime = Date.now();
   const pollInterval = 5000; // 5 segundos
 
   while (Date.now() - startTime < timeoutMs) {
     const response = await fetch(`${APIFY_BASE_URL}/actor-runs/${runId}`, {
       headers: { 
-        'Authorization': `Bearer ${process.env.APIFY_API_KEY}` 
+        'Authorization': `Bearer ${apiKey}` 
       }
     });
 
@@ -72,7 +77,7 @@ export async function pollApifyResults(
         `${APIFY_BASE_URL}/datasets/${run.defaultDatasetId}/items?limit=1000`,
         { 
           headers: { 
-            'Authorization': `Bearer ${process.env.APIFY_API_KEY}` 
+            'Authorization': `Bearer ${apiKey}` 
           } 
         }
       );
