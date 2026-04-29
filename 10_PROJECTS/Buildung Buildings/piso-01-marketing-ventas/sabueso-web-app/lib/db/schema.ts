@@ -33,6 +33,9 @@ export const people = pgTable('people', {
   phone: text('phone'),
   jobTitle: text('job_title'),
   linkedinUrl: text('linkedin_url'),
+  companyWebsite: text('company_website'), // NUEVO: Website de la empresa (APIFY)
+  apifySource: text('apify_source'), // NUEVO: De dónde vino (google-maps, linkedin, etc.)
+  apifyRunId: text('apify_run_id'), // NUEVO: ID de ejecución APIFY/n8n para trazabilidad
   status: leadStatusEnum('status').default('new').notNull(),
   score: integer('score').default(0),
   metadata: jsonb('metadata').default({}), // Personal details, hobbies, etc.

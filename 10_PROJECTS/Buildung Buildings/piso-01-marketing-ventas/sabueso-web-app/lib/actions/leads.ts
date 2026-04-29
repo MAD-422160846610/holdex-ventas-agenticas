@@ -7,6 +7,8 @@ import { revalidatePath } from "next/cache";
 import { eq, sql, inArray } from "drizzle-orm";
 import { generateLeadInsights } from "@/lib/ai";
 import { generateEmbedding, buildPersonEmbedText, buildActivityEmbedText } from "@/lib/embeddings";
+import { runApifyActor, pollApifyResults } from "@/lib/apify";
+import { SUPPORTED_ACTORS } from "@/lib/apify-actors-config";
 
 export async function uploadLeadsAction(formData: FormData) {
   const user = await getAuthenticatedUser();
@@ -254,5 +256,99 @@ export async function deleteLeadsAction(personIds: string[]) {
   } catch (err: any) {
     console.error("DELETE_ERROR_", err);
     return { success: false, error: "Error al eliminar leads." };
+  }
+}
+
+export async function searchLeadsWithApify(formData: FormData) {
+  const user = await getAuthenticatedUser();
+  if (!user) throw new Error("UNAUTHORIZED_ACCESS_");
+
+  const actorId = formData.get('actorId') as string;
+  if (!actorId) {
+    return { success: false, error: "No se especificó el actor de APIFY." };
+  }
+
+  const config = SUPPORTED_ACTORS[actorId];
+  if (!config) {
+    return { success: false, error: `Actor no soportado: ${actorId}` };
+  }
+
+  // Construir input dinámico desde el FormData
+  const input: Record<string, any> = {};
+  for (const [key, value] of formData.entries()) {
+    if (key !== 'actorId' && value) {
+      // Convertir a número si es posible
+      input[key] = isNaN(Number(value)) ? value : Number(value);
+    }
+  }
+
+  try {
+    // 1. Ejecutar actor de APIFY
+    const runId = await runApifyActor(actorId, input);
+    
+    // 2. Polling hasta que termine
+    const results = await pollApifyResults(runId);
+    
+    // 3. Log activity
+    await db.insert(activities).values({
+      type: "APIFY_SEARCH",
+      description: `Búsqueda APIFY: ${results.length} leads encontrados`,
+    });
+
+    return { success: true, results };
+  } catch (err: any) {
+    console.error("APIFY_SEARCH_ERROR_", err);
+    return { success: false, error: `Error en búsqueda APIFY: ${err.message}` };
+  }
+}
+
+export async function importApifyResults(results: any[], actorId: string) {
+  const user = await getAuthenticatedUser();
+  if (!user) throw new Error("UNAUTHORIZED_ACCESS_");
+
+  try {
+    const config = SUPPORTED_ACTORS[actorId];
+    if (!config) throw new Error(`Actor no soportado: ${actorId}`);
+
+    // Mapear resultados según configuración del actor
+    const leadsData = results.map((item: any) => {
+      const mapped: any = {
+        status: 'new' as const,
+        apifySource: actorId,
+      };
+      
+  // Aplicar mapeo - simplificado para evitar errores de TypeScript
+        // Mapear campos básicos
+        if (item['title']) mapped.fullName = item['title'];
+        if (item['address']) {
+          // 'address' no es columna en people, guardar en metadata
+          if (typeof mapped.metadata !== 'object') mapped.metadata = {};
+          mapped.metadata['address'] = item['address'];
+        }
+        if (item['phone']) mapped.phone = item['phone'];
+        if (item['website']) mapped.companyWebsite = item['website'];
+        if (item['email']) mapped.email = item['email'];
+      
+      return mapped;
+    });
+
+    // Filtrar duplicados por email si existe
+    const uniqueLeads = leadsData.filter((lead, index, self) =>
+      lead.email ? self.findIndex(l => l.email === lead.email) === index : true
+    );
+
+    // Insertar en DB
+    const insertedPeople = await db.insert(people).values(uniqueLeads).returning();
+
+    await db.insert(activities).values({
+      type: "APIFY_IMPORT",
+      description: `Importados ${insertedPeople.length} leads desde APIFY (${actorId})`,
+    });
+
+    revalidatePath("/dashboard");
+    return { success: true, count: insertedPeople.length };
+  } catch (err: any) {
+    console.error("APIFY_IMPORT_ERROR_", err);
+    return { success: false, error: `Error al importar: ${err.message}` };
   }
 }

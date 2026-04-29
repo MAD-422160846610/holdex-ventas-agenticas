@@ -9,6 +9,7 @@ import {
   ChevronDown, CheckCircle2, Trash2, ArrowRight,
   Users
 } from "lucide-react";
+import { SearchLeadsModal } from "@/components/SearchLeadsModal";
 import { processAllLeadsAction, deleteLeadsAction } from "@/lib/actions/leads";
 
 interface Lead {
@@ -36,6 +37,7 @@ export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], 
   const isAdmin = role === 'admin';
   const router = useRouter();
   const [showUpload, setShowUpload] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   
   // Search and Filter State
@@ -101,7 +103,8 @@ export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], 
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <>
+      <div className="flex flex-col gap-6">
       {/* Header Actions */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -112,21 +115,32 @@ export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], 
           </span>
         </div>
         
-        {!isCliente && (
+          {!isCliente && (
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowUpload(!showUpload)}
               className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
-              style={
-                showUpload
-                  ? { background: 'transparent', color: '#f0f6fc', border: '1px solid rgba(48,54,61,0.5)' }
-                  : { background: 'rgba(0,255,140,0.1)', color: '#00ff8c', border: '1px solid rgba(0,255,140,0.25)' }
+              style={showUpload 
+                ? { background: 'transparent', color: '#f0f6fc', border: '1px solid rgba(48,54,61,0.5)' }
+                : { background: 'rgba(0,255,140,0.1)', color: '#00ff8c', border: '1px solid rgba(0,255,140,0.25)' }
               }
             >
               {showUpload
                 ? <><X size={11} /> CERRAR</>
                 : <><Upload size={11} /> IMPORTAR LEADS CSV</>
               }
+            </button>
+
+            <button
+              onClick={() => setIsSearchModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
+              style={{ 
+                background: 'rgba(0,209,255,0.1)', 
+                color: '#00d1ff', 
+                border: '1px solid rgba(0,209,255,0.25)'
+              }}
+            >
+              <Search size={11} /> BUSCAR LEADS
             </button>
             
             <button
@@ -313,5 +327,12 @@ export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], 
         )}
       </div>
     </div>
+
+    {/* Modal de Búsqueda APIFY */}
+    <SearchLeadsModal 
+      isOpen={isSearchModalOpen} 
+      onClose={() => setIsSearchModalOpen(false)} 
+    />
+    </>
   );
 }

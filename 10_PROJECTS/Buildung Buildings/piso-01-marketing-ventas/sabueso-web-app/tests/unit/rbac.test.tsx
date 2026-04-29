@@ -15,6 +15,14 @@ vi.mock('@/lib/actions/leads', () => ({
   processAllLeadsAction: vi.fn(),
 }));
 
+// Mock de SearchLeadsModal - NUEVO componente importado
+vi.mock('@/components/SearchLeadsModal', () => ({
+  SearchLeadsModal: function SearchLeadsModal({ isOpen, onClose }: any) {
+    // No renderizar nada en tests (o simple div si es necesario)
+    return null;
+  },
+}));
+
 const mockLeads = [
   {
     id: '1',

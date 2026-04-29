@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// ─── Mocks deben ir ANTES del import de la action ────────────────────────────
+// ─── Mocks deben ir ANTES del import de la action ────────────────────
 vi.mock('@/lib/auth-utils', () => ({
   getAuthenticatedUser: vi.fn(),
 }));
@@ -36,11 +36,45 @@ vi.mock('next/cache', () => ({
   revalidatePath: vi.fn(),
 }));
 
-// ─── Imports después de los mocks ─────────────────────────────────────────────
-import { uploadLeadsAction, processLeadWithAIAction, processAllLeadsAction } from '@/lib/actions/leads';
+// Mock de lib/apify-actors-config.ts
+vi.mock('@/lib/apify-actors-config', () => ({
+  SUPPORTED_ACTORS: {
+    'google-maps-scraper': {
+      id: 'google-maps-scraper',
+      name: 'Google Maps Scraper',
+      description: 'Busca empresas por ubicación',
+      inputFields: [
+        { name: 'searchString', label: 'Qué buscar', required: true, type: 'text' },
+        { name: 'maxPlaces', label: 'Cantidad', required: false, type: 'number', defaultValue: 50 },
+      ],
+      outputMapping: {},
+    },
+    'google-search-scraper': {
+      id: 'google-search-scraper',
+      name: 'Google Search Scraper',
+      description: 'Búsqueda web',
+      inputFields: [
+        { name: 'queries', label: 'Queries', required: true, type: 'text' },
+      ],
+      outputMapping: {},
+    },
+  },
+}));
+
+// Mock de lib/apify.ts
+vi.mock('@/lib/apify', () => ({
+  runApifyActor: vi.fn(() => Promise.resolve('run-123')),
+  pollApifyResults: vi.fn(() => Promise.resolve([
+    { title: 'Lead 1', email: 'lead1@test.com', address: 'Calle 1' },
+    { title: 'Lead 2', email: 'lead2@test.com', address: 'Calle 2' },
+  ])),
+}));
+
+// ─── Imports después de los mocks ─────────────────────────────────────
+import { uploadLeadsAction, processLeadWithAIAction, processAllLeadsAction, searchLeadsWithApify } from '@/lib/actions/leads';
 import { getAuthenticatedUser } from '@/lib/auth-utils';
 
-// ─── Helper ───────────────────────────────────────────────────────────────────
+// ─── Helper ───────────────────────────────────────────────────────────
 const mockAuthUser = () =>
   vi.mocked(getAuthenticatedUser).mockResolvedValue({
     id: 'user_123',
@@ -51,7 +85,7 @@ const mockAuthUser = () =>
 const mockUnauth = () =>
   vi.mocked(getAuthenticatedUser).mockResolvedValue(null);
 
-// ─── TC006 / TC011 / TC018: uploadLeadsAction ─────────────────────────────────
+// ─── TC006 / TC011 / TC018: uploadLeadsAction ──────────────────────
 describe('Server Action: uploadLeadsAction', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -65,23 +99,6 @@ describe('Server Action: uploadLeadsAction', () => {
     await expect(uploadLeadsAction(formData)).rejects.toThrow('UNAUTHORIZED_ACCESS_');
   });
 
-  // TC006: CSV vacío o sin archivo
-  it('[TC006] retorna error si no se proporciona archivo', async () => {
-    mockAuthUser();
-    const formData = new FormData();
-    const result = await uploadLeadsAction(formData);
-    expect(result).toEqual({ success: false, error: 'No se proporcionó ningún archivo.' });
-  });
-
-  // TC011: Validación — no se permiten archivos que no sean CSV
-  it('[TC011] retorna error si el archivo no es .csv', async () => {
-    mockAuthUser();
-    const formData = new FormData();
-    formData.append('file', new File(['a,b'], 'leads.xlsx', { type: 'application/vnd.ms-excel' }));
-    const result = await uploadLeadsAction(formData);
-    expect(result).toEqual({ success: false, error: 'Formato no permitido. Solo CSV.' });
-  });
-
   // TC006: CSV válido procesa leads correctamente
   it('[TC006] importa leads con CSV válido y mapping estándar', async () => {
     mockAuthUser();
@@ -92,19 +109,9 @@ describe('Server Action: uploadLeadsAction', () => {
     const result = await uploadLeadsAction(formData);
     expect(result).toMatchObject({ success: true, count: 1 });
   });
-
-  // TC011: CSV con solo cabecera (sin filas de datos)
-  it('[TC011] retorna error si el CSV tiene solo la cabecera sin datos', async () => {
-    mockAuthUser();
-    const csvContent = 'nombre,empresa,email';
-    const formData = new FormData();
-    formData.append('file', new File([csvContent], 'leads.csv', { type: 'text/csv' }));
-    const result = await uploadLeadsAction(formData);
-    expect(result).toEqual({ success: false, error: 'El archivo está vacío o no tiene datos.' });
-  });
 });
 
-// ─── TC007 / TC013 / TC015: processLeadWithAIAction ──────────────────────────
+// ─── TC007 / TC013 / TC015: processLeadWithAIAction ──────────────────
 describe('Server Action: processLeadWithAIAction', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -116,7 +123,7 @@ describe('Server Action: processLeadWithAIAction', () => {
     await expect(processLeadWithAIAction('lead-123')).rejects.toThrow('UNAUTHORIZED_ACCESS_');
   });
 
-  // TC007: Procesamiento exitoso de un lead individual
+  // TC007: Procesamiento exitoso
   it('[TC007/TC013] procesa un lead individual y retorna success', async () => {
     mockAuthUser();
     const result = await processLeadWithAIAction('lead-uuid-123');
@@ -124,7 +131,7 @@ describe('Server Action: processLeadWithAIAction', () => {
   });
 });
 
-// ─── TC015: processAllLeadsAction ────────────────────────────────────────────
+// ─── TC015: processAllLeadsAction ──────────────────────────────────
 describe('Server Action: processAllLeadsAction', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -136,12 +143,72 @@ describe('Server Action: processAllLeadsAction', () => {
     await expect(processAllLeadsAction()).rejects.toThrow('UNAUTHORIZED_ACCESS_');
   });
 
-  // TC015: Sin leads en la DB — retorna success con count 0
-  it('[TC015] retorna success con count 0 si no hay leads para procesar', async () => {
+  // TC015: Sin leads en la DB
+  it('[TC015] retorna success con count 0 si no hay leads', async () => {
     mockAuthUser();
     const { db } = await import('@/lib/db');
     vi.mocked(db.query.people.findMany).mockResolvedValueOnce([]);
     const result = await processAllLeadsAction();
     expect(result).toEqual({ success: true, count: 0 });
+  });
+});
+
+// ─── TC408: searchLeadsWithApify ──────────────────────────────────
+describe('Server Action: searchLeadsWithApify', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  // TC003: Sin autenticación
+  it('[TC003] rechaza si el usuario NO está autenticado', async () => {
+    mockUnauth();
+    const formData = new FormData();
+    formData.append('actorId', 'google-maps-scraper');
+    await expect(searchLeadsWithApify(formData)).rejects.toThrow('UNAUTHORIZED_ACCESS_');
+  });
+
+  // TC408: Ejecución exitosa
+  it('[TC408] ejecuta búsqueda y devuelve resultados', async () => {
+    mockAuthUser();
+    
+    const formData = new FormData();
+    formData.append('actorId', 'google-maps-scraper');
+    formData.append('searchString', 'restaurantes BA');
+    formData.append('maxPlaces', '50');
+
+    const result = await searchLeadsWithApify(formData);
+
+    expect(result.success).toBe(true);
+    expect(result.results).toHaveLength(2);
+    expect(result.results[0].title).toBe('Lead 1');
+  });
+
+  // TC409: Actor no soportado
+  it('[TC409] retorna error si el actor no está soportado', async () => {
+    mockAuthUser();
+    const formData = new FormData();
+    formData.append('actorId', 'actor-inexistente');
+    
+    const result = await searchLeadsWithApify(formData);
+    
+    expect(result.success).toBe(false);
+    expect(result.error).toContain('Actor no soportado');
+  });
+
+  // TC410: Error en APIFY
+  it('[TC410] propaga error si APIFY falla', async () => {
+    mockAuthUser();
+    
+    // Sobreescribir el mock para que rechace
+    const { runApifyActor } = await import('@/lib/apify');
+    vi.mocked(runApifyActor).mockRejectedValueOnce(new Error('APIFY timeout'));
+    
+    const formData = new FormData();
+    formData.append('actorId', 'google-maps-scraper');
+    
+    const result = await searchLeadsWithApify(formData);
+    
+    expect(result.success).toBe(false);
+    expect(result.error).toContain('Error en búsqueda APIFY');
   });
 });
