@@ -2,8 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { SUPPORTED_ACTORS, type ApifyActorConfig } from '@/lib/apify-actors-config';
-import { searchLeadsWithApify, importApifyResults } from '@/lib/actions/leads';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Check, X } from 'lucide-react';
 
 interface SearchLeadsModalProps {
   isOpen: boolean;
@@ -24,18 +23,38 @@ export function SearchLeadsModal({ isOpen, onClose }: SearchLeadsModalProps) {
   const currentActor = SUPPORTED_ACTORS[selectedActor];
 
   async function handleSearch(formData: FormData) {
-    formData.append('actorId', selectedActor);
-    setIsSearching(true);
     setResults([]);
     setSelectedLeads(new Set());
+    
+    // Construir el body del request desde el FormData
+    const body: Record<string, any> = { actorId: selectedActor };
+    for (const [key, value] of formData.entries()) {
+      if (value) {
+        body[key] = isNaN(Number(value)) ? value : Number(value);
+      }
+    }
 
-    const response = await searchLeadsWithApify(formData);
-    setIsSearching(false);
+    setIsSearching(true);
 
-    if (response.success) {
-      setResults(response.results || []);
-    } else {
-      alert(`Error: ${response.error}`);
+    try {
+      // LLAMADA AL API ROUTE EN LUGAR DE SERVER ACTION
+      const response = await fetch('/api/leads/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      const data = await response.json();
+      setIsSearching(false);
+
+      if (data.success) {
+        setResults(data.results || []);
+      } else {
+        alert(`Error: ${data.error}`);
+      }
+    } catch (error: any) {
+      setIsSearching(false);
+      alert(`Error de conexión: ${error.message}`);
     }
   }
 
@@ -60,16 +79,28 @@ export function SearchLeadsModal({ isOpen, onClose }: SearchLeadsModalProps) {
     // Usar startTransition para no bloquear la UI
     startTransition(async () => {
       try {
-        const response = await importApifyResults(leadsToImport, selectedActor);
-        if (response.success) {
-          alert(`✅ ${response.count} leads importados correctamente.`);
+        // TODO: Crear API Route para import también, por ahora usamos Server Action
+        // Por limpieza arquitectónica, deberíamos mover esto también a /api/leads/import
+        const response = await fetch('/api/leads/import', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            results: leadsToImport, 
+            actorId: selectedActor 
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert(`✅ ${data.count} leads importados correctamente.`);
           setResults([]);
           setSelectedLeads(new Set());
           onClose();
           // Refrescar el dashboard para mostrar los nuevos leads
           window.location.reload();
         } else {
-          alert(`❌ Error al importar: ${response.error}`);
+          alert(`❌ Error al importar: ${data.error}`);
         }
       } catch (err: any) {
         alert(`❌ Error inesperado: ${err.message}`);
@@ -91,15 +122,22 @@ export function SearchLeadsModal({ isOpen, onClose }: SearchLeadsModalProps) {
       <div className="relative glass-panel border-[#00ff8c]/20 bg-[#05070a] text-[#f0f6fc] max-w-4xl max-h-[90vh] overflow-y-auto w-full m-4">
         {/* Header */}
         <div className="p-6 border-b border-white/10">
-          <h2 className="text-xl font-black tracking-tight uppercase">
-            Buscar Leads con <span className="text-[#00ff8c]">APIFY</span>
-          </h2>
-          <p className="text-[10px] font-mono text-[#8b949e] uppercase tracking-[0.2em] mt-2">
-            Seleccioná un actor, definí los criterios y buscá leads automáticamente.
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-black tracking-tight uppercase">
+                Buscar Leads con <span className="text-[#00ff8c]">APIFY</span>
+              </h2>
+              <p className="text-[10px] font-mono text-[#8b949e] uppercase tracking-[0.2em] mt-2">
+                Seleccioná un actor, definí los criterios y buscá leads automáticamente.
+              </p>
+            </div>
+            <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-lg transition-colors">
+              <X size={16} />
+            </button>
+          </div>
         </div>
 
-        <form action={handleSearch} className="p-6 flex flex-col gap-6">
+        <form onSubmit={(e) => { e.preventDefault(); handleSearch(new FormData(e.target as HTMLFormElement)); }} className="p-6 flex flex-col gap-6">
           {/* Selector de Actor */}
           <div className="flex flex-col gap-2">
             <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#8b949e]">
@@ -108,7 +146,7 @@ export function SearchLeadsModal({ isOpen, onClose }: SearchLeadsModalProps) {
             <select
               value={selectedActor}
               onChange={(e) => setSelectedActor(e.target.value)}
-              className="w-full bg-[#0a1922] border border-[#00ff8c]/20 rounded-lg px-4 py-3 text-sm text-[#f0f6fc] focus:out-line-none focus:border-[#00ff8c]/50"
+              className="w-full bg-[#0a1922] border border-[#00ff8c]/20 rounded-lg px-4 py-3 text-sm text-[#f0f6fc] focus:outline-none focus:border-[#00ff8c]/50"
             >
               {Object.values(SUPPORTED_ACTORS).map((actor) => (
                 <option key={actor.id} value={actor.id}>

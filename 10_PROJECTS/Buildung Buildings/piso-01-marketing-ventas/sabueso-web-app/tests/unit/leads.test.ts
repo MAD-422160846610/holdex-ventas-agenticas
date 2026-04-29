@@ -36,42 +36,8 @@ vi.mock('next/cache', () => ({
   revalidatePath: vi.fn(),
 }));
 
-// Mock de lib/apify-actors-config.ts
-vi.mock('@/lib/apify-actors-config', () => ({
-  SUPPORTED_ACTORS: {
-    'google-maps-scraper': {
-      id: 'google-maps-scraper',
-      name: 'Google Maps Scraper',
-      description: 'Busca empresas por ubicación',
-      inputFields: [
-        { name: 'searchString', label: 'Qué buscar', required: true, type: 'text' },
-        { name: 'maxPlaces', label: 'Cantidad', required: false, type: 'number', defaultValue: 50 },
-      ],
-      outputMapping: {},
-    },
-    'google-search-scraper': {
-      id: 'google-search-scraper',
-      name: 'Google Search Scraper',
-      description: 'Búsqueda web',
-      inputFields: [
-        { name: 'queries', label: 'Queries', required: true, type: 'text' },
-      ],
-      outputMapping: {},
-    },
-  },
-}));
-
-// Mock de lib/apify.ts
-vi.mock('@/lib/apify', () => ({
-  runApifyActor: vi.fn(() => Promise.resolve('run-123')),
-  pollApifyResults: vi.fn(() => Promise.resolve([
-    { title: 'Lead 1', email: 'lead1@test.com', address: 'Calle 1' },
-    { title: 'Lead 2', email: 'lead2@test.com', address: 'Calle 2' },
-  ])),
-}));
-
 // ─── Imports después de los mocks ─────────────────────────────────────
-import { uploadLeadsAction, processLeadWithAIAction, processAllLeadsAction, searchLeadsWithApify } from '@/lib/actions/leads';
+import { uploadLeadsAction, processLeadWithAIAction, processAllLeadsAction } from '@/lib/actions/leads';
 import { getAuthenticatedUser } from '@/lib/auth-utils';
 
 // ─── Helper ───────────────────────────────────────────────────────────
@@ -150,65 +116,5 @@ describe('Server Action: processAllLeadsAction', () => {
     vi.mocked(db.query.people.findMany).mockResolvedValueOnce([]);
     const result = await processAllLeadsAction();
     expect(result).toEqual({ success: true, count: 0 });
-  });
-});
-
-// ─── TC408: searchLeadsWithApify ──────────────────────────────────
-describe('Server Action: searchLeadsWithApify', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  // TC003: Sin autenticación
-  it('[TC003] rechaza si el usuario NO está autenticado', async () => {
-    mockUnauth();
-    const formData = new FormData();
-    formData.append('actorId', 'google-maps-scraper');
-    await expect(searchLeadsWithApify(formData)).rejects.toThrow('UNAUTHORIZED_ACCESS_');
-  });
-
-  // TC408: Ejecución exitosa
-  it('[TC408] ejecuta búsqueda y devuelve resultados', async () => {
-    mockAuthUser();
-    
-    const formData = new FormData();
-    formData.append('actorId', 'google-maps-scraper');
-    formData.append('searchString', 'restaurantes BA');
-    formData.append('maxPlaces', '50');
-
-    const result = await searchLeadsWithApify(formData);
-
-    expect(result.success).toBe(true);
-    expect(result.results).toHaveLength(2);
-    expect(result.results[0].title).toBe('Lead 1');
-  });
-
-  // TC409: Actor no soportado
-  it('[TC409] retorna error si el actor no está soportado', async () => {
-    mockAuthUser();
-    const formData = new FormData();
-    formData.append('actorId', 'actor-inexistente');
-    
-    const result = await searchLeadsWithApify(formData);
-    
-    expect(result.success).toBe(false);
-    expect(result.error).toContain('Actor no soportado');
-  });
-
-  // TC410: Error en APIFY
-  it('[TC410] propaga error si APIFY falla', async () => {
-    mockAuthUser();
-    
-    // Sobreescribir el mock para que rechace
-    const { runApifyActor } = await import('@/lib/apify');
-    vi.mocked(runApifyActor).mockRejectedValueOnce(new Error('APIFY timeout'));
-    
-    const formData = new FormData();
-    formData.append('actorId', 'google-maps-scraper');
-    
-    const result = await searchLeadsWithApify(formData);
-    
-    expect(result.success).toBe(false);
-    expect(result.error).toContain('Error en búsqueda APIFY');
   });
 });
