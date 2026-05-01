@@ -9,7 +9,8 @@ import {
   ChevronDown, CheckCircle2, Trash2, ArrowRight,
   Users
 } from "lucide-react";
-import { processAllLeadsAction } from "@/lib/actions/leads";
+import { SearchLeadsModal } from "@/components/SearchLeadsModal";
+import { processAllLeadsAction, deleteLeadsAction } from "@/lib/actions/leads";
 
 interface Lead {
   id: string;
@@ -31,9 +32,12 @@ const statusConfig: Record<string, { label: string; color: string; bg: string }>
   rejected:  { label: 'REJECTED',  color: 'rgba(255, 80, 80, 0.8)',   bg: 'rgba(255, 80, 80, 0.06)'   },
 };
 
-export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
+export function DashboardClient({ initialLeads, role }: { initialLeads: Lead[], role: string }) {
+  const isCliente = role === 'cliente';
+  const isAdmin = role === 'admin';
   const router = useRouter();
   const [showUpload, setShowUpload] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   
   // Search and Filter State
@@ -83,8 +87,24 @@ export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
     }
   }
 
+  async function handleDeleteSelected() {
+    if (!confirm(`¿Estás seguro de que querés eliminar ${selectedIds.size} leads? Esta acción es irreversible.`)) return;
+    
+    setIsProcessing(true);
+    const result = await deleteLeadsAction(Array.from(selectedIds));
+    setIsProcessing(false);
+    
+    if (result.success) {
+      setSelectedIds(new Set());
+      router.refresh();
+    } else {
+      alert("Error al eliminar leads");
+    }
+  }
+
   return (
-    <div className="flex flex-col gap-6">
+    <>
+      <div className="flex flex-col gap-6">
       {/* Header Actions */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -95,38 +115,51 @@ export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
           </span>
         </div>
         
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowUpload(!showUpload)}
-            className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
-            style={
-              showUpload
+          {!isCliente && (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowUpload(!showUpload)}
+              className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
+              style={showUpload 
                 ? { background: 'transparent', color: '#f0f6fc', border: '1px solid rgba(48,54,61,0.5)' }
                 : { background: 'rgba(0,255,140,0.1)', color: '#00ff8c', border: '1px solid rgba(0,255,140,0.25)' }
-            }
-          >
-            {showUpload
-              ? <><X size={11} /> CERRAR</>
-              : <><Upload size={11} /> IMPORTAR LEADS CSV</>
-            }
-          </button>
-          
-          <button
-            id="process-all-ai-btn"
-            onClick={handleProcessAll}
-            disabled={isProcessing}
-            className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
-            style={{ 
-              background: 'rgba(0,209,255,0.1)', 
-              color: '#00d1ff', 
-              border: '1px solid rgba(0,209,255,0.25)',
-              opacity: isProcessing ? 0.5 : 1,
-              cursor: isProcessing ? 'wait' : 'pointer'
-            }}
-          >
-            <Zap size={11} /> {isProcessing ? 'PROCESANDO...' : 'PROCESAR_TODOS_AI'}
-          </button>
-        </div>
+              }
+            >
+              {showUpload
+                ? <><X size={11} /> CERRAR</>
+                : <><Upload size={11} /> IMPORTAR LEADS CSV</>
+              }
+            </button>
+
+            <button
+              onClick={() => setIsSearchModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
+              style={{ 
+                background: 'rgba(0,209,255,0.1)', 
+                color: '#00d1ff', 
+                border: '1px solid rgba(0,209,255,0.25)'
+              }}
+            >
+              <Search size={11} /> BUSCAR LEADS
+            </button>
+            
+            <button
+              id="process-all-ai-btn"
+              onClick={handleProcessAll}
+              disabled={isProcessing}
+              className="flex items-center gap-2 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-widest transition-all duration-300"
+              style={{ 
+                background: 'rgba(0,209,255,0.1)', 
+                color: '#00d1ff', 
+                border: '1px solid rgba(0,209,255,0.25)',
+                opacity: isProcessing ? 0.5 : 1,
+                cursor: isProcessing ? 'wait' : 'pointer'
+              }}
+            >
+              <Zap size={11} /> {isProcessing ? 'PROCESANDO...' : 'PROCESAR_TODOS_AI'}
+            </button>
+          </div>
+        )}
       </div>
 
       {showUpload && (
@@ -169,7 +202,7 @@ export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
             <span className="font-mono text-[9px] text-[#ff5050] uppercase tracking-wider">{selectedIds.size} SELECCIONADOS</span>
             <button 
               id="bulk-delete-btn"
-              onClick={() => alert(`Eliminar ${selectedIds.size} leads?`)}
+              onClick={handleDeleteSelected}
               className="p-1 hover:bg-[#ff5050]/20 rounded text-[#ff5050] transition-colors"
             >
               <Trash2 size={12} />
@@ -294,5 +327,12 @@ export function DashboardClient({ initialLeads }: { initialLeads: Lead[] }) {
         )}
       </div>
     </div>
+
+    {/* Modal de Búsqueda APIFY */}
+    <SearchLeadsModal 
+      isOpen={isSearchModalOpen} 
+      onClose={() => setIsSearchModalOpen(false)} 
+    />
+    </>
   );
 }

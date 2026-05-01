@@ -1,0 +1,275 @@
+---
+import AsciiBackground from '../components/AsciiBackground.astro';
+import AsciiCat from '../components/AsciiCat.astro';
+import { getManifest } from '../utils/manifest-parser';
+import '../styles/global.css';
+
+const manifest = getManifest();
+const { project, version, sprint, roadmap, stack } = manifest;
+
+// Load blog posts
+const postsFiles = import.meta.glob('../content/blog/*.md', { eager: true }) as Record<string, any>;
+const posts = Object.values(postsFiles);
+// Sort posts by date or just keep them as they are
+posts.sort((a, b) => new Date(a.frontmatter.pubDate).valueOf() - new Date(b.frontmatter.pubDate).valueOf());
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{project} - {version}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+	</head>
+	<body class="bg-black text-white selection:bg-orange selection:text-white">
+		<AsciiBackground />
+
+		<main class="relative z-10 min-h-screen flex flex-col items-center justify-center p-8">
+			
+			<header class="text-center mb-16">
+				<div class="flex justify-center mb-6">
+					<AsciiCat />
+				</div>
+				<p class="font-mono text-xs tracking-widest text-blue-neon uppercase mb-4">
+					System initialized / {version} / {sprint}
+				</p>
+				<h1 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
+					{project.slice(0, 9)}<span class="text-orange">{project.slice(9)}</span>
+				</h1>
+			</header>
+
+			<section class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+				
+				<div class="space-y-8">
+					<h2 class="font-mono text-sm tracking-widest text-orange uppercase border-b border-orange/30 pb-2">
+						Active Roadmap
+					</h2>
+					<ul class="space-y-4 font-mono text-sm">
+						{Object.values(roadmap)[0].map((task: any) => (
+							<li class="flex items-start gap-4">
+								<span class={task.status === 'done' ? 'text-blue-neon' : task.status === 'in-progress' ? 'text-orange animate-pulse' : 'text-white/40'}>
+									[{task.status === 'done' ? 'X' : task.status === 'in-progress' ? '>' : ' '}]
+								</span>
+								<span class="opacity-80">{task.task}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div class="space-y-8">
+					<h2 class="font-mono text-sm tracking-widest text-blue-neon uppercase border-b border-blue-neon/30 pb-2">
+						System Stack
+					</h2>
+					<div class="grid grid-cols-2 gap-4 font-mono text-[10px] uppercase tracking-wider">
+						<div>
+							<p class="text-white/40 mb-1">Framework</p>
+							<p>{stack.framework}</p>
+						</div>
+						<div>
+							<p class="text-white/40 mb-1">UI</p>
+							<p>{stack.styling}</p>
+						</div>
+						<div>
+							<p class="text-white/40 mb-1">Core</p>
+							<p>{stack.content}</p>
+						</div>
+						<div>
+							<p class="text-white/40 mb-1">Edge</p>
+							<p>{stack.deployment}</p>
+						</div>
+					</div>
+					
+					<div class="pt-8">
+						<a href="#" class="inline-block bg-orange hover:bg-orange-hover text-black font-black px-8 py-3 tracking-tighter uppercase transition-colors">
+							Join the Glitch
+						</a>
+					</div>
+				</div>
+
+			</section>
+
+			<!-- ECOSYSTEM ARCHITECTURE PITCH -->
+			<section class="max-w-4xl w-full mt-16 border border-white/10 bg-black/50 backdrop-blur-sm p-8">
+				<div class="mb-8">
+					<h2 class="font-mono text-sm tracking-widest text-orange uppercase mb-2">
+						Ecosystem Architecture // Scale
+					</h2>
+					<p class="font-mono text-xs text-white/60">
+						Omni-channel Personal Knowledge Management (PKM) via Markdown, Discord, WhatsApp & Telegram. 
+						Direct path to Blockchain integration.
+					</p>
+				</div>
+				
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+					<!-- Tier 1 -->
+					<div class="border border-blue-neon/30 p-4 relative group hover:border-blue-neon transition-colors">
+						<div class="absolute top-0 right-0 bg-blue-neon text-black font-bold px-2 py-1 text-[10px]">T1</div>
+						<h3 class="text-blue-neon uppercase mb-2 font-bold tracking-widest">Cubículo Digital</h3>
+						<p class="text-white/50 mb-4">1 GlitchCat Assistant</p>
+						<ul class="text-white/40 space-y-2">
+							<li>> Omni-channel routing</li>
+							<li>> Personal brain sync</li>
+							<li>> Markdown SSOT</li>
+						</ul>
+					</div>
+
+					<!-- Tier 2 -->
+					<div class="border border-orange/30 p-4 relative group hover:border-orange transition-colors">
+						<div class="absolute top-0 right-0 bg-orange text-black font-bold px-2 py-1 text-[10px]">T2</div>
+						<h3 class="text-orange uppercase mb-2 font-bold tracking-widest">Oficina Digital</h3>
+						<p class="text-white/50 mb-4">Up to 9 GlitchCats (SCRUM)</p>
+						<ul class="text-white/40 space-y-2">
+							<li>> Shared knowledge graph</li>
+							<li>> Virtual department map</li>
+							<li>> Team task automation</li>
+						</ul>
+					</div>
+
+					<!-- Tier 3 -->
+					<div class="border border-white/20 p-4 relative group hover:border-white transition-colors">
+						<div class="absolute top-0 right-0 bg-white text-black font-bold px-2 py-1 text-[10px]">T3</div>
+						<h3 class="text-white uppercase mb-2 font-bold tracking-widest">Corp. Virtual</h3>
+						<p class="text-white/50 mb-4">3 Departments Linked</p>
+						<ul class="text-white/40 space-y-2">
+							<li>> Super-brain consensus</li>
+							<li>> Blockchain anchoring</li>
+							<li>> Decentralized PKM</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- LATEST TRANSMISSION LOGS -->
+			<section class="max-w-4xl w-full mt-16">
+				<div class="mb-8 border-b border-white/20 pb-2">
+					<h2 class="font-mono text-sm tracking-widest text-white uppercase">
+						Latest Transmission Logs
+					</h2>
+				</div>
+				
+				<div class="space-y-4">
+					{posts.map((post, index) => {
+						const colors = ['blue-neon', 'orange', 'white'];
+						const color = colors[index % colors.length];
+						return (
+							<article class={`border border-white/10 p-4 hover:border-${color} transition-colors group cursor-pointer read-module-btn`} data-content-id={`post-content-${index}`}>
+								<div class="flex justify-between items-center mb-2">
+									<span class={`font-mono text-[10px] text-${color} uppercase`}>{post.frontmatter.pubDate.split('T')[0]} // TIER-{index + 1}</span>
+									<span class="font-mono text-[10px] text-white/40 uppercase">AUTHOR: {post.frontmatter.author}</span>
+								</div>
+								<h3 class={`font-bold text-lg mb-2 group-hover:text-${color} transition-colors`}>{post.frontmatter.title}</h3>
+								<p class="text-sm text-white/60 mb-4">{post.frontmatter.description}</p>
+								<div class="inline-block font-mono text-[10px] uppercase tracking-widest text-orange group-hover:text-white transition-colors">> Read_Module</div>
+								
+								<!-- Hidden Content -->
+								<div id={`post-content-${index}`} class="hidden">
+									<h2 class="text-2xl font-black mb-6 text-white uppercase tracking-widest border-b border-white/20 pb-4">{post.frontmatter.title}</h2>
+									<div class="font-mono text-sm leading-relaxed text-white/80" set:html={post.compiledContent()} />
+								</div>
+							</article>
+						)
+					})}
+				</div>
+			</section>
+
+			<footer class="mt-24 text-center">
+				<p class="font-mono text-[10px] text-white/20 uppercase tracking-[0.5em]">
+					© 2026 Talgidi Codes / Created by GLitchMan
+				</p>
+			</footer>
+
+		</main>
+
+		<!-- TRANSMISSION MODAL -->
+		<div id="transmission-modal" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-[2px] items-center justify-center p-4 md:p-12 overflow-y-auto">
+			<div class="relative w-full max-w-4xl border border-blue-neon bg-black/70 backdrop-blur-md p-8 pt-16 shadow-[0_0_30px_rgba(0,85,255,0.2)]">
+				<button id="close-modal" class="absolute top-4 right-4 z-50 bg-black border border-orange px-3 py-1 font-mono text-orange hover:bg-orange hover:text-black uppercase tracking-widest text-xs transition-colors">[X] Close</button>
+				<div class="font-mono text-xs tracking-widest text-blue-neon uppercase mb-6 border-b border-blue-neon/30 pb-2">
+					<span id="modal-status" class="animate-pulse">DECRYPTING...</span>
+				</div>
+				<div id="modal-content" class="min-h-[200px]">
+					<!-- Content injected here -->
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const modal = document.getElementById('transmission-modal');
+			const modalContent = document.getElementById('modal-content');
+			const closeModal = document.getElementById('close-modal');
+			const modalStatus = document.getElementById('modal-status');
+			
+			const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+=-/\\|';
+
+			// Glitch text effect
+			async function typeTextWithGlitch(element, finalHtml) {
+				// We'll just fade it in with a glitch effect on the container for simplicity and robustness with HTML tags
+				element.innerHTML = finalHtml;
+				element.style.opacity = '0';
+				
+				let iteration = 0;
+				modalStatus.innerText = 'DECRYPTING...';
+				
+				const interval = setInterval(() => {
+					element.style.opacity = (iteration / 10).toString();
+					if (iteration % 2 === 0) {
+						element.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+					} else {
+						element.style.transform = 'translate(0, 0)';
+					}
+					
+					if (iteration >= 10) {
+						clearInterval(interval);
+						element.style.opacity = '1';
+						element.style.transform = 'translate(0, 0)';
+						modalStatus.innerText = 'SECURE_CONNECTION_ESTABLISHED';
+						modalStatus.classList.remove('text-blue-neon');
+						modalStatus.classList.add('text-white');
+					}
+					iteration++;
+				}, 50);
+			}
+
+			function hideModal() {
+				if (!modal.classList.contains('hidden')) {
+					modal.classList.add('hidden');
+					modal.classList.remove('flex');
+					document.body.style.overflow = '';
+					modalContent.innerHTML = '';
+					modalStatus.innerText = 'DECRYPTING...';
+					modalStatus.classList.add('text-blue-neon');
+					modalStatus.classList.remove('text-white');
+				}
+			}
+
+			document.querySelectorAll('.read-module-btn').forEach(btn => {
+				btn.addEventListener('click', (e) => {
+					// Open modal
+					modal.classList.remove('hidden');
+					modal.classList.add('flex');
+					document.body.style.overflow = 'hidden'; // Prevent background scroll
+
+					// Get content
+					const contentId = btn.getAttribute('data-content-id');
+					const contentHtml = document.getElementById(contentId).innerHTML;
+					
+					// Run effect
+					typeTextWithGlitch(modalContent, contentHtml);
+				});
+			});
+
+			closeModal.addEventListener('click', hideModal);
+
+			// Close on ESC key
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') {
+					hideModal();
+				}
+			});
+		</script>
+	</body>
+</html>

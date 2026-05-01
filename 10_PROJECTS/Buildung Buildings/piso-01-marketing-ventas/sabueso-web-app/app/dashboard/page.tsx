@@ -3,7 +3,7 @@ import { UserButton } from '@stackframe/stack';
 import { DashboardClient } from '@/components/DashboardClient';
 import { stackServerApp } from '@/stack/server';
 import { db } from '@/lib/db';
-import { leads, activities, userProfiles } from '@/lib/db/schema';
+import { people, activities, userProfiles, companies } from '@/lib/db/schema';
 import { desc, eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { Activity, TrendingUp, Users, Zap, Shield, Briefcase } from 'lucide-react';
@@ -17,10 +17,23 @@ export default async function Dashboard() {
   });
   if (!profile) redirect('/onboarding');
 
-  const allLeads = await db.query.leads.findMany({
-    orderBy: [desc(leads.createdAt)],
+  const allPeople = await db.query.people.findMany({
+    with: {
+      company: true,
+    },
+    orderBy: [desc(people.createdAt)],
     limit: 50,
   });
+
+  const allLeads = allPeople.map(p => ({
+    id: p.id,
+    name: p.fullName,
+    company: p.company?.name || 'S/E',
+    email: p.email,
+    status: p.status,
+    score: p.score,
+    createdAt: p.createdAt,
+  }));
 
   const recentActivities = await db.query.activities.findMany({
     orderBy: [desc(activities.createdAt)],
@@ -163,19 +176,42 @@ export default async function Dashboard() {
           {/* Main Content Area */}
           <section>
             {isCliente ? (
-              <div className="glass-panel p-8 border-[#00ff8c]/20 h-full min-h-[400px] flex flex-col justify-center items-center text-center">
-                <Briefcase size={48} className="text-[#00ff8c]/40 mb-6" />
-                <h2 className="text-2xl font-black tracking-tight mb-2">PORTAL DE CLIENTE</h2>
-                <p className="text-[#8b949e] max-w-md mx-auto mb-8">
-                  Bienvenido a la red de Sabueso. Tu perfil ha sido registrado exitosamente. 
-                  Próximamente podrás ver aquí el estado de tus servicios y reportes.
-                </p>
-                <div className="px-6 py-3 bg-[#00ff8c]/10 text-[#00ff8c] border border-[#00ff8c]/30 rounded-lg text-sm font-mono uppercase tracking-widest">
-                  ESTADO: ESPERANDO_ASIGNACIÓN
+              <div className="flex flex-col gap-6">
+                <div className="glass-panel p-8 border-[#00ff8c]/20">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h2 className="text-2xl font-black tracking-tight uppercase">Mis_Leads_Calificados</h2>
+                      <p className="text-[10px] font-mono text-[#8b949e] uppercase tracking-[0.2em] mt-1">
+                        [ ENTREGA_DE_PROSPECTOS: LISTOS_PARA_CONTACTO ]
+                      </p>
+                    </div>
+                    <div className="px-3 py-1 bg-[#00ff8c]/10 border border-[#00ff8c]/30 rounded text-[10px] font-mono text-[#00ff8c] uppercase tracking-widest">
+                      {allLeads.filter(l => l.status === 'handover').length} DISPONIBLES
+                    </div>
+                  </div>
+                  <DashboardClient initialLeads={allLeads.filter(l => l.status === 'handover')} role={profile.role} />
                 </div>
               </div>
             ) : (
-              <DashboardClient initialLeads={allLeads} />
+              <div className="flex flex-col gap-6">
+                {isAdmin && (
+                  <div className="glass-panel p-6 border-[#00d1ff]/20 bg-[#00d1ff]/5 mb-2">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <Shield className="text-[#00d1ff]" size={18} />
+                        <div>
+                          <h3 className="text-sm font-bold uppercase tracking-widest text-[#00d1ff]">Panel de Administración</h3>
+                          <p className="text-[9px] font-mono text-[#8b949e] uppercase">Gestión de sistema y usuarios activos</p>
+                        </div>
+                      </div>
+                      <Link href="/dashboard/settings" className="px-3 py-1.5 font-mono text-[9px] bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all uppercase tracking-widest text-center">
+                        Configurar Sistema
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                <DashboardClient initialLeads={allLeads} role={profile.role} />
+              </div>
             )}
           </section>
 

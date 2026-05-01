@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { sendOutreachAction } from "@/lib/actions/emails";
-import { processLeadWithAIAction } from "@/lib/actions/leads";
+import { processLeadWithAIAction, handoverLeadAction } from "@/lib/actions/leads";
 
 interface OutreachActionProps {
   leadId: string;
@@ -19,7 +19,7 @@ export function OutreachAction({
   defaultDraft,
 }: OutreachActionProps) {
   const router = useRouter();
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error" | "processing">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error" | "processing" | "handover_processing">("idle");
   const [subject, setSubject] = useState(`Propuesta Estratégica - Buildung Buildings x ${leadName}`);
   const [message, setMessage] = useState(defaultDraft);
   const [errorMsg, setErrorMsg] = useState("");
@@ -71,6 +71,22 @@ export function OutreachAction({
     }
   }
 
+  async function handleHandover() {
+    if (!confirm("¿Confirmás el handover de este lead al equipo de cierre?")) return;
+    
+    setStatus("handover_processing");
+    setErrorMsg("");
+
+    const result = await handoverLeadAction(leadId);
+
+    if (result.success) {
+      setStatus("success");
+    } else {
+      setStatus("error");
+      setErrorMsg(result.error || "Error al realizar el handover");
+    }
+  }
+
   if (status === "success") {
     return (
       <div 
@@ -87,13 +103,13 @@ export function OutreachAction({
           CONFIRMACION_SISTEMA_
         </div>
         <h3 id="outreach-success-msg" style={{ color: "var(--accent-green)", fontSize: "1.5rem", fontWeight: "900", marginBottom: "1rem" }}>
-          ATAQUE_EXITOSO_
+          ACCION_COMPLETADA_
         </h3>
         <p style={{ color: "#ccc", fontSize: "0.9rem", marginBottom: "1rem" }}>
-          El mail fue inyectado correctamente vía Resend. Protocolo de outreach completado.
+          Protocolo ejecutado con éxito. El estado del lead ha sido actualizado.
         </p>
         <div id="confirmation-token" style={{ fontSize: "0.7rem", color: "#444", fontFamily: "monospace", marginBottom: "1.5rem" }}>
-          STATUS: MAIL_SENT_SUCCESSFULLY
+          STATUS: OPERATION_SUCCESSFUL
           TOKEN: {new Date().getTime().toString().slice(-6)}
         </div>
         
@@ -110,7 +126,7 @@ export function OutreachAction({
             fontWeight: "800"
           }}
         >
-          PREPARAR_NUEVO_ATAQUE_
+          VOLVER_AL_PANEL_
         </button>
       </div>
     );
@@ -203,17 +219,19 @@ export function OutreachAction({
 
       <button
         id="handover-closer-btn"
+        onClick={handleHandover}
+        disabled={status === "handover_processing"}
         className="brutalist-border"
         style={{
           width: "100%",
-          background: "var(--accent-gold)",
+          background: status === "handover_processing" ? "#333" : "var(--accent-gold)",
           color: "black",
           padding: "1rem",
           fontWeight: "800",
-          cursor: "pointer"
+          cursor: status === "handover_processing" ? "not-allowed" : "pointer"
         }}
       >
-        HANDOVER_CLOSER_
+        {status === "handover_processing" ? "REALIZANDO_HANDOVER_..." : "HANDOVER_CLOSER_"}
       </button>
     </div>
   );

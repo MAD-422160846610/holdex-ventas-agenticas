@@ -45,7 +45,7 @@ export async function sendOutreachAction(formData: FormData) {
         .where(eq(leads.id, leadId));
 
       await tx.insert(activities).values({
-        leadId: leadId,
+        personId: leadId,
         type: "EMAIL_SENT",
         description: `Mail de outreach enviado a ${leadEmail} por ${user.displayName || user.primaryEmail}`,
       });

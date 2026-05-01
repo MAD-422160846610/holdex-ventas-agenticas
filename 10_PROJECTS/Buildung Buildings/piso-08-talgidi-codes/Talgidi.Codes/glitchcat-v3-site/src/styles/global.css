@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-black: #000000;
+  --color-orange: #FF4F18;
+  --color-orange-hover: #ff6a3d;
+  --color-blue-neon: #0055FF;
+  --color-blue-glow: rgba(0, 85, 255, 0.5);
+
+  --font-family-sans: 'Inter', sans-serif;
+  --font-family-mono: 'JetBrains Mono', monospace;
+
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-widest: 0.25em;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}

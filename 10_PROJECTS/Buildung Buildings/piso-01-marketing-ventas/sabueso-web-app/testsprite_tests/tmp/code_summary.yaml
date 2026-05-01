@@ -3,53 +3,81 @@ type: frontend
 tech_stack:
   - TypeScript
   - Next.js (App Router)
-  - React
   - Tailwind CSS
-  - Drizzle ORM
   - Stack Auth
-  - Resend
+  - Drizzle ORM
+  - Neon DB
+  - Resend API
 routes:
   - path: /
     file: app/page.tsx
     auth_required: false
-    description: Landing page
+    description: Landing page for Sabueso
   - path: /dashboard
     file: app/dashboard/page.tsx
     auth_required: true
-    description: Main dashboard for managing leads
-  - path: /dashboard/lead/[id]
-    file: app/dashboard/lead/[id]/page.tsx
+    description: Main sales dashboard with lead list and metrics
+  - path: /onboarding
+    file: app/onboarding/page.tsx
     auth_required: true
-    description: Detailed view for a specific lead and outreach actions
+    description: Initial profile setup for new users
   - path: /handler/sign-in
     file: app/handler/[...stack]/page.tsx
     auth_required: false
-    description: Stack Auth Sign-in page
+    description: Stack Auth sign-in page
+  - path: /dashboard/lead/[id]
+    file: app/dashboard/lead/[id]/page.tsx
+    auth_required: true
+    description: Detailed view of a lead/contact
 features:
-  - name: Lead Dashboard
-    description: View and manage all marketing leads in a dashboard
+  - name: Lead Management
+    description: View, import and manage sales leads
     files:
       - app/dashboard/page.tsx
-      - components/DashboardClient.tsx
+      - lib/actions/leads.ts
+      - lib/db/schema.ts
     entry_route: /dashboard
     user_interactions:
       - View list of leads
-      - Click on a lead to view details
-    auth_required: true
-  - name: Lead Outreach Action
-    description: Send emails or perform outreach actions for a specific lead
+      - Click on a lead to see details
+      - Filter leads by status
+  - name: CSV Lead Import
+    description: Upload CSV files to bulk import leads and companies
     files:
-      - app/dashboard/lead/[id]/page.tsx
-      - components/OutreachAction.tsx
-      - components/emails/OutreachEmail.tsx
-      - lib/actions/emails.ts
-      - lib/resend.ts
-    entry_route: /dashboard/lead/[id]
+      - lib/actions/leads.ts
+      - components/DashboardClient.tsx
+    entry_route: /dashboard
     user_interactions:
-      - Click the email button to send outreach
-      - See success/error notification
+      - Click on Import button
+      - Select a CSV file
+      - Map columns and submit
     api_calls:
       - method: POST
-        endpoint: (Server Action) sendOutreachEmail
-    auth_required: true
-known_limitations: []
+        endpoint: /api/leads/upload (Server Action)
+  - name: AI Outreach
+    description: Generate and send personalized outreach emails using AI insights
+    files:
+      - lib/actions/emails.ts
+      - lib/actions/leads.ts
+    entry_route: /dashboard/lead/[id]
+    user_interactions:
+      - View AI-generated draft
+      - Edit draft
+      - Click Send Email
+    api_calls:
+      - method: POST
+        endpoint: /api/emails/send (Server Action)
+  - name: User Profiles & RBAC
+    description: Role-based access control for Vendedores, Clientes, and Admins
+    files:
+      - lib/db/schema.ts
+      - app/onboarding/page.tsx
+      - middleware.ts
+    entry_route: /onboarding
+    user_interactions:
+      - Fill profile data (name, role, company)
+      - Access dashboard with role-specific views
+known_limitations:
+  - issue: "Column 'phone' missing in database (FIXED but needs verification)"
+    location: lib/db/schema.ts
+    impact: Crashed dashboard loading for users with phone data
